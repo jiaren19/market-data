@@ -520,60 +520,6 @@ def derive_q4(quarterlies: dict[date, dict], annuals: dict[date, dict], fy_ends:
     return derived
 
 
-
-def merge_nearby_quarter_rows(rows: list[dict], max_gap_days: int = 3) -> list[dict]:
-    """Collapse fiscal period ends that are at most max_gap_days apart.
-
-    Some issuers tag both a calendar month-end and the adjacent fiscal Saturday
-    for the same quarter. Those are one quarter, not two.
-    """
-    if len(rows) <= 1:
-        return rows
-    rows = sorted(rows, key=lambda r: r["fiscal_quarter_end"])
-    groups: list[list[dict]] = [[rows[0]]]
-    for rec in rows[1:]:
-        prev = parse_iso_date(groups[-1][-1]["fiscal_quarter_end"])
-        cur = parse_iso_date(rec["fiscal_quarter_end"])
-        if prev and cur and (cur - prev).days <= max_gap_days:
-            groups[-1].append(rec)
-        else:
-            groups.append([rec])
-
-    def score(rec: dict) -> tuple:
-        filled = sum(
-            1 for k in ("revenue", "gross_profit", "eps_diluted", "net_income")
-            if rec.get(k) is not None
-        )
-        rd = 2 if rec.get("date_type") == "8-K" else (1 if rec.get("report_date") else 0)
-        derived = 0 if "derived_q4" not in (rec.get("note") or "") else -1
-        return (rd, filled, derived)
-
-    merged: list[dict] = []
-    for group in groups:
-        if len(group) == 1:
-            merged.append(group[0])
-            continue
-        best = dict(max(group, key=score))
-        for rec in group:
-            for key in ("revenue", "gross_profit", "eps_diluted", "net_income"):
-                if best.get(key) is None and rec.get(key) is not None:
-                    best[key] = rec[key]
-            if not best.get("report_date") and rec.get("report_date"):
-                best["report_date"] = rec["report_date"]
-                best["date_type"] = rec["date_type"]
-            # Keep derived notes only if the surviving Q4 values were derived.
-            # Rebuild a simple note from surviving fields later if needed.
-        notes = []
-        if best.get("note"):
-            # drop unit/derived notes that no longer apply after fill; keep units from best
-            notes.append(best["note"])
-        # If we filled from others, the note may mention derived for a field we kept from a non-derived row.
-        # Rebuild derived flags only when the chosen best already had them and the value was not replaced.
-        best["note"] = ";".join(dict.fromkeys(n for n in notes if n))
-        merged.append(best)
-    return merged
-
-
 def build_symbol_rows(
     symbol: str,
     facts_payload: dict | None,
@@ -645,7 +591,6 @@ def build_symbol_rows(
             "date_type": date_type,
             "note": note,
         })
-    rows = merge_nearby_quarter_rows(rows)
     return rows, None
 
 
