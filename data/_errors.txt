@@ -1,0 +1,3 @@
+# Tickers that failed this update. No substitute data was used.
+
+(none)
