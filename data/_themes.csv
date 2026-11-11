@@ -30,3 +30,34 @@ MU,記憶體,Memory
 SNDK,記憶體,Memory
 WDC,記憶體,Memory
 STX,記憶體,Memory
+COHR,光通訊,Optical networking
+LITE,光通訊,Optical networking
+CIEN,光通訊,Optical networking
+GLW,光通訊,Optical networking
+AAOI,光通訊,Optical networking
+FN,光通訊,Optical networking
+BE,電力,Power
+VST,電力,Power
+CEG,電力,Power
+GEV,電力,Power
+ETN,電力,Power
+VRT,電力,Power
+PWR,電力,Power
+NRG,電力,Power
+AMAT,半導體設備與測試,Semi equipment & test
+LRCX,半導體設備與測試,Semi equipment & test
+KLAC,半導體設備與測試,Semi equipment & test
+ASML,半導體設備與測試,Semi equipment & test
+TER,半導體設備與測試,Semi equipment & test
+AEHR,半導體設備與測試,Semi equipment & test
+FORM,半導體設備與測試,Semi equipment & test
+ONTO,半導體設備與測試,Semi equipment & test
+ACMR,半導體設備與測試,Semi equipment & test
+CAMT,半導體設備與測試,Semi equipment & test
+CRWV,Neocloud,Neocloud
+NBIS,Neocloud,Neocloud
+IREN,Neocloud,Neocloud
+APLD,Neocloud,Neocloud
+CIFR,Neocloud,Neocloud
+WULF,Neocloud,Neocloud
+CORZ,Neocloud,Neocloud

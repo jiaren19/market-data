@@ -39,8 +39,8 @@ DATA = REPO / "data"
 ASKPASS = ROOT / ".git-askpass"
 GITHUB_REPO = "jiaren19/market-data"
 BRANCH = "main"
-HISTORY_START = date(2019, 1, 1)
-PERIOD1 = int(datetime(2019, 1, 1, tzinfo=timezone.utc).timestamp())
+HISTORY_START = date(2015, 1, 1)
+PERIOD1 = int(datetime(2015, 1, 1, tzinfo=timezone.utc).timestamp())
 MYT = ZoneInfo("Asia/Kuala_Lumpur")
 
 YAHOO_UA = (
@@ -78,9 +78,16 @@ FIXED_TICKERS = [
     "JETS", "IYT", "ITA", "TAN", "OIH", "IHI", "XBI", "KBE",
     "KRE", "XRT", "ITB", "KWEB", "SOCL", "IYZ", "IBIT", "WGMI",
     "MU", "SNDK", "WDC", "STX",
+    # 光通訊、電力、半導體設備與測試、Neocloud（與成分股重疊時會去重）
+    "COHR", "LITE", "CIEN", "GLW", "AAOI", "FN",
+    "BE", "VST", "CEG", "GEV", "ETN", "VRT", "PWR", "NRG",
+    "AMAT", "LRCX", "KLAC", "ASML", "TER", "AEHR", "FORM", "ONTO", "ACMR", "CAMT",
+    "CRWV", "NBIS", "IREN", "APLD", "CIFR", "WULF", "CORZ",
 ]
 
-# Theme map written to data/_themes.csv (one row per symbol).
+# Theme map written to data/_themes.csv.
+# A symbol may appear in more than one row if it belongs to more than one theme;
+# existing rows are kept and new themes are appended, never overwritten.
 # SMH/SOXX/IGV are already in the original fixed list; they are included here too.
 THEMES = [
     ("SMH", "半導體", "Semiconductors"),
@@ -114,6 +121,41 @@ THEMES = [
     ("SNDK", "記憶體", "Memory"),
     ("WDC", "記憶體", "Memory"),
     ("STX", "記憶體", "Memory"),
+    # 光通訊 / Optical networking
+    ("COHR", "光通訊", "Optical networking"),
+    ("LITE", "光通訊", "Optical networking"),
+    ("CIEN", "光通訊", "Optical networking"),
+    ("GLW", "光通訊", "Optical networking"),
+    ("AAOI", "光通訊", "Optical networking"),
+    ("FN", "光通訊", "Optical networking"),
+    # 電力 / Power
+    ("BE", "電力", "Power"),
+    ("VST", "電力", "Power"),
+    ("CEG", "電力", "Power"),
+    ("GEV", "電力", "Power"),
+    ("ETN", "電力", "Power"),
+    ("VRT", "電力", "Power"),
+    ("PWR", "電力", "Power"),
+    ("NRG", "電力", "Power"),
+    # 半導體設備與測試 / Semi equipment & test
+    ("AMAT", "半導體設備與測試", "Semi equipment & test"),
+    ("LRCX", "半導體設備與測試", "Semi equipment & test"),
+    ("KLAC", "半導體設備與測試", "Semi equipment & test"),
+    ("ASML", "半導體設備與測試", "Semi equipment & test"),
+    ("TER", "半導體設備與測試", "Semi equipment & test"),
+    ("AEHR", "半導體設備與測試", "Semi equipment & test"),
+    ("FORM", "半導體設備與測試", "Semi equipment & test"),
+    ("ONTO", "半導體設備與測試", "Semi equipment & test"),
+    ("ACMR", "半導體設備與測試", "Semi equipment & test"),
+    ("CAMT", "半導體設備與測試", "Semi equipment & test"),
+    # Neocloud
+    ("CRWV", "Neocloud", "Neocloud"),
+    ("NBIS", "Neocloud", "Neocloud"),
+    ("IREN", "Neocloud", "Neocloud"),
+    ("APLD", "Neocloud", "Neocloud"),
+    ("CIFR", "Neocloud", "Neocloud"),
+    ("WULF", "Neocloud", "Neocloud"),
+    ("CORZ", "Neocloud", "Neocloud"),
 ]
 
 # Asia-only mode (--asia): Taiwan, Korea, Japan, and BTC-USD. Full mode still
@@ -238,7 +280,7 @@ def _trip_rate_limit(seconds: float) -> None:
 
 
 def fetch_yahoo_bars(symbol: str) -> list[dict]:
-    """Daily OHLCV + adj_close from 2019-01-01. Raises on failure."""
+    """Daily OHLCV + adj_close from 2015-01-01 (or the listing date if later). Raises on failure."""
     period2 = int(time.time()) + 60
     quoted = urllib.parse.quote(symbol, safe="")
     url = (
@@ -332,7 +374,7 @@ def fetch_yahoo_bars(symbol: str) -> list[dict]:
             }
         )
     if not rows:
-        raise RuntimeError("no daily bars on or after 2019-01-01")
+        raise RuntimeError("no daily bars on or after 2015-01-01")
     return rows
 
 
@@ -645,7 +687,7 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 | --- | --- |
 | `data/<SYMBOL>.csv` | Daily bars for one Yahoo Finance symbol. The filename is the exact symbol, including `^` (for example `data/^VIX.csv`, `data/2330.TW.csv`, `data/BTC-USD.csv`). |
 | `data/_constituents.csv` | Current S&P 500 and Nasdaq-100 members: `symbol,name,sector,index`. `index` is `SP500`, `NDX`, or `both`. Symbols are in Yahoo format (`BRK.B` → `BRK-B`). Sector is the Wikipedia GICS Sector when the name is in the S&P 500. Nasdaq-100-only names have no GICS column on Wikipedia, so that row uses the ICB Industry from the Wikipedia Nasdaq-100 list. |
-| `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. One row per symbol. This is a static mapping shipped with the daily update, not inferred from prices. |
+| `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. A symbol may have more than one row if it belongs to more than one theme; existing rows are kept and a new theme is added as an extra row, not an overwrite. This is a static mapping shipped with the daily update, not inferred from prices. Every theme member also has its own `data/<SYMBOL>.csv`. |
 | `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of the last full run, each ticker's last bar date, and (after an Asia-only run) `asia_updated_utc` / `asia_updated_asia_kuala_lumpur`. An `--asia` run updates only the 16 Asia/BTC last-bar lines and the asia timestamp; other lines are kept. |
 | `data/_errors.txt` | Tickers that could not be fetched, with the reason. An `--asia` run updates or clears error lines only for those 16 tickers; unrelated error lines from the last full run are kept. |
 | `update.py` | The script that fetches, writes, commits, and pushes. |
@@ -656,7 +698,7 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 
 `date, open, high, low, close, adj_close, volume`
 
-- `date` is the exchange-local trading date (`YYYY-MM-DD`), from 2019-01-01 onward.
+- `date` is the exchange-local trading date (`YYYY-MM-DD`), from 2015-01-01 onward. Names listed after that date start at their first Yahoo bar (the listing date).
 - Prices are unadjusted OHLC; `adj_close` is Yahoo's split/dividend-adjusted close. If Yahoo omits `adj_close` for a bar, that cell is left blank.
 - `volume` is left blank when Yahoo does not provide it (some indices).
 - Rows with a missing close are dropped. No interpolated or filled values.
@@ -670,9 +712,13 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 - Korea: `^KS11` `005930.KS` `000660.KS`
 - Japan: `^N225` `8035.T` `6857.T` `6146.T` `6920.T` `285A.T`
 - Theme ETFs and focus stocks: `AIQ` `BOTZ` `QTUM` `CIBR` `GDX` `SIL` `SLX` `URA` `JETS` `IYT` `ITA` `TAN` `OIH` `IHI` `XBI` `KBE` `KRE` `XRT` `ITB` `KWEB` `SOCL` `IYZ` `IBIT` `WGMI` `MU` `SNDK` `WDC` `STX`
+- Optical networking / 光通訊: `COHR` `LITE` `CIEN` `GLW` `AAOI` `FN`
+- Power / 電力: `BE` `VST` `CEG` `GEV` `ETN` `VRT` `PWR` `NRG`
+- Semi equipment and test / 半導體設備與測試: `AMAT` `LRCX` `KLAC` `ASML` `TER` `AEHR` `FORM` `ONTO` `ACMR` `CAMT`
+- Neocloud: `CRWV` `NBIS` `IREN` `APLD` `CIFR` `WULF` `CORZ`
 - Plus every current S&P 500 and Nasdaq-100 constituent (deduplicated). Names that also appear in the fixed or theme lists are fetched once.
 
-Theme labels (Chinese and English) for the theme ETFs, plus already-fetched `SMH` `SOXX` `IGV`, are in `data/_themes.csv`.
+Theme labels (Chinese and English) are in `data/_themes.csv`. That file covers the theme ETFs, already-fetched `SMH` `SOXX` `IGV`, the memory names `MU` `SNDK` `WDC` `STX`, and the four stock-level themes above (optical networking, power, semi equipment and test, Neocloud). A symbol that sits in more than one theme has one row per theme.
 
 ## Raw URLs / 直接下載
 
@@ -814,7 +860,7 @@ def main(argv=None) -> int:
         myt_s = myt.strftime("%Y-%m-%d %H:%M:%S") + " Asia/Kuala_Lumpur"
         headers = existing_headers or [
             "source: Yahoo Finance chart API",
-            "history_start: 2019-01-01",
+            "history_start: 2015-01-01",
         ]
         headers = upsert_header(headers, "asia_updated_utc", utc_s)
         headers = upsert_header(headers, "asia_updated_asia_kuala_lumpur", myt_s)
@@ -884,7 +930,7 @@ def main(argv=None) -> int:
     if asia_myt:
         upd.append(f"asia_updated_asia_kuala_lumpur: {asia_myt}")
     upd.append("source: Yahoo Finance chart API")
-    upd.append("history_start: 2019-01-01")
+    upd.append("history_start: 2015-01-01")
     upd.append(f"tickers_ok: {len(ok)}")
     upd.append(f"tickers_failed: {len(failed_tickers)}")
     if "_constituents" in errors:
