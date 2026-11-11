@@ -1,7 +1,7 @@
 updated_utc: 2026-11-11 09:42:35 UTC
 updated_asia_kuala_lumpur: 2026-11-11 17:42:35 Asia/Kuala_Lumpur
-asia_updated_utc: 2026-11-11 08:03:29 UTC
-asia_updated_asia_kuala_lumpur: 2026-11-11 16:03:29 Asia/Kuala_Lumpur
+asia_updated_utc: 2026-11-11 09:43:27 UTC
+asia_updated_asia_kuala_lumpur: 2026-11-11 17:43:27 Asia/Kuala_Lumpur
 source: Yahoo Finance chart API
 history_start: 2015-01-01
 tickers_ok: 592
