@@ -16,6 +16,7 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 | --- | --- |
 | `data/<SYMBOL>.csv` | Daily bars for one Yahoo Finance symbol. The filename is the exact symbol, including `^` (for example `data/^VIX.csv`, `data/2330.TW.csv`, `data/BTC-USD.csv`). |
 | `data/_constituents.csv` | Current S&P 500 and Nasdaq-100 members: `symbol,name,sector,index`. `index` is `SP500`, `NDX`, or `both`. Symbols are in Yahoo format (`BRK.B` → `BRK-B`). Sector is the Wikipedia GICS Sector when the name is in the S&P 500. Nasdaq-100-only names have no GICS column on Wikipedia, so that row uses the ICB Industry from the Wikipedia Nasdaq-100 list. |
+| `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. One row per symbol. This is a static mapping shipped with the daily update, not inferred from prices. |
 | `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of this run, plus each ticker's last bar date. |
 | `data/_errors.txt` | Tickers that could not be fetched, with the reason. |
 | `update.py` | The script that fetches, writes, commits, and pushes. |
@@ -39,7 +40,10 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 - Taiwan: `^TWII` `2330.TW` `2454.TW` `2303.TW` `2408.TW` `3711.TW`
 - Korea: `^KS11` `005930.KS` `000660.KS`
 - Japan: `^N225` `8035.T` `6857.T` `6146.T` `6920.T` `285A.T`
-- Plus every current S&P 500 and Nasdaq-100 constituent (deduplicated).
+- Theme ETFs and focus stocks: `AIQ` `BOTZ` `QTUM` `CIBR` `GDX` `SIL` `SLX` `URA` `JETS` `IYT` `ITA` `TAN` `OIH` `IHI` `XBI` `KBE` `KRE` `XRT` `ITB` `KWEB` `SOCL` `IYZ` `IBIT` `WGMI` `MU` `SNDK` `WDC` `STX`
+- Plus every current S&P 500 and Nasdaq-100 constituent (deduplicated). Names that also appear in the fixed or theme lists are fetched once.
+
+Theme labels (Chinese and English) for the theme ETFs, plus already-fetched `SMH` `SOXX` `IGV`, are in `data/_themes.csv`.
 
 ## Raw URLs / 直接下載
 

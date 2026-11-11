@@ -70,6 +70,47 @@ FIXED_TICKERS = [
     "^KS11", "005930.KS", "000660.KS",
     # 日本
     "^N225", "8035.T", "6857.T", "6146.T", "6920.T", "285A.T",
+    # 主題 ETF 與焦點個股（與成分股重疊時會去重）
+    "AIQ", "BOTZ", "QTUM", "CIBR", "GDX", "SIL", "SLX", "URA",
+    "JETS", "IYT", "ITA", "TAN", "OIH", "IHI", "XBI", "KBE",
+    "KRE", "XRT", "ITB", "KWEB", "SOCL", "IYZ", "IBIT", "WGMI",
+    "MU", "SNDK", "WDC", "STX",
+]
+
+# Theme map written to data/_themes.csv (one row per symbol).
+# SMH/SOXX/IGV are already in the original fixed list; they are included here too.
+THEMES = [
+    ("SMH", "半導體", "Semiconductors"),
+    ("SOXX", "半導體", "Semiconductors"),
+    ("IGV", "軟體", "Software"),
+    ("AIQ", "AI", "AI"),
+    ("BOTZ", "機器人", "Robotics"),
+    ("QTUM", "量子", "Quantum"),
+    ("CIBR", "資安", "Cybersecurity"),
+    ("GDX", "金礦", "Gold miners"),
+    ("SIL", "銀礦", "Silver miners"),
+    ("SLX", "鋼鐵", "Steel"),
+    ("URA", "鈾與核能", "Uranium & nuclear"),
+    ("JETS", "航空", "Airlines"),
+    ("IYT", "運輸", "Transportation"),
+    ("ITA", "航太國防", "Aerospace & defense"),
+    ("TAN", "太陽能", "Solar"),
+    ("OIH", "油服", "Oil services"),
+    ("IHI", "醫療器材", "Medical devices"),
+    ("XBI", "生技", "Biotech"),
+    ("KBE", "銀行", "Banks"),
+    ("KRE", "區域銀行", "Regional banks"),
+    ("XRT", "零售", "Retail"),
+    ("ITB", "建商", "Homebuilders"),
+    ("KWEB", "中概網路", "China internet"),
+    ("SOCL", "社群", "Social media"),
+    ("IYZ", "電信", "Telecom"),
+    ("IBIT", "比特幣", "Bitcoin"),
+    ("WGMI", "比特幣礦工", "Bitcoin miners"),
+    ("MU", "記憶體", "Memory"),
+    ("SNDK", "記憶體", "Memory"),
+    ("WDC", "記憶體", "Memory"),
+    ("STX", "記憶體", "Memory"),
 ]
 
 # Shared 429/503 backoff so concurrent workers don't keep hammering Yahoo.
@@ -347,6 +388,16 @@ def write_constituents(path: Path, rows: list[dict]) -> None:
     tmp.replace(path)
 
 
+def write_themes(path: Path) -> None:
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with tmp.open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh, lineterminator="\n")
+        w.writerow(["symbol", "theme_zh", "theme_en"])
+        for symbol, theme_zh, theme_en in THEMES:
+            w.writerow([symbol, theme_zh, theme_en])
+    tmp.replace(path)
+
+
 def write_text(path: Path, text: str) -> None:
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(text, encoding="utf-8")
@@ -471,6 +522,7 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 | --- | --- |
 | `data/<SYMBOL>.csv` | Daily bars for one Yahoo Finance symbol. The filename is the exact symbol, including `^` (for example `data/^VIX.csv`, `data/2330.TW.csv`, `data/BTC-USD.csv`). |
 | `data/_constituents.csv` | Current S&P 500 and Nasdaq-100 members: `symbol,name,sector,index`. `index` is `SP500`, `NDX`, or `both`. Symbols are in Yahoo format (`BRK.B` → `BRK-B`). Sector is the Wikipedia GICS Sector when the name is in the S&P 500. Nasdaq-100-only names have no GICS column on Wikipedia, so that row uses the ICB Industry from the Wikipedia Nasdaq-100 list. |
+| `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. One row per symbol. This is a static mapping shipped with the daily update, not inferred from prices. |
 | `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of this run, plus each ticker's last bar date. |
 | `data/_errors.txt` | Tickers that could not be fetched, with the reason. |
 | `update.py` | The script that fetches, writes, commits, and pushes. |
@@ -494,7 +546,10 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 - Taiwan: `^TWII` `2330.TW` `2454.TW` `2303.TW` `2408.TW` `3711.TW`
 - Korea: `^KS11` `005930.KS` `000660.KS`
 - Japan: `^N225` `8035.T` `6857.T` `6146.T` `6920.T` `285A.T`
-- Plus every current S&P 500 and Nasdaq-100 constituent (deduplicated).
+- Theme ETFs and focus stocks: `AIQ` `BOTZ` `QTUM` `CIBR` `GDX` `SIL` `SLX` `URA` `JETS` `IYT` `ITA` `TAN` `OIH` `IHI` `XBI` `KBE` `KRE` `XRT` `ITB` `KWEB` `SOCL` `IYZ` `IBIT` `WGMI` `MU` `SNDK` `WDC` `STX`
+- Plus every current S&P 500 and Nasdaq-100 constituent (deduplicated). Names that also appear in the fixed or theme lists are fetched once.
+
+Theme labels (Chinese and English) for the theme ETFs, plus already-fetched `SMH` `SOXX` `IGV`, are in `data/_themes.csv`.
 
 ## Raw URLs / 直接下載
 
@@ -536,6 +591,7 @@ def main() -> int:
     DATA.mkdir(parents=True, exist_ok=True)
     write_readme()
     write_gitignore()
+    write_themes(DATA / "_themes.csv")
 
     # Copy this script into the repo so the data recipe is public and versioned.
     dest_script = REPO / "update.py"
@@ -609,7 +665,7 @@ def main() -> int:
 
     # Wipe leftover CSVs from tickers no longer in the universe, but keep meta files.
     keep_names = {csv_filename(s) for s in ok}
-    keep_names.update({"_updated.txt", "_errors.txt", "_constituents.csv"})
+    keep_names.update({"_updated.txt", "_errors.txt", "_constituents.csv", "_themes.csv"})
     if DATA.is_dir():
         for p in DATA.iterdir():
             if p.is_file() and p.name.endswith(".csv") and p.name not in keep_names and not p.name.startswith("_"):
