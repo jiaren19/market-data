@@ -37,6 +37,7 @@ ROOT = Path(__file__).resolve().parent
 REPO = ROOT / "repo"
 DATA = REPO / "data"
 ASKPASS = ROOT / ".git-askpass"
+EDGAR_CACHE = ROOT / "cache" / "edgar"
 GITHUB_REPO = "jiaren19/market-data"
 BRANCH = "main"
 HISTORY_START = date(2015, 1, 1)
@@ -461,6 +462,11 @@ def parse_args(argv=None) -> argparse.Namespace:
         action="store_true",
         help="Fetch only the 16 Taiwan, Korea, Japan, and BTC-USD tickers; leave other CSVs untouched.",
     )
+    parser.add_argument(
+        "--fundamentals",
+        action="store_true",
+        help="Refresh data/_fundamentals.csv from SEC EDGAR and push; do not refetch price bars.",
+    )
     return parser.parse_args(argv)
 
 
@@ -669,9 +675,9 @@ def commit_and_push(message: str) -> str:
 
 README = r"""# market-data
 
-Daily public market-data snapshot for research. Source: Yahoo Finance chart API only. Missing tickers are listed in `data/_errors.txt`. No substitute source is used, and no numbers are filled in by hand.
+Daily public market-data snapshot for research. Daily bars come from the Yahoo Finance chart API only. Quarterly fundamentals come from the SEC EDGAR companyfacts XBRL API only (not Yahoo). Missing tickers or fundamental fields are listed in `data/_errors.txt` or left blank. No substitute source is used, and no numbers are filled in by hand.
 
-由 Grok Bot 在每個美股交易日收盤後自動抓取並推送。資料只來自 Yahoo Finance，抓不到的標的會寫進 `data/_errors.txt`，不會用其他來源的數字補上。
+由 Grok Bot 在每個美股交易日收盤後自動抓取並推送。日線只來自 Yahoo Finance，季度財報只來自 SEC EDGAR companyfacts，抓不到的標的會寫進 `data/_errors.txt`，缺值留白，不會用其他來源的數字補上。
 
 ## Update schedule / 更新時間
 
@@ -679,6 +685,8 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 - 完整更新：每個美股交易日收盤後，約馬來西亞時間 **06:30**（周二至周六）。
 - Asia-only update (`python3 update.py --asia`): after the Asian cash close, around **15:00 Asia/Kuala_Lumpur**, Monday to Friday. This overwrites only the 16 Taiwan, Korea, Japan, and `BTC-USD` files; every other CSV is left untouched.
 - 亞洲盤更新：亞洲市場收盤後，約馬來西亞時間 **15:00**（周一至周五），只更新台、韓、日標的與 `BTC-USD`。
+- The full update also refreshes `data/_fundamentals.csv` when that file is missing or older than one day. A fundamentals-only run is `python3 update.py --fundamentals`. Asia-only runs do not touch fundamentals.
+- 完整更新若基本面檔缺失或已超過一天，會一併從 EDGAR 更新 `data/_fundamentals.csv`。也可單獨執行 `python3 update.py --fundamentals`。亞洲盤更新不會改基本面檔。
 - Reruns on the same day overwrite the same files and may create a new commit.
 
 ## Files / 檔案說明
@@ -689,8 +697,10 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 | `data/_constituents.csv` | Current S&P 500 and Nasdaq-100 members: `symbol,name,sector,index`. `index` is `SP500`, `NDX`, or `both`. Symbols are in Yahoo format (`BRK.B` → `BRK-B`). Sector is the Wikipedia GICS Sector when the name is in the S&P 500. Nasdaq-100-only names have no GICS column on Wikipedia, so that row uses the ICB Industry from the Wikipedia Nasdaq-100 list. |
 | `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. A symbol may have more than one row if it belongs to more than one theme; existing rows are kept and a new theme is added as an extra row, not an overwrite. This is a static mapping shipped with the daily update, not inferred from prices. Every theme member also has its own `data/<SYMBOL>.csv`. |
 | `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of the last full run, each ticker's last bar date, and (after an Asia-only run) `asia_updated_utc` / `asia_updated_asia_kuala_lumpur`. An `--asia` run updates only the 16 Asia/BTC last-bar lines and the asia timestamp; other lines are kept. |
-| `data/_errors.txt` | Tickers that could not be fetched, with the reason. An `--asia` run updates or clears error lines only for those 16 tickers; unrelated error lines from the last full run are kept. |
+| `data/_errors.txt` | Tickers that could not be fetched, with the reason. An `--asia` run updates or clears error lines only for those 16 tickers; unrelated error lines from the last full run are kept. Fundamentals problems are stored as `fundamentals:SYMBOL: reason` and are not cleared by an `--asia` run. |
+| `data/_fundamentals.csv` | Quarterly fundamentals from 2015-01-01 onward for every current S&P 500 and Nasdaq-100 constituent, plus the theme stocks listed below. See the Fundamentals section for columns, sources, and what `report_date` means. |
 | `update.py` | The script that fetches, writes, commits, and pushes. |
+| `fundamentals.py` | SEC EDGAR helpers used by `update.py` to build `_fundamentals.csv`. |
 
 成分股名單來自維基百科：[List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)、[List of NASDAQ-100 companies](https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies)。美股代號的點號會改成 Yahoo 格式（`BRK.B` → `BRK-B`）。
 
@@ -702,6 +712,24 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 - Prices are unadjusted OHLC; `adj_close` is Yahoo's split/dividend-adjusted close. If Yahoo omits `adj_close` for a bar, that cell is left blank.
 - `volume` is left blank when Yahoo does not provide it (some indices).
 - Rows with a missing close are dropped. No interpolated or filled values.
+
+## Fundamentals / 季度財報
+
+`data/_fundamentals.csv` columns:
+
+`symbol, fiscal_quarter_end, report_date, revenue, gross_profit, eps_diluted, net_income, date_type, note`
+
+Universe: every current S&P 500 and Nasdaq-100 constituent, plus these theme stocks (deduplicated): `MU` `SNDK` `WDC` `STX` `COHR` `LITE` `CIEN` `GLW` `AAOI` `FN` `BE` `VST` `CEG` `GEV` `ETN` `VRT` `PWR` `NRG` `AMAT` `LRCX` `KLAC` `ASML` `TER` `AEHR` `FORM` `ONTO` `ACMR` `CAMT` `CRWV` `NBIS` `IREN` `APLD` `CIFR` `WULF` `CORZ`.
+
+Source (one source per field, never mixed with Yahoo or Nasdaq numbers):
+
+- Values (`revenue`, `gross_profit`, `eps_diluted`, `net_income`) come from the [SEC EDGAR companyfacts XBRL API](https://data.sec.gov/api/xbrl/companyfacts/). For each field a fixed US-GAAP / IFRS tag priority is used (see `fundamentals.py`). Companies that changed tags over time (for example `SalesRevenueNet` before 2018 and `RevenueFromContractWithCustomerExcludingAssessedTax` after) may switch tags at the quarter when the newer tag begins; both tags are still EDGAR companyfacts. A value first appears as reported in the original 10-Q / 10-K / 20-F (as-first-reported, not a later restatement, and not retroactively split-adjusted). Missing values are left blank. Banks usually have no `GrossProfit` tag; that cell stays blank. Diluted EPS is never replaced with basic EPS.
+- `fiscal_quarter_end` is the issuer's fiscal period end date (`YYYY-MM-DD`), not a calendar quarter label. Apple's fiscal year ends in September, so a row ending `2025-12-27` is Apple's fiscal Q1, not calendar Q4 in name only.
+- `report_date` is the public earnings publication date, not the quarter end. It is the filing date of the 8-K that includes Item 2.02 (Results of Operations and Financial Condition), which is the earnings press-release date on EDGAR, almost always the same calendar day as the announcement. `date_type` is `8-K` in that case. For foreign issuers that file 6-K / 20-F instead of 8-K / 10-Q (for example `ASML`, `CAMT`, `NBIS`, `PDD`), the pipeline tries to use the 6-K filing date when a 6-K can be matched to that quarter (`date_type=6-K`). Many of those issuers do not tag quarterly income-statement numbers in companyfacts, so the symbol is listed under `fundamentals:SYMBOL` in `data/_errors.txt` and no invented numbers are written.
+- The 10-Q / 10-K / 20-F `filed` date is later than the press release and is **not** used as `report_date` unless no 8-K Item 2.02 or matching 6-K is found, the periodic report itself was filed within 90 days of the quarter end, and `date_type` is set to `filing_fallback`. If even that is not safe (for example a comparative quarter that only appears later in a post-IPO 10-Q), `report_date` is left blank. Backtests should treat a blank or `filing_fallback` date with care.
+- Q4 is often filed only as a full-year total in the 10-K. When a 90-day Q4 fact is missing but Q1–Q3 and the annual total exist for the same tag, `revenue`, `gross_profit`, and `net_income` for that Q4 are derived as annual minus the three quarters and `note` contains `derived_q4_...`. Diluted EPS is **not** derived this way, because annual EPS is not the sum of quarterly EPS when the share count changes; Q4 `eps_diluted` is left blank unless a quarterly EPS fact exists.
+- Units are USD whenever EDGAR provides USD. A non-USD amount is still written, and `note` records the unit (for example `revenue_unit:EUR`).
+- History starts at fiscal quarter ends on or after 2015-01-01. Names that began reporting later (spin-offs, IPOs) start at their first EDGAR quarterly fact. Pre-listing comparative quarters may have values but a blank `report_date`.
 
 ## Fixed tickers (always fetched) / 固定標的
 
@@ -732,6 +760,7 @@ Examples:
 https://raw.githubusercontent.com/jiaren19/market-data/main/data/SPY.csv
 https://raw.githubusercontent.com/jiaren19/market-data/main/data/2330.TW.csv
 https://raw.githubusercontent.com/jiaren19/market-data/main/data/%5EVIX.csv
+https://raw.githubusercontent.com/jiaren19/market-data/main/data/_fundamentals.csv
 ```
 
 For symbols that start with `^`, encode the caret as `%5E` in the URL (`^VIX` → `%5EVIX.csv`). The filename in the repo itself stays `^VIX.csv`.
@@ -744,33 +773,216 @@ def write_readme() -> None:
 
 def write_gitignore() -> None:
     (REPO / ".gitignore").write_text(
-        ".DS_Store\n__pycache__/\n*.pyc\n*.tmp\n",
+        ".DS_Store\n__pycache__/\n*.pyc\n*.tmp\ncache/\n",
         encoding="utf-8",
     )
+
+
+
+def _import_fundamentals():
+    """Load the sibling fundamentals.py whether this file lives at ROOT or in the repo copy."""
+    script_dir = Path(__file__).resolve().parent
+    if str(script_dir) not in sys.path:
+        sys.path.insert(0, str(script_dir))
+    import fundamentals as fund
+    return fund
+
+
+def fundamentals_stale(max_age_s: float = 86400) -> bool:
+    path = DATA / "_fundamentals.csv"
+    if not path.is_file():
+        return True
+    headers, _ = parse_updated(DATA / "_updated.txt")
+    ts = None
+    for line in headers:
+        if line.startswith("fundamentals_updated_utc:"):
+            raw = line.split(":", 1)[1].strip().replace(" UTC", "")
+            try:
+                ts = datetime.strptime(raw, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
+            except ValueError:
+                ts = None
+            break
+    if ts is None:
+        # Fall back to the CSV mtime if a previous run did not stamp _updated.txt.
+        ts = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+    return (now_utc() - ts).total_seconds() > max_age_s
+
+
+def load_constituent_symbols() -> list[str]:
+    path = DATA / "_constituents.csv"
+    out: list[str] = []
+    if not path.is_file():
+        return out
+    with path.open(encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            sym = (row.get("symbol") or "").strip()
+            if sym:
+                out.append(sym)
+    return out
+
+
+def refresh_fundamentals(force: bool = False) -> dict:
+    """Rebuild data/_fundamentals.csv from SEC EDGAR. Returns stats and per-symbol errors."""
+    fund = _import_fundamentals()
+    symbols = fund.fundamentals_universe(load_constituent_symbols())
+    log(f"fundamentals: {len(symbols)} symbols  cache={EDGAR_CACHE}")
+    client = fund.EdgarClient(EDGAR_CACHE, min_interval=0.13, log=log)
+    try:
+        cik_map = client.company_tickers(force=force)
+    except Exception as exc:
+        raise RuntimeError(f"SEC company_tickers download failed: {exc}") from exc
+    log(f"fundamentals: SEC ticker map {len(cik_map)} names")
+
+    rows_all: list[dict] = []
+    errors: dict[str, str] = {}
+    ok_n = 0
+    lock = threading.Lock()
+    done = 0
+
+    def worker(sym: str) -> None:
+        nonlocal done, ok_n
+        cik = cik_map.get(sym) or cik_map.get(sym.replace(".", "-")) or cik_map.get(sym.replace("-", "."))
+        symbol, rows, err = fund.fetch_symbol(client, sym, cik, force=force)
+        with lock:
+            if rows:
+                rows_all.extend(rows)
+                ok_n += 1
+            if err:
+                errors[sym] = err
+            done += 1
+            if done % 25 == 0 or done == len(symbols):
+                log(f"  fundamentals progress {done}/{len(symbols)}  ok={ok_n}  flagged={len(errors)}")
+
+    with ThreadPoolExecutor(max_workers=5) as pool:
+        futs = [pool.submit(worker, s) for s in symbols]
+        for f in as_completed(futs):
+            _ = f.result()
+
+    rows_all.sort(key=lambda r: (r["symbol"], r["fiscal_quarter_end"]))
+    fund.write_fundamentals_csv(DATA / "_fundamentals.csv", rows_all)
+
+    n_ann = sum(1 for r in rows_all if r.get("date_type") in ("8-K", "6-K"))
+    n_fb = sum(1 for r in rows_all if r.get("date_type") == "filing_fallback")
+    n_blank = sum(1 for r in rows_all if not r.get("report_date"))
+    n_der = sum(1 for r in rows_all if "derived_q4" in (r.get("note") or ""))
+    failed = [s for s in symbols if s in errors and not any(r["symbol"] == s for r in rows_all)]
+    stats = {
+        "symbols": len(symbols),
+        "symbols_ok": ok_n,
+        "symbols_failed": len(failed),
+        "rows": len(rows_all),
+        "report_date_8k_6k": n_ann,
+        "report_date_filing_fallback": n_fb,
+        "report_date_blank": n_blank,
+        "derived_q4_rows": n_der,
+        "errors": errors,
+        "failed": failed,
+    }
+    log(
+        f"fundamentals written: {stats['rows']} rows  {ok_n}/{len(symbols)} symbols  "
+        f"failed={len(failed)}  report_date 8-K/6-K={n_ann} fallback={n_fb} blank={n_blank}"
+    )
+    return stats
+
+
+def stamp_fundamentals_updated(stats: dict, when: datetime | None = None) -> None:
+    """Merge fundamentals timestamps and coverage into _updated.txt; keep price lines."""
+    when = when or now_utc()
+    myt = when.astimezone(MYT)
+    utc_s = when.strftime("%Y-%m-%d %H:%M:%S") + " UTC"
+    myt_s = myt.strftime("%Y-%m-%d %H:%M:%S") + " Asia/Kuala_Lumpur"
+    headers, dates = parse_updated(DATA / "_updated.txt")
+    if not headers:
+        headers = [
+            f"updated_utc: {utc_s}",
+            f"updated_asia_kuala_lumpur: {myt_s}",
+            "source: Yahoo Finance chart API",
+            "history_start: 2015-01-01",
+        ]
+    headers = upsert_header(headers, "fundamentals_updated_utc", utc_s)
+    headers = upsert_header(headers, "fundamentals_updated_asia_kuala_lumpur", myt_s)
+    headers = upsert_header(
+        headers,
+        "fundamentals_source",
+        "SEC EDGAR companyfacts XBRL (values) + 8-K Item 2.02 / 6-K filing dates (report_date)",
+    )
+    headers = upsert_header(headers, "fundamentals_symbols_ok", str(stats.get("symbols_ok", 0)))
+    headers = upsert_header(headers, "fundamentals_symbols_failed", str(stats.get("symbols_failed", 0)))
+    headers = upsert_header(headers, "fundamentals_rows", str(stats.get("rows", 0)))
+    write_text(DATA / "_updated.txt", format_updated(headers, dates))
+
+
+def merge_fundamentals_errors(fund_errors: dict[str, str]) -> None:
+    """Write fundamentals errors as 'fundamentals:SYMBOL: reason' without dropping price errors."""
+    merged = parse_errors(DATA / "_errors.txt")
+    # Drop previous fundamentals:* lines, then rewrite from this run.
+    for k in [k for k in merged if k.startswith("fundamentals:")]:
+        merged.pop(k, None)
+    for sym, reason in fund_errors.items():
+        merged[f"fundamentals:{sym}"] = reason
+    write_errors_file(DATA / "_errors.txt", merged)
+
+
+def _copy_pipeline_into_repo() -> None:
+    """Copy the public pipeline files into the git repo so the recipe is versioned."""
+    dest_script = REPO / "update.py"
+    src = Path(__file__).resolve()
+    if src != dest_script.resolve():
+        dest_script.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
+        dest_script.chmod(dest_script.stat().st_mode | stat.S_IEXEC)
+    # fundamentals.py lives next to this script at ROOT; also ship it in the repo.
+    src_fund = src.parent / "fundamentals.py"
+    dest_fund = REPO / "fundamentals.py"
+    if src_fund.is_file() and src_fund.resolve() != dest_fund.resolve():
+        dest_fund.write_text(src_fund.read_text(encoding="utf-8"), encoding="utf-8")
 
 
 def main(argv=None) -> int:
     args = parse_args(argv)
     asia_mode = bool(args.asia)
+    fund_only = bool(args.fundamentals)
     started = now_utc()
     if not os.environ.get("GITHUB_TOKEN"):
         log("ERROR: GITHUB_TOKEN is not set")
         return 2
 
-    mode = "asia" if asia_mode else "full"
+    if fund_only and asia_mode:
+        log("ERROR: --fundamentals and --asia cannot be combined")
+        return 2
+
+    mode = "fundamentals" if fund_only else ("asia" if asia_mode else "full")
     log(f"start {started.isoformat()}  repo={GITHUB_REPO}  mode={mode}")
     ensure_repo()
     DATA.mkdir(parents=True, exist_ok=True)
     write_readme()
     write_gitignore()
     write_themes(DATA / "_themes.csv")
+    _copy_pipeline_into_repo()
 
-    # Copy this script into the repo so the data recipe is public and versioned.
-    dest_script = REPO / "update.py"
-    src = Path(__file__).resolve()
-    if src != dest_script.resolve():
-        dest_script.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
-        dest_script.chmod(dest_script.stat().st_mode | stat.S_IEXEC)
+    if fund_only:
+        try:
+            stats = refresh_fundamentals(force=False)
+        except Exception as exc:
+            log(f"ERROR: fundamentals refresh failed: {exc}")
+            return 1
+        stamp_fundamentals_updated(stats)
+        merge_fundamentals_errors(stats.get("errors") or {})
+        finished = now_utc()
+        myt = finished.astimezone(MYT)
+        elapsed = (finished - started).total_seconds()
+        msg = (
+            f"data: fundamentals update {myt.strftime('%Y-%m-%d')} "
+            f"({stats['symbols_ok']} ok, {stats['symbols_failed']} failed, {stats['rows']} rows)"
+        )
+        log(f"writing commit: {msg}")
+        sha = commit_and_push(msg)
+        log(f"commit {sha}")
+        log(f"summary: fundamentals {stats['symbols_ok']} ok, {stats['symbols_failed']} failed, "
+            f"{stats['rows']} rows, {elapsed:.0f}s")
+        failed = stats.get("failed") or []
+        for k in sorted(failed):
+            log(f"  FAIL fundamentals:{k}: {stats['errors'].get(k)}")
+        return 0 if not failed else 1
 
     errors: dict[str, str] = {}
     constituents: list[dict] = []
@@ -943,12 +1155,41 @@ def main(argv=None) -> int:
         upd.append(f"{sym} {last_dates[sym]}")
     write_text(DATA / "_updated.txt", "\n".join(upd) + "\n")
 
-    elapsed = (finished - started).total_seconds()
-    msg = f"data: daily update {myt.strftime('%Y-%m-%d')} ({len(ok)} ok, {len(failed_tickers)} failed)"
+    fund_stats = None
+    fund_elapsed = 0.0
+    if fundamentals_stale():
+        fund_started = now_utc()
+        log("fundamentals are stale or missing; refreshing from EDGAR")
+        try:
+            fund_stats = refresh_fundamentals(force=False)
+            stamp_fundamentals_updated(fund_stats)
+            # Price errors were just written; merge fundamentals flags on top.
+            merge_fundamentals_errors(fund_stats.get("errors") or {})
+        except Exception as exc:
+            log(f"fundamentals refresh failed (price data still committed): {exc}")
+            merged = parse_errors(DATA / "_errors.txt")
+            merged["fundamentals"] = str(exc).replace("\n", " ")[:500]
+            write_errors_file(DATA / "_errors.txt", merged)
+        fund_elapsed = (now_utc() - fund_started).total_seconds()
+    else:
+        log("fundamentals CSV is less than one day old; skipping EDGAR refresh")
+
+    elapsed = (now_utc() - started).total_seconds()
+    if fund_stats is not None:
+        msg = (
+            f"data: daily update {myt.strftime('%Y-%m-%d')} "
+            f"({len(ok)} ok, {len(failed_tickers)} failed; "
+            f"fundamentals {fund_stats['symbols_ok']} ok, {fund_stats['rows']} rows)"
+        )
+    else:
+        msg = f"data: daily update {myt.strftime('%Y-%m-%d')} ({len(ok)} ok, {len(failed_tickers)} failed)"
     log(f"writing commit: {msg}")
     sha = commit_and_push(msg)
     log(f"commit {sha}")
     log(f"summary: {len(ok)} ok, {len(failed_tickers)} failed, {elapsed:.0f}s")
+    if fund_stats is not None:
+        log(f"  fundamentals: {fund_stats['symbols_ok']} ok, {fund_stats['symbols_failed']} failed, "
+            f"{fund_stats['rows']} rows, {fund_elapsed:.0f}s")
     if failed_tickers:
         for k in sorted(failed_tickers):
             log(f"  FAIL {k}: {failed_tickers[k]}")
