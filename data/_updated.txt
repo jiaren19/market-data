@@ -2,12 +2,12 @@ updated_utc: 2026-11-11 09:42:35 UTC
 updated_asia_kuala_lumpur: 2026-11-11 17:42:35 Asia/Kuala_Lumpur
 asia_updated_utc: 2026-11-11 09:43:27 UTC
 asia_updated_asia_kuala_lumpur: 2026-11-11 17:43:27 Asia/Kuala_Lumpur
-fundamentals_rows: 23139
+fundamentals_rows: 23099
 fundamentals_symbols_failed: 5
 fundamentals_symbols_ok: 525
 fundamentals_source: SEC EDGAR companyfacts XBRL (values) + 8-K Item 2.02 / 6-K filing dates (report_date)
-fundamentals_updated_asia_kuala_lumpur: 2026-11-11 23:01:15 Asia/Kuala_Lumpur
-fundamentals_updated_utc: 2026-11-11 15:01:15 UTC
+fundamentals_updated_asia_kuala_lumpur: 2026-11-11 23:03:19 Asia/Kuala_Lumpur
+fundamentals_updated_utc: 2026-11-11 15:03:19 UTC
 source: Yahoo Finance chart API
 history_start: 2015-01-01
 tickers_ok: 592

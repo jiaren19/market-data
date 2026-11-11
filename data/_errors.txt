@@ -1,5 +1,6 @@
 # Tickers that failed this update. No substitute data was used.
 
+fundamentals: VYLR: no quarterly revenue/gross_profit/eps/net_income in EDGAR companyfacts
 fundamentals:AEP: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
 fundamentals:ASML: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:C: partial history only; last fiscal_quarter_end 2025-12-31 (recent quarters not in EDGAR XBRL)
