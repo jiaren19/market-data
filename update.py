@@ -685,8 +685,8 @@ Daily public market-data snapshot for research. Daily bars come from the Yahoo F
 - 完整更新：每個美股交易日收盤後，約馬來西亞時間 **06:30**（周二至周六）。
 - Asia-only update (`python3 update.py --asia`): after the Asian cash close, around **15:00 Asia/Kuala_Lumpur**, Monday to Friday. This overwrites only the 16 Taiwan, Korea, Japan, and `BTC-USD` files; every other CSV is left untouched.
 - 亞洲盤更新：亞洲市場收盤後，約馬來西亞時間 **15:00**（周一至周五），只更新台、韓、日標的與 `BTC-USD`。
-- The full update also refreshes `data/_fundamentals.csv` when that file is missing or older than one day. A fundamentals-only run is `python3 update.py --fundamentals`. Asia-only runs do not touch fundamentals.
-- 完整更新若基本面檔缺失或已超過一天，會一併從 EDGAR 更新 `data/_fundamentals.csv`。也可單獨執行 `python3 update.py --fundamentals`。亞洲盤更新不會改基本面檔。
+- The full update also refreshes `data/_fundamentals.csv` when that file is missing or older than 6 hours, so every daily 06:30 MYT run refetches it from EDGAR. A fundamentals-only run is `python3 update.py --fundamentals`. Asia-only runs do not touch fundamentals.
+- 完整更新若基本面檔缺失或已超過 6 小時（即每天 06:30 MYT 都會重抓），會一併從 EDGAR 更新 `data/_fundamentals.csv`。也可單獨執行 `python3 update.py --fundamentals`。亞洲盤更新不會改基本面檔。
 - Reruns on the same day overwrite the same files and may create a new commit.
 
 ## Files / 檔案說明
@@ -788,7 +788,7 @@ def _import_fundamentals():
     return fund
 
 
-def fundamentals_stale(max_age_s: float = 86400) -> bool:
+def fundamentals_stale(max_age_s: float = 6 * 3600) -> bool:
     path = DATA / "_fundamentals.csv"
     if not path.is_file():
         return True

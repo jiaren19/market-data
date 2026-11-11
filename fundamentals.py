@@ -205,11 +205,11 @@ class EdgarClient:
             out[ticker.replace("-", ".")] = cik_i
         return out
 
-    def facts(self, cik: int, force: bool = False, max_age_s: float | None = 86400):
+    def facts(self, cik: int, force: bool = False, max_age_s: float | None = 6 * 3600):
         cik10 = _cik10(cik)
         return self.get_json(SEC_FACTS_URL.format(cik=cik10), f"{cik10}_facts.json", max_age_s, force=force)
 
-    def submissions(self, cik: int, force: bool = False, max_age_s: float | None = 86400) -> dict:
+    def submissions(self, cik: int, force: bool = False, max_age_s: float | None = 6 * 3600) -> dict:
         cik10 = _cik10(cik)
         main = self.get_json(SEC_SUBS_URL.format(cik=cik10), f"{cik10}_submissions.json", max_age_s, force=force)
         if not main:
