@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Fetch daily Yahoo Finance bars and push them to jiaren19/market-data.
 
-Run: python3 /workspace/market-data/update.py
+Run:
+  python3 /workspace/market-data/update.py          # full update
+  python3 /workspace/market-data/update.py --asia   # Taiwan, Korea, Japan, BTC-USD only
 
 Auth: reads GITHUB_TOKEN from the environment at runtime. The token is never
 written to disk, committed, placed in a git remote URL, or printed.
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 import os
@@ -111,6 +114,15 @@ THEMES = [
     ("SNDK", "記憶體", "Memory"),
     ("WDC", "記憶體", "Memory"),
     ("STX", "記憶體", "Memory"),
+]
+
+# Asia-only mode (--asia): Taiwan, Korea, Japan, and BTC-USD. Full mode still
+# fetches these as part of FIXED_TICKERS; this list is the --asia universe.
+ASIA_TICKERS = [
+    "^TWII", "2330.TW", "2454.TW", "2303.TW", "2408.TW", "3711.TW",
+    "^KS11", "005930.KS", "000660.KS",
+    "^N225", "8035.T", "6857.T", "6146.T", "6920.T", "285A.T",
+    "BTC-USD",
 ]
 
 # Shared 429/503 backoff so concurrent workers don't keep hammering Yahoo.
@@ -398,6 +410,115 @@ def write_themes(path: Path) -> None:
     tmp.replace(path)
 
 
+def parse_args(argv=None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Fetch Yahoo Finance daily bars and push to jiaren19/market-data."
+    )
+    parser.add_argument(
+        "--asia",
+        action="store_true",
+        help="Fetch only the 16 Taiwan, Korea, Japan, and BTC-USD tickers; leave other CSVs untouched.",
+    )
+    return parser.parse_args(argv)
+
+
+def parse_updated(path: Path) -> tuple[list[str], dict[str, str]]:
+    """Return (header lines, symbol -> last bar date) from an existing _updated.txt."""
+    headers: list[str] = []
+    last_dates: dict[str, str] = {}
+    if not path.is_file():
+        return headers, last_dates
+    in_dates = False
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.rstrip()
+        if line.startswith("# symbol last_bar_date"):
+            in_dates = True
+            continue
+        if in_dates:
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split()
+            if len(parts) >= 2:
+                last_dates[parts[0]] = parts[1]
+            continue
+        headers.append(line)
+    return headers, last_dates
+
+
+def upsert_header(headers: list[str], key: str, value: str) -> list[str]:
+    """Replace or insert a 'key: value' header line, preserving order."""
+    prefix = f"{key}:"
+    out: list[str] = []
+    found = False
+    for line in headers:
+        if line.startswith(prefix):
+            if not found:
+                out.append(f"{key}: {value}")
+                found = True
+            # drop duplicate keys
+        else:
+            out.append(line)
+    if not found:
+        # Place asia_* timestamps just after the main updated_* lines if present.
+        inserted = False
+        result: list[str] = []
+        last_updated_idx = -1
+        for i, line in enumerate(out):
+            if (
+                line.startswith("updated_utc:")
+                or line.startswith("updated_asia_kuala_lumpur:")
+                or line.startswith("asia_updated_")
+            ):
+                last_updated_idx = i
+        if last_updated_idx >= 0:
+            result = out[: last_updated_idx + 1] + [f"{key}: {value}"] + out[last_updated_idx + 1 :]
+            inserted = True
+            out = result
+        if not inserted:
+            out.append(f"{key}: {value}")
+    return out
+
+
+def format_updated(headers: list[str], last_dates: dict[str, str]) -> str:
+    # Drop trailing blanks in the header; we re-add the section break.
+    while headers and headers[-1] == "":
+        headers = headers[:-1]
+    lines = list(headers)
+    lines.append("")
+    lines.append("# symbol last_bar_date")
+    for sym in sorted(last_dates):
+        lines.append(f"{sym} {last_dates[sym]}")
+    return "\n".join(lines) + "\n"
+
+
+def parse_errors(path: Path) -> dict[str, str]:
+    """Parse existing _errors.txt into {symbol: reason}. Ignores comments and '(none)'."""
+    errors: dict[str, str] = {}
+    if not path.is_file():
+        return errors
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or line == "(none)":
+            continue
+        if ":" in line:
+            key, _, reason = line.partition(":")
+            key = key.strip()
+            reason = reason.strip()
+            if key:
+                errors[key] = reason
+    return errors
+
+
+def write_errors_file(path: Path, errors: dict[str, str]) -> None:
+    err_lines = ["# Tickers that failed this update. No substitute data was used.", ""]
+    if errors:
+        for k in sorted(errors):
+            err_lines.append(f"{k}: {errors[k]}")
+    else:
+        err_lines.append("(none)")
+    write_text(path, "\n".join(err_lines) + "\n")
+
+
 def write_text(path: Path, text: str) -> None:
     tmp = path.with_suffix(path.suffix + ".tmp")
     tmp.write_text(text, encoding="utf-8")
@@ -512,8 +633,10 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 
 ## Update schedule / 更新時間
 
-- Daily after the US cash-session close, around **06:30 Asia/Kuala_Lumpur**, Tuesday to Saturday (Monday morning MYT is Sunday in New York, so there is no new US session to fetch).
-- 每個美股交易日收盤後，約马来西亚时间 **06:30**（周二至周六）更新。
+- Full update (`python3 update.py`): daily after the US cash-session close, around **06:30 Asia/Kuala_Lumpur**, Tuesday to Saturday (Monday morning MYT is Sunday in New York, so there is no new US session to fetch).
+- 完整更新：每個美股交易日收盤後，約馬來西亞時間 **06:30**（周二至周六）。
+- Asia-only update (`python3 update.py --asia`): after the Asian cash close, around **15:00 Asia/Kuala_Lumpur**, Monday to Friday. This overwrites only the 16 Taiwan, Korea, Japan, and `BTC-USD` files; every other CSV is left untouched.
+- 亞洲盤更新：亞洲市場收盤後，約馬來西亞時間 **15:00**（周一至周五），只更新台、韓、日標的與 `BTC-USD`。
 - Reruns on the same day overwrite the same files and may create a new commit.
 
 ## Files / 檔案說明
@@ -523,8 +646,8 @@ Daily public market-data snapshot for research. Source: Yahoo Finance chart API 
 | `data/<SYMBOL>.csv` | Daily bars for one Yahoo Finance symbol. The filename is the exact symbol, including `^` (for example `data/^VIX.csv`, `data/2330.TW.csv`, `data/BTC-USD.csv`). |
 | `data/_constituents.csv` | Current S&P 500 and Nasdaq-100 members: `symbol,name,sector,index`. `index` is `SP500`, `NDX`, or `both`. Symbols are in Yahoo format (`BRK.B` → `BRK-B`). Sector is the Wikipedia GICS Sector when the name is in the S&P 500. Nasdaq-100-only names have no GICS column on Wikipedia, so that row uses the ICB Industry from the Wikipedia Nasdaq-100 list. |
 | `data/_themes.csv` | Theme map for selected ETFs and focus stocks: `symbol,theme_zh,theme_en`. One row per symbol. This is a static mapping shipped with the daily update, not inferred from prices. |
-| `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of this run, plus each ticker's last bar date. |
-| `data/_errors.txt` | Tickers that could not be fetched, with the reason. |
+| `data/_updated.txt` | UTC and Asia/Kuala_Lumpur timestamps of the last full run, each ticker's last bar date, and (after an Asia-only run) `asia_updated_utc` / `asia_updated_asia_kuala_lumpur`. An `--asia` run updates only the 16 Asia/BTC last-bar lines and the asia timestamp; other lines are kept. |
+| `data/_errors.txt` | Tickers that could not be fetched, with the reason. An `--asia` run updates or clears error lines only for those 16 tickers; unrelated error lines from the last full run are kept. |
 | `update.py` | The script that fetches, writes, commits, and pushes. |
 
 成分股名單來自維基百科：[List of S&P 500 companies](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)、[List of NASDAQ-100 companies](https://en.wikipedia.org/wiki/List_of_NASDAQ-100_companies)。美股代號的點號會改成 Yahoo 格式（`BRK.B` → `BRK-B`）。
@@ -580,13 +703,16 @@ def write_gitignore() -> None:
     )
 
 
-def main() -> int:
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    asia_mode = bool(args.asia)
     started = now_utc()
     if not os.environ.get("GITHUB_TOKEN"):
         log("ERROR: GITHUB_TOKEN is not set")
         return 2
 
-    log(f"start {started.isoformat()}  repo={GITHUB_REPO}")
+    mode = "asia" if asia_mode else "full"
+    log(f"start {started.isoformat()}  repo={GITHUB_REPO}  mode={mode}")
     ensure_repo()
     DATA.mkdir(parents=True, exist_ok=True)
     write_readme()
@@ -602,42 +728,47 @@ def main() -> int:
 
     errors: dict[str, str] = {}
     constituents: list[dict] = []
-    try:
-        constituents = fetch_constituents()
-        n_spx = sum(1 for r in constituents if r["index"] in ("SP500", "both"))
-        n_ndx = sum(1 for r in constituents if r["index"] in ("NDX", "both"))
-        n_both = sum(1 for r in constituents if r["index"] == "both")
-        log(f"constituents: {len(constituents)} unique  SP500={n_spx}  NDX={n_ndx}  both={n_both}")
-        write_constituents(DATA / "_constituents.csv", constituents)
-    except Exception as exc:
-        reason = f"constituent download failed: {exc}"
-        log(reason)
-        errors["_constituents"] = reason
-        existing = DATA / "_constituents.csv"
-        if existing.is_file():
-            with existing.open(encoding="utf-8") as fh:
-                reader = csv.DictReader(fh)
-                for row in reader:
-                    if row.get("symbol"):
-                        constituents.append(
-                            {
-                                "symbol": row["symbol"],
-                                "name": row.get("name", ""),
-                                "sector": row.get("sector", ""),
-                                "index": row.get("index", ""),
-                            }
-                        )
-            log(f"reusing previous _constituents.csv ({len(constituents)} rows)")
-        else:
-            log("no previous _constituents.csv; continuing with fixed tickers only")
 
-    tickers: list[str] = []
-    seen: set[str] = set()
-    for s in FIXED_TICKERS + [r["symbol"] for r in constituents]:
-        if s and s not in seen:
-            seen.add(s)
-            tickers.append(s)
-    log(f"tickers to fetch: {len(tickers)}  (workers={WORKERS})")
+    if asia_mode:
+        tickers = list(ASIA_TICKERS)
+        log(f"asia mode: fetching {len(tickers)} tickers; other CSVs will be left untouched")
+    else:
+        try:
+            constituents = fetch_constituents()
+            n_spx = sum(1 for r in constituents if r["index"] in ("SP500", "both"))
+            n_ndx = sum(1 for r in constituents if r["index"] in ("NDX", "both"))
+            n_both = sum(1 for r in constituents if r["index"] == "both")
+            log(f"constituents: {len(constituents)} unique  SP500={n_spx}  NDX={n_ndx}  both={n_both}")
+            write_constituents(DATA / "_constituents.csv", constituents)
+        except Exception as exc:
+            reason = f"constituent download failed: {exc}"
+            log(reason)
+            errors["_constituents"] = reason
+            existing = DATA / "_constituents.csv"
+            if existing.is_file():
+                with existing.open(encoding="utf-8") as fh:
+                    reader = csv.DictReader(fh)
+                    for row in reader:
+                        if row.get("symbol"):
+                            constituents.append(
+                                {
+                                    "symbol": row["symbol"],
+                                    "name": row.get("name", ""),
+                                    "sector": row.get("sector", ""),
+                                    "index": row.get("index", ""),
+                                }
+                            )
+                log(f"reusing previous _constituents.csv ({len(constituents)} rows)")
+            else:
+                log("no previous _constituents.csv; continuing with fixed tickers only")
+
+        tickers = []
+        seen: set[str] = set()
+        for s in FIXED_TICKERS + [r["symbol"] for r in constituents]:
+            if s and s not in seen:
+                seen.add(s)
+                tickers.append(s)
+        log(f"tickers to fetch: {len(tickers)}  (workers={WORKERS})")
 
     ok: dict[str, list[dict]] = {}
     lock = threading.Lock()
@@ -655,15 +786,62 @@ def main() -> int:
         finally:
             with lock:
                 done += 1
-                if done % 25 == 0 or done == len(tickers):
-                    log(f"  progress {done}/{len(tickers)}  ok={len(ok)}  failed={len([k for k in errors if k != '_constituents'])}")
+                step = 1 if len(tickers) <= 25 else 25
+                if done % step == 0 or done == len(tickers):
+                    failed_n = len([k for k in errors if k != "_constituents"])
+                    log(f"  progress {done}/{len(tickers)}  ok={len(ok)}  failed={failed_n}")
 
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
         futs = [pool.submit(worker, s) for s in tickers]
         for f in as_completed(futs):
             _ = f.result()
 
-    # Wipe leftover CSVs from tickers no longer in the universe, but keep meta files.
+    failed_tickers = {k: v for k, v in errors.items() if k != "_constituents"}
+
+    if asia_mode:
+        # Overwrite only the Asia/BTC CSVs that succeeded. Leave every other
+        # CSV (and a failed Asia ticker's existing file) untouched.
+        last_dates: dict[str, str] = {}
+        for sym, rows in ok.items():
+            write_csv(DATA / csv_filename(sym), rows)
+            last_dates[sym] = rows[-1]["date"]
+
+        existing_headers, existing_dates = parse_updated(DATA / "_updated.txt")
+        existing_dates.update(last_dates)
+        finished = now_utc()
+        myt = finished.astimezone(MYT)
+        utc_s = finished.strftime("%Y-%m-%d %H:%M:%S") + " UTC"
+        myt_s = myt.strftime("%Y-%m-%d %H:%M:%S") + " Asia/Kuala_Lumpur"
+        headers = existing_headers or [
+            "source: Yahoo Finance chart API",
+            "history_start: 2019-01-01",
+        ]
+        headers = upsert_header(headers, "asia_updated_utc", utc_s)
+        headers = upsert_header(headers, "asia_updated_asia_kuala_lumpur", myt_s)
+        write_text(DATA / "_updated.txt", format_updated(headers, existing_dates))
+
+        merged_errors = parse_errors(DATA / "_errors.txt")
+        for sym in ASIA_TICKERS:
+            if sym in failed_tickers:
+                merged_errors[sym] = failed_tickers[sym]
+            else:
+                merged_errors.pop(sym, None)
+        write_errors_file(DATA / "_errors.txt", merged_errors)
+
+        elapsed = (finished - started).total_seconds()
+        msg = f"data: asia update {myt.strftime('%Y-%m-%d')} ({len(ok)} ok, {len(failed_tickers)} failed)"
+        log(f"writing commit: {msg}")
+        sha = commit_and_push(msg)
+        log(f"commit {sha}")
+        log(f"summary: {len(ok)} ok, {len(failed_tickers)} failed, {elapsed:.0f}s")
+        if failed_tickers:
+            for k in sorted(failed_tickers):
+                log(f"  FAIL {k}: {failed_tickers[k]}")
+        for probe in ("2330.TW", "005930.KS", "8035.T", "BTC-USD"):
+            log(f"  last {probe}: {last_dates.get(probe, existing_dates.get(probe, '未取得'))}")
+        return 0 if not failed_tickers else 1
+
+    # Full mode: replace the universe, rewrite metadata from this run only.
     keep_names = {csv_filename(s) for s in ok}
     keep_names.update({"_updated.txt", "_errors.txt", "_constituents.csv", "_themes.csv"})
     if DATA.is_dir():
@@ -671,31 +849,40 @@ def main() -> int:
             if p.is_file() and p.name.endswith(".csv") and p.name not in keep_names and not p.name.startswith("_"):
                 p.unlink()
 
-    last_dates: dict[str, str] = {}
+    last_dates = {}
     for sym, rows in ok.items():
         write_csv(DATA / csv_filename(sym), rows)
         last_dates[sym] = rows[-1]["date"]
 
-    failed_tickers = {k: v for k, v in errors.items() if k != "_constituents"}
-    # Do not leave a stale CSV for a ticker that failed this run.
+    # Do not leave a stale CSV for a ticker that failed this full run.
     for sym in failed_tickers:
         stale = DATA / csv_filename(sym)
         if stale.is_file():
             stale.unlink()
 
-    err_lines = ["# Tickers that failed this update. No substitute data was used.", ""]
-    if errors:
-        for k in sorted(errors):
-            err_lines.append(f"{k}: {errors[k]}")
-    else:
-        err_lines.append("(none)")
-    write_text(DATA / "_errors.txt", "\n".join(err_lines) + "\n")
+    write_errors_file(DATA / "_errors.txt", errors)
 
     finished = now_utc()
     myt = finished.astimezone(MYT)
+    # Preserve an earlier asia-mode timestamp if one exists, so the afternoon
+    # marker is not erased by the next morning's full run until that day's
+    # asia job rewrites it.
+    prev_headers, _prev_dates = parse_updated(DATA / "_updated.txt")
+    asia_utc = ""
+    asia_myt = ""
+    for line in prev_headers:
+        if line.startswith("asia_updated_utc:"):
+            asia_utc = line.split(":", 1)[1].strip()
+        elif line.startswith("asia_updated_asia_kuala_lumpur:"):
+            asia_myt = line.split(":", 1)[1].strip()
+
     upd = []
     upd.append(f"updated_utc: {finished.strftime('%Y-%m-%d %H:%M:%S')} UTC")
     upd.append(f"updated_asia_kuala_lumpur: {myt.strftime('%Y-%m-%d %H:%M:%S')} Asia/Kuala_Lumpur")
+    if asia_utc:
+        upd.append(f"asia_updated_utc: {asia_utc}")
+    if asia_myt:
+        upd.append(f"asia_updated_asia_kuala_lumpur: {asia_myt}")
     upd.append("source: Yahoo Finance chart API")
     upd.append("history_start: 2019-01-01")
     upd.append(f"tickers_ok: {len(ok)}")
