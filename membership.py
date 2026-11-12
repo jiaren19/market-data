@@ -37,6 +37,12 @@ def names_match(a: str, b: str) -> bool:
         return False
     if ta <= tb or tb <= ta:
         return True
+    # Spacing / initials differences ("C. H. Robinson" vs "C.H. Robinson Worldwide").
+    ja = "".join(re.sub(r"[^a-z0-9]+", "", str(a).lower().split("(")[0]).split())
+    jb = "".join(re.sub(r"[^a-z0-9]+", "", str(b).lower().split("(")[0]).split())
+    short, long_ = sorted((ja, jb), key=len)
+    if len(short) >= 6 and long_.startswith(short):
+        return True
     inter = len(ta & tb)
     return inter / min(len(ta), len(tb)) >= 0.6 or inter / len(ta | tb) >= 0.5
 
