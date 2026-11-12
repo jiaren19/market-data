@@ -477,7 +477,7 @@ def read_csv_lines(path: Path) -> dict[str, list[str]]:
     return out
 
 
-def write_csv(path: Path, rows: list[dict]) -> None:
+def write_csv(path: Path, rows: list[dict]) -> str:
     """Write bars. Yahoo re-derives adj_close each request, so the last digits jitter
     (relative ~1e-7) between runs. A cell whose new value is within 1e-6 relative of
     the value already stored keeps the stored text, so git only sees real changes
@@ -497,9 +497,12 @@ def write_csv(path: Path, rows: list[dict]) -> None:
         # after the close. Keep bars already stored that are newer than the last
         # bar Yahoo returned this time, instead of deleting them.
         last_new = rows[-1]["date"] if rows else ""
+        last_written = last_new
         for d in sorted(k for k in old if k > last_new):
             w.writerow(old[d])
+            last_written = d
     tmp.replace(path)
+    return last_written
 
 
 def first_csv_date(path: Path) -> str | None:
@@ -930,6 +933,8 @@ def _import_fundamentals():
 
 
 def fundamentals_stale(max_age_s: float = 6 * 3600) -> bool:
+    if os.environ.get("MARKET_DATA_FORCE_FUNDAMENTALS") == "1":
+        return True
     path = DATA / "_fundamentals.csv"
     if not path.is_file():
         return True
@@ -1397,9 +1402,9 @@ def run_full(started: datetime) -> int:
                     with lock:
                         removed_ok.append(sym)
             if save:
-                write_csv(path, rows)
+                last_written = write_csv(path, rows)
                 with lock:
-                    last_dates[sym] = rows[-1]["date"]
+                    last_dates[sym] = last_written
         finally:
             with lock:
                 done += 1
@@ -1616,8 +1621,7 @@ def main(argv=None) -> int:
     # CSV (and a failed Asia ticker's existing file) untouched.
     last_dates: dict[str, str] = {}
     for sym, rows in ok.items():
-        write_csv(DATA / csv_filename(sym), rows)
-        last_dates[sym] = rows[-1]["date"]
+        last_dates[sym] = write_csv(DATA / csv_filename(sym), rows)
 
     existing_headers, existing_dates = parse_updated(DATA / "_updated.txt")
     existing_dates.update(last_dates)
