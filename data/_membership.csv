@@ -1,0 +1,986 @@
+symbol,index,date_added,date_removed,name,note
+A,SP500,2000-06-05,,Agilent Technologies,date_added_from_current_table
+AA,SP500,,2016-11-01,Alcoa,date_added_not_in_source_table
+AAL,NDX,2014-12-22,2020-04-20,American Airlines,
+AAL,SP500,2015-03-23,2024-09-23,American Airlines Group,
+AAP,SP500,2015-07-08,2023-08-25,Advance Auto Parts,
+AAPL,NDX,,,Apple Inc.,date_added_not_in_source_table
+AAPL,SP500,1982-11-30,,Apple Inc.,date_added_from_current_table
+ABBV,SP500,2013-01-02,,AbbVie,
+ABMD,SP500,2018-05-31,2022-12-22,Abiomed,
+ABNB,NDX,2021-12-20,,Airbnb,
+ABNB,SP500,2023-09-18,,Airbnb,
+ABT,SP500,1957-03-04,,Abbott Laboratories,date_added_from_current_table
+ACE,SP500,,2016-01-19,Chubb,date_added_not_in_source_table
+ACGL,SP500,2022-11-01,,Arch Capital Group,
+ACN,SP500,2011-07-05,,Accenture,
+ADBE,NDX,,,Adobe Inc.,date_added_not_in_source_table
+ADBE,SP500,1997-05-05,,Adobe Inc.,date_added_from_current_table
+ADI,NDX,2012-12-24,,Analog Devices,
+ADI,SP500,1999-10-12,,Analog Devices,date_added_from_current_table
+ADM,SP500,1957-03-04,,Archer Daniels Midland,date_added_from_current_table
+ADP,NDX,2008-12-22,,Automatic Data Processing,
+ADP,SP500,1981-03-31,,Automatic Data Processing,date_added_from_current_table
+ADS,SP500,2013-12-23,2020-06-22,Alliance Data Systems,
+ADSK,NDX,,,Autodesk,date_added_not_in_source_table
+ADSK,SP500,1989-12-01,,Autodesk,date_added_from_current_table
+ADT,SP500,2012-10-01,2016-05-03,ADT,
+AEE,SP500,1991-09-19,,Ameren,date_added_from_current_table
+AEP,NDX,2020-12-21,,American Electric Power,
+AEP,SP500,1957-03-04,,American Electric Power,date_added_from_current_table
+AES,SP500,1998-10-02,,AES Corporation,date_added_from_current_table
+AET,SP500,,2018-12-03,Aetna,date_added_not_in_source_table
+AFL,SP500,1999-05-28,,Aflac,date_added_from_current_table
+AGN,SP500,,2020-05-12,Allergan,date_added_not_in_source_table
+AIG,SP500,1980-03-31,,American International Group,date_added_from_current_table
+AIV,SP500,,2020-12-21,Aimco,date_added_not_in_source_table
+AIZ,SP500,2007-04-10,,Assurant,date_added_from_current_table
+AJG,SP500,2016-05-31,,Arthur J. Gallagher & Co.,
+AKAM,NDX,2010-12-20,2017-12-18,Akamai Technologies,
+AKAM,SP500,2007-07-12,,Akamai Technologies,date_added_from_current_table
+ALAB,NDX,2026-06-22,,Astera Labs,
+ALB,SP500,2016-07-01,,Albemarle Corporation,
+ALGN,NDX,2017-10-23,2023-12-18,Align Technology,
+ALGN,SP500,2017-06-19,,Align Technology,
+ALK,SP500,2016-05-13,2023-12-18,Alaska Air Group,
+ALL,SP500,1995-07-13,,Allstate,date_added_from_current_table
+ALLE,SP500,2013-12-02,,Allegion,
+ALNY,NDX,2025-12-22,,Alnylam Pharmaceuticals,
+ALTR,NDX,,2015-10-07,Altera,date_added_not_in_source_table
+ALTR,SP500,,2015-12-29,Altera,date_added_not_in_source_table
+ALXN,NDX,2011-04-04,2021-07-21,Alexion Pharmaceuticals,
+ALXN,SP500,2012-05-21,2021-07-21,Alexion Pharmaceuticals,
+AMAT,NDX,,,Applied Materials,date_added_not_in_source_table
+AMAT,SP500,1995-03-16,,Applied Materials,date_added_from_current_table
+AMCR,SP500,2019-06-11,,Amcor,current_table_date_added:2019-06-07
+AMD,NDX,2018-12-24,,Advanced Micro Devices,
+AMD,SP500,2017-03-20,,Advanced Micro Devices,
+AME,SP500,2013-09-20,,Ametek,
+AMG,SP500,2014-07-01,2019-12-23,Affiliated Managers Group,
+AMGN,NDX,,,Amgen,date_added_not_in_source_table
+AMGN,SP500,1992-01-02,,Amgen,date_added_from_current_table
+AMP,SP500,2005-10-03,,Ameriprise Financial,date_added_from_current_table
+AMT,SP500,2007-11-19,,American Tower,date_added_from_current_table
+AMTM,SP500,2024-09-30,2024-12-23,Amentum,
+AMZN,NDX,,,Amazon,date_added_not_in_source_table
+AMZN,SP500,2005-11-18,,Amazon,
+AN,SP500,,2017-08-08,AutoNation,date_added_not_in_source_table
+ANDV,SP500,,2018-10-01,Andeavor,date_added_not_in_source_table
+ANET,SP500,2018-08-28,,Arista Networks,
+ANSS,NDX,2019-12-23,2025-07-17,Ansys,
+ANSS,SP500,2017-06-19,2025-07-18,Ansys,
+AON,SP500,1996-04-23,,Aon plc,date_added_from_current_table
+AOS,SP500,2017-07-26,,A. O. Smith,
+APA,SP500,1997-07-28,,APA Corporation,date_added_from_current_table
+APC,SP500,,2019-08-09,Anadarko Petroleum,date_added_not_in_source_table
+APD,SP500,1985-04-30,,Air Products,date_added_from_current_table
+APH,SP500,2008-09-30,,Amphenol,date_added_from_current_table
+APO,SP500,2024-12-23,,Apollo Global Management,
+APP,NDX,2024-11-18,,AppLovin,
+APP,SP500,2025-09-22,,AppLovin,
+APTV,SP500,2012-12-24,,Aptiv,date_added_from_current_table
+ARE,SP500,2017-03-20,,Alexandria Real Estate Equities,
+ARES,SP500,2025-12-11,,Ares Management,
+ARG,SP500,2009-09-28,2016-05-23,Airgas,
+ARM,NDX,2024-06-24,,Arm Holdings,
+ARNC,SP500,2016-11-01,2020-04-01,Arconic,
+ASML,NDX,2017-12-18,,ASML Holding,
+ATI,SP500,,2015-07-02,Allegheny Technologies,date_added_not_in_source_table
+ATO,SP500,2019-02-15,,Atmos Energy,
+ATVI,NDX,,2023-07-17,Activision Blizzard,date_added_not_in_source_table
+ATVI,SP500,2015-08-28,2023-10-18,Activision Blizzard,
+AVB,SP500,2007-01-10,2026-08-18,AvalonBay Communities,
+AVGO,NDX,2011-12-19,2015-11-11,Broadcom Corporation,
+AVGO,NDX,2016-02-01,,Broadcom,
+AVGO,SP500,2014-05-08,,Broadcom,
+AVP,SP500,,2015-03-23,Avon Products,date_added_not_in_source_table
+AVY,SP500,1987-12-31,,Avery Dennison,date_added_from_current_table
+AWK,SP500,2016-03-04,,American Water Works,
+AXON,NDX,2024-12-23,,Axon Enterprise,
+AXON,SP500,2023-05-04,,Axon Enterprise,
+AXP,SP500,1976-06-30,,American Express,date_added_from_current_table
+AYI,SP500,2016-05-03,2018-06-18,Acuity Brands,
+AZN,NDX,2022-02-22,2026-01-20,AstraZeneca,
+AZO,SP500,1997-01-02,,AutoZone,date_added_from_current_table
+BA,SP500,1957-03-04,,Boeing,date_added_from_current_table
+BAC,SP500,1976-06-30,,Bank of America,date_added_from_current_table
+BALL,SP500,1984-10-31,,Ball Corporation,date_added_from_current_table
+BATRA,NDX,2016-04-18,2016-06-20,Liberty Media,
+BATRK,NDX,2016-04-18,2016-06-20,Liberty Media,
+BAX,SP500,1972-09-30,,Baxter International,date_added_from_current_table
+BBBY,NDX,,2016-12-19,Bed Bath & Beyond,date_added_not_in_source_table
+BBBY,SP500,,2017-07-26,Bed Bath & Beyond,date_added_not_in_source_table
+BBWI,SP500,,2024-10-01,"Bath & Body Works, Inc.",date_added_not_in_source_table
+BBY,SP500,1999-06-29,,Best Buy,date_added_from_current_table
+BCR,SP500,,2018-01-03,CR Bard,date_added_not_in_source_table
+BDX,SP500,1972-09-30,,Becton Dickinson,date_added_from_current_table
+BE,SP500,2026-09-21,,Bloom Energy,
+BEN,SP500,1998-04-30,,Franklin Resources,date_added_from_current_table
+BF-B,SP500,1982-10-31,,Brown–Forman,date_added_from_current_table
+BG,SP500,2023-03-15,,Bunge Global,
+BHF,SP500,2017-08-08,2019-04-02,Brighthouse Financial,
+BHI,SP500,,2017-07-07,Baker Hughes,date_added_not_in_source_table
+BIDU,NDX,2007-12-04,2022-12-19,Baidu,
+BIIB,NDX,,2025-12-22,Biogen,date_added_not_in_source_table
+BIIB,SP500,2003-11-13,,Biogen,date_added_from_current_table
+BIO,SP500,2020-06-22,2024-09-23,Bio-Rad Laboratories,
+BKNG,NDX,,,Booking Holdings,date_added_not_in_source_table
+BKNG,SP500,2009-11-06,,Booking Holdings,date_added_from_current_table
+BKR,NDX,2022-12-19,,Baker Hughes,
+BKR,SP500,2017-07-07,,Baker Hughes,
+BLDR,SP500,2023-12-18,2026-09-21,Builders FirstSource,
+BLK,SP500,2011-04-01,,BlackRock,
+BMRN,NDX,2015-07-27,2020-12-21,BioMarin Pharmaceutical,
+BMS,SP500,2019-06-07,2019-06-11,Bemis,
+BMY,SP500,1957-03-04,,Bristol Myers Squibb,date_added_from_current_table
+BNY,SP500,1995-03-31,,BNY Mellon,date_added_from_current_table
+BR,SP500,2018-06-18,,Broadridge Financial Solutions,
+BRCM,SP500,,2016-02-01,Broadcom Corporation,date_added_not_in_source_table
+BRK-B,SP500,2010-02-16,,Berkshire Hathaway,date_added_from_current_table
+BRO,SP500,2021-09-20,,Brown & Brown,
+BSX,SP500,1995-02-24,,Boston Scientific,date_added_from_current_table
+BWA,SP500,2011-12-16,2025-03-24,BorgWarner,
+BX,SP500,2023-09-18,,Blackstone Inc.,
+BXLT,SP500,2015-07-01,2016-06-03,Baxalta,
+BXP,SP500,2006-04-03,,"BXP, Inc.",date_added_from_current_table
+C,SP500,1988-05-31,,Citigroup,date_added_from_current_table
+CA,NDX,2008-05-19,2018-11-05,CA Inc.,
+CA,SP500,,2018-11-06,CA Technologies,date_added_not_in_source_table
+CAG,SP500,,2026-06-30,Conagra Brands,date_added_not_in_source_table
+CAH,SP500,1997-05-27,,Cardinal Health,date_added_from_current_table
+CAM,SP500,,2016-04-04,Cameron International,date_added_not_in_source_table
+CARR,SP500,2020-04-03,,Carrier Global,
+CASY,SP500,2026-04-09,,Casey's,
+CAT,SP500,1957-03-04,,Caterpillar Inc.,date_added_from_current_table
+CB,SP500,2010-07-14,,Chubb Limited,
+CBOE,SP500,2017-03-01,,Cboe Global Markets,
+CBRE,SP500,2006-11-10,,CBRE Group,date_added_from_current_table
+CCE,SP500,,2016-05-31,Coca-Cola Enterprises,date_added_not_in_source_table
+CCEP,NDX,2023-12-18,,Coca-Cola Europacific Partners,
+CCI,SP500,2012-03-13,,Crown Castle,
+CCL,SP500,1998-12-11,,Carnival Corporation,current_table_date_added:1998-12-22
+CDAY,SP500,2021-09-20,2024-02-01,Ceridian,
+CDNS,NDX,2017-12-18,,Cadence Design Systems,
+CDNS,SP500,2017-09-18,,Cadence Design Systems,
+CDW,NDX,2019-12-23,2021-12-20,CDW,
+CDW,NDX,2023-12-18,2025-12-22,CDW Corporation,
+CDW,SP500,2019-09-23,,CDW Corporation,
+CE,SP500,2018-12-24,2025-03-24,Celanese,
+CEG,NDX,2022-02-02,,Constellation Energy,
+CEG,SP500,2022-02-02,,Constellation Energy,
+CELG,NDX,,2019-11-21,Celgene,date_added_not_in_source_table
+CELG,SP500,,2019-11-21,Celgene,date_added_not_in_source_table
+CERN,NDX,2009-07-17,2021-12-20,Cerner,
+CERN,SP500,2010-04-29,2022-06-08,Cerner,
+CF,SP500,2008-08-27,,CF Industries,date_added_from_current_table
+CFG,SP500,2016-02-01,,Citizens Financial Group,
+CFN,SP500,,2015-03-18,Carefusion,date_added_not_in_source_table
+CHD,SP500,2015-12-29,,Church & Dwight,
+CHK,SP500,,2018-03-19,Chesapeake Energy,date_added_not_in_source_table
+CHKP,NDX,,2021-12-20,Check Point,date_added_not_in_source_table
+CHRW,NDX,,2015-12-21,C. H. Robinson Worldwide,date_added_not_in_source_table
+CHRW,SP500,2007-03-02,,C.H. Robinson,date_added_from_current_table
+CHTR,NDX,2013-07-25,2026-06-22,Charter Communications,
+CHTR,SP500,2016-09-08,,Charter Communications,
+CI,SP500,1976-06-30,,Cigna,date_added_from_current_table
+CIEN,SP500,2026-02-09,,Ciena,
+CINF,SP500,1997-12-18,,Cincinnati Financial,date_added_from_current_table
+CL,SP500,1957-03-04,,Colgate-Palmolive,date_added_from_current_table
+CLX,SP500,1969-03-31,,Clorox,date_added_from_current_table
+CMA,SP500,,2024-06-24,Comerica,date_added_not_in_source_table
+CMCSA,NDX,2014-12-22,,Comcast,
+CMCSA,SP500,2002-11-19,,Comcast,date_added_from_current_table
+CMCSK,SP500,2015-09-18,2015-12-15,Comcast Series K,
+CME,SP500,2006-08-11,,CME Group,date_added_from_current_table
+CMG,SP500,2011-04-27,,Chipotle Mexican Grill,
+CMI,SP500,1965-03-31,,Cummins,date_added_from_current_table
+CMS,SP500,1957-03-04,,CMS Energy,date_added_from_current_table
+CNC,SP500,2016-03-30,,Centene Corporation,
+CNP,SP500,1985-07-31,,CenterPoint Energy,date_added_from_current_table
+CNX,SP500,,2016-03-04,Consol Energy,date_added_not_in_source_table
+COF,SP500,1998-07-01,,Capital One,date_added_from_current_table
+COHR,SP500,2026-03-23,,Coherent Corp.,
+COIN,SP500,2025-05-19,,Coinbase,
+COL,SP500,,2018-12-03,Rockwell Collins,date_added_not_in_source_table
+COO,SP500,2016-09-22,,Cooper Companies (The),
+COP,SP500,1957-03-04,,ConocoPhillips,date_added_from_current_table
+COR,SP500,2001-08-30,,Cencora,date_added_from_current_table
+COST,NDX,,,Costco,date_added_not_in_source_table
+COST,SP500,1993-10-01,,Costco,date_added_from_current_table
+COTY,SP500,2016-09-30,2020-09-21,Coty,
+COV,SP500,2011-02-28,2015-01-27,Covidien,
+CPAY,SP500,2018-06-20,,Corpay,date_added_from_current_table
+CPB,SP500,,2026-06-22,Campbell's,date_added_not_in_source_table
+CPGX,SP500,2015-07-02,2016-07-05,Columbia Pipeline Group,
+CPRI,SP500,,2020-05-12,Capri Holdings,date_added_not_in_source_table
+CPRT,NDX,2019-12-23,,Copart,
+CPRT,SP500,2018-07-02,,Copart,
+CPT,SP500,2022-04-04,,Camden Property Trust,
+CRH,SP500,2025-12-22,,CRH plc,
+CRL,SP500,2021-05-14,,Charles River Laboratories,
+CRM,SP500,2008-09-12,,Salesforce,
+CRWD,NDX,2021-08-26,,CrowdStrike,
+CRWD,SP500,2024-06-24,,CrowdStrike,
+CRWV,NDX,2026-06-22,,CoreWeave,
+CSC,SP500,,2015-12-01,Computer Sciences Corporation,date_added_not_in_source_table
+CSCO,NDX,,,Cisco,date_added_not_in_source_table
+CSCO,SP500,1993-12-01,,Cisco,date_added_from_current_table
+CSGP,NDX,2019-12-23,2020-07-20,CoStar Group,
+CSGP,NDX,2022-12-19,2026-05-18,CoStar Group,
+CSGP,SP500,2022-09-19,,CoStar Group,
+CSRA,SP500,2015-12-01,2018-04-04,CSRA,
+CSX,NDX,2016-02-16,,CSX Corporation,
+CSX,SP500,1957-03-04,,CSX Corporation,date_added_from_current_table
+CTAS,NDX,2016-12-19,,Cintas,
+CTAS,SP500,2001-03-01,,Cintas,date_added_from_current_table
+CTLT,SP500,2020-09-21,2024-12-23,Catalent,
+CTRA,SP500,,2026-05-07,Coterra Energy,date_added_not_in_source_table
+CTRX,NDX,2012-12-24,2015-07-24,Catamaran Corporation,
+CTSH,NDX,,2026-06-22,Cognizant,date_added_not_in_source_table
+CTSH,SP500,2006-11-17,,Cognizant,date_added_from_current_table
+CTVA,SP500,2019-06-03,2026-10-06,Corteva,
+CTXS,NDX,,2020-12-21,Citrix Systems,date_added_not_in_source_table
+CTXS,SP500,,2022-10-03,Citrix Systems,date_added_not_in_source_table
+CVC,SP500,2010-12-17,2016-06-22,Cablevision Systems,
+CVNA,SP500,2025-12-22,,Carvana,
+CVS,SP500,1957-03-04,,CVS Health,date_added_from_current_table
+CVX,SP500,1957-03-04,,Chevron Corporation,date_added_from_current_table
+CXO,SP500,2016-02-22,2021-01-21,Concho Resources,
+CZR,SP500,2021-03-22,2025-09-22,Caesars Entertainment,
+D,SP500,,,Dominion Energy,current_table_date_added_2016-11-30_contradicted_fja05680_member_since_2015-01-07_or_earlier
+DAL,SP500,2013-09-10,,Delta Air Lines,
+DASH,NDX,2023-12-18,,DoorDash,
+DASH,SP500,2025-03-24,,DoorDash,
+DAY,SP500,2024-02-01,2026-02-09,Dayforce,
+DD,SP500,,2017-09-01,DuPont,date_added_not_in_source_table
+DD,SP500,2019-06-03,,DuPont,
+DDOG,NDX,2021-12-20,,Datadog,
+DDOG,SP500,2025-07-09,,Datadog,
+DE,SP500,1957-03-04,,Deere & Company,date_added_from_current_table
+DECK,SP500,2024-03-18,,Deckers Brands,
+DELL,SP500,2024-09-23,,Dell Technologies,
+DFS,SP500,2007-07-02,2025-05-19,Discover Financial,
+DG,SP500,2012-12-03,,Dollar General,
+DGX,SP500,2002-12-12,,Quest Diagnostics,date_added_from_current_table
+DHI,SP500,2005-06-22,,D. R. Horton,date_added_from_current_table
+DHR,SP500,1998-11-18,,Danaher Corporation,date_added_from_current_table
+DIS,SP500,1976-07-01,,Walt Disney Company (The),
+DISCA,NDX,2012-12-24,2017-12-18,Discovery Communications Series A,
+DISCA,SP500,,2022-04-11,"Discovery, Inc.",date_added_not_in_source_table
+DISCK,NDX,,2017-12-18,Discovery Communications Series C,date_added_not_in_source_table
+DISCK,SP500,2014-08-06,2022-04-11,"Discovery, Inc.",
+DISH,NDX,2013-12-23,2018-07-23,Dish Network,
+DISH,SP500,2017-03-13,2023-06-20,Dish Network,
+DLR,SP500,2016-05-18,,Digital Realty,
+DLTR,NDX,2010-12-20,2024-11-18,Dollar Tree,
+DLTR,SP500,2011-12-16,,Dollar Tree,
+DNB,SP500,,2017-04-05,Dun & Bradstreet,date_added_not_in_source_table
+DNR,SP500,,2015-03-23,Denbury Resources,date_added_not_in_source_table
+DO,SP500,,2016-09-30,Diamond Offshore Drilling,date_added_not_in_source_table
+DOC,SP500,2008-03-31,,Healthpeak Properties,date_added_from_current_table
+DOCU,NDX,2020-06-22,2022-12-19,DocuSign,
+DOV,SP500,1985-10-31,,Dover Corporation,date_added_from_current_table
+DOW,SP500,,2017-09-01,Dow Chemical Company,date_added_not_in_source_table
+DOW,SP500,2019-04-02,,Dow Inc.,
+DPS,SP500,,2018-07-02,Dr Pepper Snapple Group,date_added_not_in_source_table
+DPZ,SP500,2020-05-12,,Domino's,
+DRE,SP500,2017-07-26,2022-10-03,Duke Realty,
+DRI,SP500,1995-05-31,,Darden Restaurants,date_added_from_current_table
+DTE,SP500,1957-03-04,,DTE Energy,date_added_from_current_table
+DTV,NDX,2008-04-30,2015-07-24,DirecTV,
+DTV,SP500,,2015-07-29,DirecTV,date_added_not_in_source_table
+DUK,SP500,1976-06-30,,Duke Energy,date_added_from_current_table
+DVA,SP500,2008-07-31,,DaVita,date_added_from_current_table
+DVN,SP500,2000-08-30,,Devon Energy,date_added_from_current_table
+DWDP,SP500,2017-09-01,2019-06-03,DuPont,
+DXC,SP500,2017-04-04,2023-10-03,DXC Technology,
+DXCM,NDX,2020-04-20,,DexCom,
+DXCM,SP500,2020-05-12,,Dexcom,
+EA,NDX,2014-12-22,2026-08-04,Electronic Arts,
+EA,SP500,,2026-08-05,Electronic Arts,date_added_not_in_source_table
+EBAY,NDX,,2023-12-18,EBay,date_added_not_in_source_table
+EBAY,SP500,2002-07-22,,eBay Inc.,date_added_from_current_table
+ECHO,SP500,2026-03-23,,EchoStar,added_as:SATS
+ECL,SP500,1989-01-31,,Ecolab,date_added_from_current_table
+ED,SP500,1957-03-04,,Consolidated Edison,date_added_from_current_table
+EFX,SP500,1997-06-19,,Equifax,date_added_from_current_table
+EG,SP500,2017-06-19,,Everest Group,added_as:RE
+EIX,SP500,1957-03-04,,Edison International,date_added_from_current_table
+EL,SP500,2006-01-05,,Estée Lauder Companies (The),date_added_from_current_table
+ELV,SP500,2002-07-25,,Elevance Health,date_added_from_current_table
+EMC,SP500,,2016-09-08,EMC Corporation,date_added_not_in_source_table
+EME,SP500,2025-09-22,,Emcor,
+EMN,SP500,,2025-11-04,Eastman Chemical Co.,date_added_not_in_source_table
+EMR,SP500,1965-03-31,,Emerson Electric,date_added_from_current_table
+ENDP,NDX,2015-12-21,2016-07-18,Endo International,
+ENDP,SP500,2015-01-27,2017-03-02,Endo International,
+ENPH,NDX,2022-11-21,2023-12-18,Enphase Energy,
+ENPH,SP500,2021-01-07,2025-09-22,Enphase Energy,
+EOG,SP500,2000-11-02,,EOG Resources,date_added_from_current_table
+EPAM,SP500,2021-12-14,2026-06-02,EPAM Systems,
+EQIX,NDX,2012-12-24,2015-03-23,Equinix,
+EQIX,SP500,2015-03-23,,Equinix,
+EQT,SP500,,2018-11-13,EQT Corporation,date_added_not_in_source_table
+EQT,SP500,2022-10-03,,EQT Corporation,
+ERIE,SP500,2024-09-23,,Erie Indemnity,
+ES,SP500,2009-07-24,,Eversource Energy,date_added_from_current_table
+ESRX,NDX,,2018-12-24,Express Scripts,date_added_not_in_source_table
+ESRX,SP500,2003-09-25,2018-12-24,Express Scripts,
+ESS,SP500,2014-04-02,,Essex Property Trust,
+ESV,SP500,2012-07-31,2016-03-30,Ensco,
+ETFC,SP500,,2020-10-07,E-Trade,date_added_not_in_source_table
+ETN,SP500,1957-03-04,,Eaton Corporation,date_added_from_current_table
+ETR,SP500,1957-03-04,,Entergy,date_added_from_current_table
+ETSY,SP500,2020-09-21,2024-09-23,Etsy,
+EVHC,SP500,2016-12-02,2018-10-11,Envision Healthcare,
+EVRG,SP500,2018-06-05,,Evergy,
+EW,SP500,2011-03-31,,Edwards Lifesciences,
+EXC,NDX,2019-11-21,,Exelon,
+EXC,SP500,1957-03-04,,Exelon,date_added_from_current_table
+EXE,SP500,2025-03-24,,Expand Energy,
+EXPD,NDX,,2015-12-21,Expeditors International,date_added_not_in_source_table
+EXPD,SP500,2007-10-10,,Expeditors International,date_added_from_current_table
+EXPE,NDX,2015-12-21,2020-12-21,Expedia,
+EXPE,SP500,2007-10-02,,Expedia Group,
+EXR,SP500,2016-01-19,,Extra Space Storage,
+F,SP500,1957-03-04,,Ford Motor Company,date_added_from_current_table
+FANG,NDX,2022-12-19,,Diamondback Energy,
+FANG,SP500,2018-12-03,,Diamondback Energy,
+FAST,NDX,,,Fastenal,date_added_not_in_source_table
+FAST,SP500,2008-09-12,,Fastenal,
+FBHS,SP500,2016-06-22,2022-12-19,Fortune Brands Home & Security,
+FCX,SP500,2011-07-01,,Freeport-McMoRan,date_added_from_current_table
+FDO,SP500,,2015-07-08,Family Dollar,date_added_not_in_source_table
+FDS,SP500,2021-12-20,,FactSet,
+FDX,SP500,1980-12-31,,FedEx,date_added_from_current_table
+FDXF,SP500,2026-06-01,,FedEx Freight,
+FE,SP500,1997-11-28,,FirstEnergy,date_added_from_current_table
+FER,NDX,2025-12-22,,Ferrovial,
+FERG,SP500,2026-08-05,,Ferguson Enterprises,
+FFIV,SP500,2010-12-17,,"F5, Inc.",
+FI,NDX,,2023-06-07,Fiserv,date_added_not_in_source_table
+FICO,SP500,2023-03-20,,Fair Isaac,
+FIS,SP500,2006-11-10,,Fidelity National Information Services,date_added_from_current_table
+FISV,SP500,2001-04-02,,Fiserv,date_added_from_current_table
+FITB,SP500,1996-03-29,,Fifth Third Bancorp,date_added_from_current_table
+FIX,SP500,2025-12-22,,Comfort Systems USA,
+FL,SP500,2016-04-04,2019-08-09,Foot Locker,
+FLEX,SP500,2026-06-22,,Flex Ltd.,
+FLIR,SP500,,2021-05-14,FLIR Systems,date_added_not_in_source_table
+FLR,SP500,,2019-06-03,Fluor Corporation,date_added_not_in_source_table
+FLS,SP500,,2021-03-22,Flowserve,date_added_not_in_source_table
+FMC,SP500,2009-08-19,2025-03-24,FMC Corporation,
+FOSL,SP500,2012-04-03,2016-01-05,Fossil Group,
+FOX,NDX,2014-12-22,2021-12-20,Fox Corporation,
+FOX,SP500,2019-03-19,,Fox Corporation (Class B),
+FOXA,NDX,,2021-12-20,Fox Corporation,date_added_not_in_source_table
+FOXA,SP500,2019-03-19,,Fox Corporation (Class A),
+FRC,SP500,2019-01-02,2023-05-04,First Republic Bank,
+FRT,SP500,2016-02-01,,Federal Realty Investment Trust,
+FSLR,SP500,,2017-03-20,First Solar,date_added_not_in_source_table
+FSLR,SP500,2022-12-19,,First Solar,
+FTI,SP500,2009-06-05,2021-02-12,TechnipFMC,
+FTNT,NDX,2021-12-20,,Fortinet,
+FTNT,SP500,2018-10-11,,Fortinet,
+FTR,SP500,,2017-03-20,Frontier Communications,date_added_not_in_source_table
+FTV,SP500,2016-07-05,,Fortive,current_table_date_added:2016-07-01
+GAS,SP500,2011-12-12,2016-07-01,AGL Resources,
+GD,SP500,1957-03-04,,General Dynamics,date_added_from_current_table
+GDDY,SP500,2024-06-24,,GoDaddy,
+GE,SP500,1957-03-04,,GE Aerospace,date_added_from_current_table
+GEHC,NDX,2023-06-07,,GE HealthCare,
+GEHC,SP500,2023-01-04,,GE HealthCare,
+GEN,SP500,2003-03-25,,Gen Digital,date_added_from_current_table
+GEV,SP500,2024-04-02,,GE Vernova,
+GFS,NDX,2022-12-19,2025-12-22,GlobalFoundries,
+GGP,SP500,2013-12-10,2018-08-28,GGP Inc.,
+GILD,NDX,,,Gilead Sciences,date_added_not_in_source_table
+GILD,SP500,2004-07-01,,Gilead Sciences,date_added_from_current_table
+GIS,SP500,1957-03-04,,General Mills,date_added_from_current_table
+GL,SP500,1989-04-30,,Globe Life,date_added_from_current_table
+GLW,SP500,1995-02-27,,Corning Inc.,date_added_from_current_table
+GM,SP500,2013-06-06,,General Motors,
+GMCR,NDX,2013-08-22,2015-12-21,Keurig Green Mountain,
+GMCR,SP500,2014-03-21,2016-03-07,Keurig Green Mountain,
+GME,SP500,2007-12-13,2016-04-25,GameStop,
+GNRC,SP500,2021-03-22,,Generac,
+GNW,SP500,,2015-11-18,Genworth Financial,date_added_not_in_source_table
+GOOG,NDX,2014-04-03,,Alphabet Inc. (Class C),
+GOOG,SP500,2014-04-03,,Alphabet Inc. (Class C),date_added_from_current_table
+GOOGL,NDX,,,Alphabet Inc. (Class A),date_added_not_in_source_table
+GOOGL,SP500,2014-04-03,,Alphabet Inc. (Class A),current_table_date_added:2006-04-03
+GPC,SP500,1973-12-31,,Genuine Parts Company,date_added_from_current_table
+GPN,SP500,2016-04-25,,Global Payments,
+GPS,SP500,,2022-02-03,Gap,date_added_not_in_source_table
+GRMN,NDX,,2015-12-21,Garmin,date_added_not_in_source_table
+GRMN,SP500,2012-12-11,,Garmin,
+GS,SP500,2002-07-22,,Goldman Sachs,date_added_from_current_table
+GT,SP500,,2019-02-27,The Goodyear Tire & Rubber Company,date_added_not_in_source_table
+GWW,SP500,1981-06-30,,W. W. Grainger,date_added_from_current_table
+HAL,SP500,1957-03-04,,Halliburton,date_added_from_current_table
+HAR,SP500,,2017-03-16,Harman International,date_added_not_in_source_table
+HAS,NDX,2016-12-19,2019-12-23,Hasbro,
+HAS,SP500,1984-09-30,,Hasbro,date_added_from_current_table
+HBAN,SP500,1997-08-28,,Huntington Bancshares,date_added_from_current_table
+HBI,SP500,2015-03-23,2021-12-20,Hanesbrands,
+HCA,SP500,2015-01-27,,HCA Healthcare,
+HCBK,SP500,,2015-11-02,Hudson City Bancorp,date_added_not_in_source_table
+HD,SP500,1988-03-31,,Home Depot (The),date_added_from_current_table
+HES,SP500,,2025-07-23,Hess Corporation,date_added_not_in_source_table
+HFC,SP500,2018-06-18,2021-06-04,HollyFrontier,
+HIG,SP500,1957-03-04,,Hartford (The),date_added_from_current_table
+HII,SP500,2018-01-03,,Huntington Ingalls Industries,
+HLT,SP500,2017-06-19,,Hilton Worldwide,
+HOG,SP500,,2020-06-22,Harley-Davidson,date_added_not_in_source_table
+HOLX,NDX,2016-12-19,2018-12-24,Hologic,
+HOLX,SP500,2016-03-30,2026-04-09,Hologic,
+HON,NDX,2021-07-21,,Honeywell Technologies,
+HON,SP500,1957-03-04,,Honeywell Technologies,date_added_from_current_table
+HONA,NDX,2026-06-29,,Honeywell Aerospace,
+HONA,SP500,2026-06-29,,Honeywell Aerospace,
+HOOD,SP500,2025-09-22,,Robinhood Markets,
+HOT,SP500,,2016-09-22,Starwood Hotels and Resorts,date_added_not_in_source_table
+HP,SP500,2010-02-26,2020-05-22,Helmerich & Payne,
+HPE,SP500,2015-11-02,,Hewlett Packard Enterprise,
+HPQ,SP500,1974-12-31,,HP Inc.,date_added_from_current_table
+HRB,SP500,,2020-09-21,H&R Block,date_added_not_in_source_table
+HRL,SP500,2009-03-03,,Hormel Foods,
+HSIC,NDX,,2019-12-23,Henry Schein,date_added_not_in_source_table
+HSIC,SP500,2015-03-18,,Henry Schein,
+HSP,SP500,,2015-09-02,Hospira,date_added_not_in_source_table
+HST,SP500,2007-03-20,,Host Hotels & Resorts,date_added_from_current_table
+HSY,SP500,1957-03-04,,Hershey Company (The),date_added_from_current_table
+HUBB,SP500,2023-10-18,,Hubbell Incorporated,
+HUM,SP500,2012-12-10,,Humana,date_added_from_current_table
+HWM,SP500,2020-04-01,,Howmet Aerospace,current_table_date_added:2016-10-21
+IBKR,SP500,2025-08-28,,Interactive Brokers,
+IBM,SP500,1957-03-04,,IBM,date_added_from_current_table
+ICE,SP500,2007-09-26,,Intercontinental Exchange,
+IDXX,NDX,2017-03-20,,Idexx Laboratories,
+IDXX,SP500,2017-01-05,,Idexx Laboratories,
+IEX,SP500,2019-08-09,,IDEX Corporation,
+IFF,SP500,1976-03-31,,International Flavors & Fragrances,date_added_from_current_table
+ILMN,NDX,2013-12-23,2024-12-23,Ilumina,
+ILMN,SP500,2015-11-19,2024-06-24,"Illumina, Inc.",
+ILMN,SP500,2026-09-21,,"Illumina, Inc.",
+INCY,NDX,2015-10-07,2021-12-20,Incyte,
+INCY,SP500,2017-02-28,,Incyte,
+INFO,SP500,2017-06-02,2022-03-02,IHS Markit,
+INSM,NDX,2025-12-22,2026-06-22,Insmed Incorporated,
+INTC,NDX,,,Intel,date_added_not_in_source_table
+INTC,SP500,1976-12-31,,Intel,date_added_from_current_table
+INTU,NDX,,,Intuit,date_added_not_in_source_table
+INTU,SP500,2000-12-05,,Intuit,
+INVH,SP500,2022-09-19,,Invitation Homes,
+IP,SP500,1957-03-04,,International Paper,date_added_from_current_table
+IPG,SP500,,2025-11-28,Interpublic Group,date_added_not_in_source_table
+IPGP,SP500,2018-03-07,2022-06-21,IPG Photonics,
+IQV,SP500,2017-11-15,,IQVIA,current_table_date_added:2017-08-29
+IR,SP500,2020-03-03,,Ingersoll Rand,
+IRM,SP500,2009-01-06,,Iron Mountain,date_added_from_current_table
+ISRG,NDX,,,Intuitive Surgical,date_added_not_in_source_table
+ISRG,SP500,2008-06-02,,Intuitive Surgical,date_added_from_current_table
+IT,SP500,2017-04-05,,Gartner,
+ITW,SP500,1986-02-28,,Illinois Tool Works,date_added_from_current_table
+IVZ,SP500,2008-08-21,,Invesco,date_added_from_current_table
+J,SP500,2007-10-26,,Jacobs Solutions,date_added_from_current_table
+JBHT,NDX,2017-02-07,2019-12-23,J.B. Hunt,
+JBHT,SP500,2015-07-01,,J.B. Hunt,
+JBL,SP500,2023-12-18,,Jabil,
+JCI,SP500,2010-08-27,,Johnson Controls,date_added_from_current_table
+JD,NDX,2015-07-29,2023-12-18,JD.com,
+JEF,SP500,,2019-09-26,Jefferies Financial Group,date_added_not_in_source_table
+JKHY,SP500,2018-11-13,,Jack Henry & Associates,
+JNJ,SP500,1973-06-30,,Johnson & Johnson,date_added_from_current_table
+JNPR,SP500,2006-06-02,2025-07-09,Juniper Networks,
+JOY,SP500,2011-02-25,2015-10-07,Joy Global,added_as:JOYG
+JPM,SP500,1975-06-30,,JPMorgan Chase,date_added_from_current_table
+JWN,SP500,,2020-06-22,Nordstrom,date_added_not_in_source_table
+K,SP500,,2025-12-11,Kellanova,date_added_not_in_source_table
+KDP,NDX,2020-10-19,,Keurig Dr Pepper,
+KDP,SP500,2022-06-21,,Keurig Dr Pepper,
+KEY,SP500,1994-03-01,,KeyCorp,date_added_from_current_table
+KEYS,SP500,2018-11-06,,Keysight Technologies,
+KHC,NDX,2015-07-02,2026-09-14,Kraft Heinz,
+KHC,SP500,2015-07-06,,Kraft Heinz,
+KIM,SP500,2006-04-04,,Kimco Realty,date_added_from_current_table
+KKR,SP500,2024-06-24,,KKR & Co.,
+KLAC,NDX,,2016-02-16,KLA-Tencor,date_added_not_in_source_table
+KLAC,NDX,2016-12-19,,KLA Corporation,
+KLAC,SP500,1997-09-30,,KLA Corporation,date_added_from_current_table
+KMB,SP500,1957-03-04,,Kimberly-Clark,date_added_from_current_table
+KMI,SP500,2012-05-17,,Kinder Morgan,current_table_date_added:2012-05-25
+KMX,SP500,2010-06-28,2025-10-31,CarMax,
+KO,SP500,1957-03-04,,Coca-Cola Company (The),date_added_from_current_table
+KR,SP500,1957-03-04,,Kroger,date_added_from_current_table
+KRFT,NDX,2013-03-18,2015-07-02,Kraft Foods,
+KRFT,SP500,2012-10-02,2015-07-06,Kraft Foods,
+KSS,SP500,,2020-09-21,Kohl's,date_added_not_in_source_table
+KSU,SP500,2013-05-23,2021-12-14,Kansas City Southern,
+KVUE,SP500,2023-08-25,2026-10-30,Kenvue,
+L,SP500,1995-05-31,,Loews Corporation,date_added_from_current_table
+LBTYA,NDX,2012-12-24,2020-12-21,Liberty Global,
+LBTYK,NDX,2014-12-22,2020-12-21,Liberty Global,
+LCID,NDX,2021-12-20,2023-12-18,Lucid Group,
+LDOS,SP500,2019-08-09,,Leidos,
+LEG,SP500,,2021-12-20,Leggett & Platt,date_added_not_in_source_table
+LEN,SP500,2005-10-04,,Lennar,date_added_from_current_table
+LH,SP500,2004-11-01,,Labcorp,date_added_from_current_table
+LHX,SP500,2008-09-22,,L3Harris,date_added_from_current_table
+LII,SP500,2024-12-23,,Lennox International,
+LILA,NDX,2015-07-02,2015-12-21,Liberty Latin America Class A,
+LILAK,NDX,2015-07-02,2015-12-21,Liberty Latin America Class C,
+LIN,NDX,2024-03-18,,Linde plc,
+LIN,SP500,1992-07-01,,Linde plc,date_added_from_current_table
+LITE,NDX,2026-05-18,,Lumentum,
+LITE,SP500,2026-03-23,,Lumentum,
+LKQ,SP500,2016-05-23,2025-12-22,LKQ Corporation,
+LLL,SP500,,2019-07-01,L3 Technologies,date_added_not_in_source_table
+LLTC,NDX,,2016-10-19,Linear Technology,date_added_not_in_source_table
+LLTC,SP500,,2017-03-13,Linear Technology,date_added_not_in_source_table
+LLY,SP500,1970-12-31,,Lilly (Eli),date_added_from_current_table
+LM,SP500,,2016-12-02,Legg Mason,date_added_not_in_source_table
+LMCA,NDX,2013-06-05,2016-06-20,Liberty Media,
+LMCK,NDX,,2016-06-20,Liberty Media,date_added_not_in_source_table
+LMT,SP500,1957-03-04,,Lockheed Martin,date_added_from_current_table
+LNC,SP500,,2023-09-18,Lincoln National Corporation,date_added_not_in_source_table
+LNT,SP500,2016-07-01,,Alliant Energy,
+LO,SP500,2008-06-10,2015-06-11,Lorillard Tobacco Company,
+LOW,SP500,1984-02-29,,Lowe's,date_added_from_current_table
+LRCX,NDX,2014-12-22,,Lam Research,
+LRCX,SP500,2012-06-05,,Lam Research,current_table_date_added:2012-06-29
+LULU,NDX,2018-12-24,2025-12-22,Lululemon Athletica,
+LULU,SP500,2023-10-18,,Lululemon Athletica,
+LUMN,SP500,,2023-03-20,Lumen Technologies,date_added_not_in_source_table
+LUV,SP500,1994-07-01,,Southwest Airlines,date_added_from_current_table
+LVLT,SP500,2014-11-05,2017-10-13,Level 3 Communications,
+LVS,SP500,2019-10-03,,Las Vegas Sands,
+LW,SP500,2018-12-03,2026-03-23,Lamb Weston,
+LYB,SP500,2012-09-05,,LyondellBasell,
+LYV,SP500,2019-12-23,,Live Nation Entertainment,
+M,SP500,,2020-04-06,Macy's,date_added_not_in_source_table
+MA,SP500,2008-07-18,,Mastercard,date_added_from_current_table
+MAA,SP500,2016-12-02,,Mid-America Apartment Communities,
+MAC,SP500,2013-05-08,2019-12-23,Macerich,
+MAR,NDX,2013-11-18,,Marriott International,
+MAR,SP500,1998-05-29,,Marriott International,date_added_from_current_table
+MAS,SP500,1981-06-30,,Masco,date_added_from_current_table
+MAT,NDX,2009-12-21,2017-10-23,Mattel,
+MAT,SP500,,2019-06-07,Mattel,date_added_not_in_source_table
+MBC,SP500,2022-12-15,2022-12-19,MasterBrand,
+MCD,SP500,1970-06-30,,McDonald's,date_added_from_current_table
+MCHP,NDX,2016-07-18,,Microchip Technology,
+MCHP,SP500,2007-09-07,,Microchip Technology,date_added_from_current_table
+MCK,SP500,1999-01-13,,McKesson,date_added_from_current_table
+MCO,SP500,1998-07-01,,Moody's Corporation,date_added_from_current_table
+MDB,NDX,2023-12-18,2025-05-19,MongoDB,
+MDLZ,NDX,,,Mondelez International,date_added_not_in_source_table
+MDLZ,SP500,2012-10-02,,Mondelez International,
+MDT,SP500,1986-10-31,,Medtronic,date_added_from_current_table
+MELI,NDX,2017-06-19,,Mercado Libre,
+MET,SP500,2000-12-11,,MetLife,date_added_from_current_table
+META,NDX,2012-12-12,,Meta Platforms,
+META,SP500,2013-12-23,,Meta Platforms,date_added_from_current_table
+MGM,SP500,2017-07-26,,MGM Resorts,
+MHK,SP500,2013-12-23,2025-12-22,Mohawk Industries,
+MJN,SP500,2009-12-18,2017-06-19,Mead Johnson,
+MKC,SP500,2003-03-20,,McCormick & Company,date_added_from_current_table
+MKTX,SP500,2019-07-01,2025-09-22,MarketAxess,
+MLM,SP500,2014-07-02,,Martin Marietta Materials,
+MMM,SP500,1957-03-04,,3M,date_added_from_current_table
+MNK,SP500,2014-08-18,2017-07-26,Mallinckrodt,
+MNST,NDX,2011-12-19,,Monster Beverage,
+MNST,SP500,2012-06-29,,Monster Beverage,
+MO,SP500,1957-03-04,,Altria,date_added_from_current_table
+MOH,SP500,2022-03-02,2026-03-23,Molina Healthcare,
+MON,SP500,,2018-06-07,Monsanto,date_added_not_in_source_table
+MOS,SP500,2011-09-23,,Mosaic Company (The),
+MPC,SP500,2011-06-30,,Marathon Petroleum,
+MPWR,NDX,2025-12-22,,Monolithic Power Systems,
+MPWR,SP500,2021-02-12,,Monolithic Power Systems,
+MRK,SP500,1957-03-04,,Merck & Co.,date_added_from_current_table
+MRNA,NDX,2020-07-20,2024-12-23,Moderna,
+MRNA,NDX,2026-10-09,,Moderna,
+MRNA,SP500,2021-07-21,,Moderna,
+MRO,SP500,,2024-11-26,Marathon Oil,date_added_not_in_source_table
+MRSH,SP500,1987-08-31,,Marsh McLennan,date_added_from_current_table
+MRVL,NDX,2020-12-21,,Marvell Technology,
+MRVL,SP500,2026-06-22,,Marvell Technology,
+MS,SP500,1993-07-29,,Morgan Stanley,date_added_from_current_table
+MSCI,SP500,2018-04-04,,MSCI,
+MSFT,NDX,,,Microsoft,date_added_not_in_source_table
+MSFT,SP500,1994-06-01,,Microsoft,date_added_from_current_table
+MSI,SP500,1957-03-04,,Motorola Solutions,date_added_from_current_table
+MSTR,NDX,2024-12-23,,MicroStrategy,
+MTB,SP500,2004-02-23,,M&T Bank,date_added_from_current_table
+MTCH,NDX,2020-12-21,2022-12-19,Match Group,
+MTCH,SP500,2021-09-20,2026-03-23,Match Group,
+MTD,SP500,2016-09-06,,Mettler Toledo,
+MU,NDX,2010-12-20,,Micron Technology,
+MU,SP500,1994-09-27,,Micron Technology,date_added_from_current_table
+MUR,SP500,,2017-07-26,Murphy Oil,date_added_not_in_source_table
+MXIM,NDX,2015-12-21,2021-08-26,Maxim Integrated Products,
+MXIM,SP500,2018-12-03,2021-08-30,Maxim Integrated,
+MYL,NDX,2009-12-21,2019-12-23,Mylan,
+NAVI,SP500,2014-05-01,2018-06-05,Navient,
+NBIS,NDX,2026-06-22,,Nebius Group,
+NBL,SP500,,2020-10-12,Noble Energy,date_added_not_in_source_table
+NBR,SP500,,2015-03-23,Nabors Industries,date_added_not_in_source_table
+NCLH,NDX,2015-12-21,2017-12-18,Norwegian Cruise Line Holdings,
+NCLH,SP500,2017-10-13,,Norwegian Cruise Line Holdings,
+NDAQ,SP500,2008-10-22,,"Nasdaq, Inc.",date_added_from_current_table
+NDSN,SP500,2022-02-15,,Nordson Corporation,
+NE,SP500,,2015-07-20,Noble Corporation,date_added_not_in_source_table
+NEE,SP500,1976-06-30,,NextEra Energy,date_added_from_current_table
+NEM,SP500,1969-06-30,,Newmont,date_added_from_current_table
+NFLX,NDX,2013-06-06,,"Netflix, Inc.",
+NFLX,SP500,2010-12-17,,Netflix,
+NFX,SP500,2010-12-17,2019-02-15,Newfield Exploration,
+NI,SP500,2000-11-02,,NiSource,date_added_from_current_table
+NKE,SP500,1988-11-30,,"Nike, Inc.",date_added_from_current_table
+NKTR,SP500,2018-03-19,2019-10-03,Nektar Therapeutics,
+NLOK,NDX,,2019-12-23,NortonLifeLock,date_added_not_in_source_table
+NLSN,SP500,2013-07-08,2022-10-12,Nielsen Holdings,
+NOC,SP500,1957-03-04,,Northrop Grumman,date_added_from_current_table
+NOV,SP500,,2021-09-20,Nov,date_added_not_in_source_table
+NOW,SP500,2019-11-21,,ServiceNow,
+NRG,SP500,2010-01-29,,NRG Energy,date_added_from_current_table
+NSC,SP500,1957-03-04,,Norfolk Southern,date_added_from_current_table
+NTAP,NDX,,2016-12-19,NetApp,date_added_not_in_source_table
+NTAP,NDX,2018-12-24,2020-08-24,NetApp,
+NTAP,SP500,1999-06-25,,NetApp,date_added_from_current_table
+NTES,NDX,2016-03-16,2022-12-19,NetEase,
+NTRS,SP500,1998-01-30,,Northern Trust,date_added_from_current_table
+NUE,SP500,1985-04-30,,Nucor,date_added_from_current_table
+NVDA,NDX,,,Nvidia,date_added_not_in_source_table
+NVDA,SP500,2001-11-30,,Nvidia,date_added_from_current_table
+NVR,SP500,2019-09-26,,"NVR, Inc.",
+NWL,SP500,,2023-09-18,Newell Brands,date_added_not_in_source_table
+NWS,SP500,2015-09-18,,News Corp (Class B),
+NWSA,SP500,2013-07-01,,News Corp (Class A),current_table_date_added:2013-08-01
+NXPI,NDX,2013-12-23,2017-02-07,NXP Semiconductors,
+NXPI,NDX,2018-11-05,,NXP Semiconductors,
+NXPI,SP500,2021-03-22,,NXP Semiconductors,
+O,SP500,2015-04-07,,Realty Income,
+ODFL,NDX,2022-01-24,,Old Dominion Freight Line,
+ODFL,SP500,2019-12-09,,Old Dominion,
+OGN,SP500,2021-06-03,2023-10-18,Organon & Co.,
+OI,SP500,2008-12-31,2016-12-02,Owens-Illinois,
+OKE,SP500,2010-03-15,,Oneok,date_added_from_current_table
+OKTA,NDX,2020-12-21,2022-11-21,Okta,
+OKTA,SP500,2026-10-30,,"Okta, Inc.",current_table_date_added:2026-11-04
+OMC,SP500,1997-12-31,,Omnicom Group,date_added_from_current_table
+ON,NDX,2023-06-20,2025-12-22,ON Semiconductor,
+ON,SP500,2022-06-21,,ON Semiconductor,
+ORCL,SP500,1989-08-31,,Oracle Corporation,date_added_from_current_table
+ORLY,NDX,2008-12-22,,O'Reilly Automotive,
+ORLY,SP500,2009-03-27,,O'Reilly Automotive,date_added_from_current_table
+OTIS,SP500,2020-04-03,,Otis Worldwide,
+OXY,SP500,1957-03-04,,Occidental Petroleum,date_added_from_current_table
+P,SP500,2026-09-21,,Everpure,
+PANW,NDX,2021-12-20,,Palo Alto Networks,
+PANW,SP500,2023-06-20,,Palo Alto Networks,
+PAYC,SP500,2020-01-28,2026-03-23,Paycom,
+PAYX,NDX,,,Paychex,date_added_not_in_source_table
+PAYX,SP500,1998-10-01,,Paychex,date_added_from_current_table
+PBCT,SP500,,2022-04-04,People's United Financial,date_added_not_in_source_table
+PBI,SP500,,2017-03-01,Pitney Bowes,date_added_not_in_source_table
+PCAR,NDX,,,Paccar,date_added_not_in_source_table
+PCAR,SP500,1980-12-31,,Paccar,date_added_from_current_table
+PCG,SP500,,2019-01-18,Pacific Gas & Electric Company,date_added_not_in_source_table
+PCG,SP500,2022-10-03,,PG&E Corporation,
+PCL,SP500,,2016-02-22,Plum Creek Timber,date_added_not_in_source_table
+PCP,SP500,,2016-02-01,Precision Castparts Corporation,date_added_not_in_source_table
+PDCO,SP500,,2018-03-19,Patterson Companies,date_added_not_in_source_table
+PDD,NDX,2020-08-24,,PDD Holdings,
+PEG,SP500,1957-03-04,,Public Service Enterprise Group,date_added_from_current_table
+PENN,SP500,2021-03-22,2022-09-19,Penn Entertainment,
+PEP,NDX,2018-07-23,,PepsiCo,
+PEP,SP500,1957-03-04,,PepsiCo,date_added_from_current_table
+PETM,SP500,2012-10-10,2015-03-12,PetSmart,
+PFE,SP500,1957-03-04,,Pfizer,date_added_from_current_table
+PFG,SP500,2002-07-22,,Principal Financial Group,date_added_from_current_table
+PG,SP500,1957-03-04,,Procter & Gamble,date_added_from_current_table
+PGR,SP500,1997-08-04,,Progressive Corporation,date_added_from_current_table
+PH,SP500,1985-11-30,,Parker Hannifin,date_added_from_current_table
+PHM,SP500,1984-04-30,,PulteGroup,date_added_from_current_table
+PKG,SP500,2017-07-26,,Packaging Corporation of America,
+PLD,SP500,2003-07-17,,Prologis,date_added_from_current_table
+PLL,SP500,,2015-08-28,Pall Corporation,date_added_not_in_source_table
+PLTR,NDX,2024-12-23,,Palantir Technologies,
+PLTR,SP500,2024-09-23,,Palantir Technologies,
+PM,SP500,2008-03-31,,Philip Morris International,date_added_from_current_table
+PNC,SP500,1988-04-30,,PNC Financial Services,date_added_from_current_table
+PNR,SP500,2012-10-01,,Pentair,
+PNW,SP500,1999-10-04,,Pinnacle West Capital,date_added_from_current_table
+PODD,SP500,2023-03-15,,Insulet Corporation,
+POM,SP500,,2016-03-30,Pepco Holdings,date_added_not_in_source_table
+POOL,SP500,2020-10-07,2026-06-22,Pool Corporation,
+PPG,SP500,1957-03-04,,PPG Industries,date_added_from_current_table
+PPL,SP500,2001-10-01,,PPL Corporation,date_added_from_current_table
+PRGO,SP500,2011-12-16,2021-09-20,Perrigo,
+PRU,SP500,2002-07-22,,Prudential Financial,date_added_from_current_table
+PSA,SP500,2005-08-19,,Public Storage,date_added_from_current_table
+PSX,SP500,2012-04-23,,Phillips 66,current_table_date_added:2012-05-01
+PTC,SP500,2021-04-20,,PTC Inc.,
+PTON,NDX,2020-12-21,2022-01-24,Peloton,
+PVH,SP500,2013-02-15,2022-09-19,PVH,
+PWR,SP500,2009-07-01,,Quanta Services,date_added_from_current_table
+PXD,SP500,,2024-05-08,Pioneer Natural Resources,date_added_not_in_source_table
+PYPL,NDX,2015-11-11,,PayPal,
+PYPL,SP500,2015-07-20,,PayPal,
+Q,SP500,2017-08-29,2017-11-15,QuintilesIMS,
+Q,SP500,2025-11-03,,Qnity Electronics,
+QCOM,NDX,,,Qualcomm,date_added_not_in_source_table
+QCOM,SP500,1999-07-22,,Qualcomm,date_added_from_current_table
+QEP,SP500,2010-06-30,2015-07-01,QEP Resources,
+QRTEA,NDX,,2018-12-24,Qurate Retail,date_added_not_in_source_table
+QRVO,SP500,2015-06-11,2024-12-23,Qorvo,
+R,SP500,,2017-06-19,Ryder System,date_added_not_in_source_table
+RAI,SP500,,2017-07-26,Reynolds American,date_added_not_in_source_table
+RCL,SP500,2014-12-05,,Royal Caribbean Group,
+RDDT,SP500,2026-08-18,,Reddit,
+REG,SP500,2017-03-02,,Regency Centers,
+REGN,NDX,2012-12-24,,Regeneron Pharmaceuticals,
+REGN,SP500,2013-04-30,,Regeneron Pharmaceuticals,
+RF,SP500,1998-08-28,,Regions Financial Corporation,date_added_from_current_table
+RHI,SP500,,2024-06-24,Robert Half,date_added_not_in_source_table
+RHT,SP500,,2019-07-15,Red Hat,date_added_not_in_source_table
+RIG,SP500,2013-10-29,2017-07-26,Transocean,
+RIVN,NDX,2022-12-19,2023-06-20,Rivian Automotive,
+RJF,SP500,2017-03-20,,Raymond James Financial,
+RKLB,NDX,2026-06-22,,Rocket Lab,
+RL,SP500,2007-02-02,,Ralph Lauren Corporation,date_added_from_current_table
+RMD,SP500,2017-07-26,,ResMed,
+ROK,SP500,2000-03-12,,Rockwell Automation,date_added_from_current_table
+ROL,SP500,2018-10-01,,"Rollins, Inc.",
+ROP,NDX,2023-12-18,,Roper Technologies,
+ROP,SP500,2009-12-23,,Roper Technologies,date_added_from_current_table
+ROST,NDX,2008-12-22,,Ross Stores,
+ROST,SP500,2009-12-18,,Ross Stores,
+RRC,SP500,2007-12-20,2018-06-18,Range Resources,
+RSG,SP500,2008-12-05,,Republic Services,date_added_from_current_table
+RTN,SP500,,2020-04-06,Raytheon Company,date_added_not_in_source_table
+RTX,SP500,1957-03-04,,RTX Corporation,date_added_from_current_table
+RVTY,SP500,1985-05-31,,Revvity,date_added_from_current_table
+SBAC,NDX,2012-12-24,2017-03-20,SBA Communications,
+SBAC,SP500,2017-09-01,,SBA Communications,
+SBNY,SP500,2021-12-20,2023-03-15,Signature Bank,
+SBUX,NDX,,,Starbucks,date_added_not_in_source_table
+SBUX,SP500,2000-06-07,,Starbucks,
+SCG,SP500,,2019-01-02,SCANA,date_added_not_in_source_table
+SCHW,SP500,1997-06-02,,Charles Schwab Corporation,date_added_from_current_table
+SE,SP500,,2017-02-28,Spectra Energy,date_added_not_in_source_table
+SEDG,SP500,2021-12-20,2023-12-18,SolarEdge,
+SEE,SP500,,2023-12-18,Sealed Air,date_added_not_in_source_table
+SGEN,NDX,2019-12-23,2023-12-14,Seagen Inc.,
+SHOP,NDX,2025-05-19,,Shopify,
+SHPG,NDX,2016-10-19,2018-12-24,Shire PLC,
+SHW,SP500,1964-06-30,,Sherwin-Williams,date_added_from_current_table
+SIAL,NDX,,2015-07-31,Sigma-Aldrich,date_added_not_in_source_table
+SIAL,SP500,,2015-11-19,Sigma-Aldrich,date_added_not_in_source_table
+SIG,SP500,2015-07-29,2018-03-19,Signet Jewelers,
+SIRI,NDX,2011-07-15,2024-06-24,SiriusXM,
+SIVB,SP500,2018-03-19,2023-03-15,SVB Financial Group,
+SJM,SP500,2008-11-06,,J.M. Smucker Company (The),date_added_from_current_table
+SKYD,SP500,1994-09-30,,Skydance,date_added_from_current_table
+SLB,SP500,1957-03-04,,Schlumberger,date_added_from_current_table
+SLG,SP500,2015-03-23,2021-03-22,SL Green Realty,
+SMCI,NDX,2024-07-22,2024-12-23,Supermicro,
+SMCI,SP500,2024-03-18,,Supermicro,
+SNA,SP500,1982-09-30,,Snap-on,date_added_from_current_table
+SNDK,NDX,2009-12-21,2016-03-16,SanDisk,
+SNDK,NDX,2026-04-20,,Sandisk,
+SNDK,SP500,,2016-05-13,SanDisk,date_added_not_in_source_table
+SNDK,SP500,2025-11-28,,Sandisk,
+SNI,SP500,,2018-03-07,Scripps Networks Interactive,date_added_not_in_source_table
+SNPS,NDX,2017-12-18,,Synopsys,
+SNPS,SP500,2017-03-16,,Synopsys,
+SO,SP500,1957-03-04,,Southern Company,date_added_from_current_table
+SOLS,NDX,2025-10-30,2025-11-06,Solstice Advanced Materials,
+SOLS,SP500,2025-10-30,2025-12-22,Solstice Advanced Materials,
+SOLV,SP500,2024-04-01,,Solventum,
+SPCX,NDX,2026-07-07,,SpaceX,
+SPG,SP500,2002-06-26,,Simon Property Group,date_added_from_current_table
+SPGI,SP500,1957-03-04,,S&P Global,date_added_from_current_table
+SPLK,NDX,2019-12-23,2022-12-19,Splunk,
+SPLK,NDX,2023-12-18,2024-03-18,Splunk,
+SPLS,NDX,,2015-12-21,Staples,date_added_not_in_source_table
+SPLS,SP500,,2017-09-18,Staples,date_added_not_in_source_table
+SRCL,NDX,2007-12-24,2016-12-19,Stericycle,
+SRCL,SP500,,2018-12-03,Stericycle,date_added_not_in_source_table
+SRE,SP500,,,Sempra,current_table_date_added_2017-03-17_contradicted_fja05680_member_since_2015-01-07_or_earlier
+STE,SP500,2019-12-23,,Steris,
+STI,SP500,,2019-12-09,SunTrust Banks,date_added_not_in_source_table
+STJ,SP500,,2017-01-05,St Jude Medical,date_added_not_in_source_table
+STLD,SP500,2022-12-22,,Steel Dynamics,
+STT,SP500,2003-03-14,,State Street Corporation,date_added_from_current_table
+STX,NDX,2008-11-10,2018-12-24,Seagate Technology,
+STX,NDX,2025-12-22,,Seagate Technology,
+STX,SP500,2012-07-02,,Seagate Technology,
+STZ,SP500,2005-07-01,,Constellation Brands,
+SW,SP500,2024-07-08,,Smurfit Westrock,date_added_from_current_table
+SWK,SP500,1982-09-30,,Stanley Black & Decker,date_added_from_current_table
+SWKS,NDX,2015-08-03,2022-12-19,Skyworks,
+SWKS,SP500,2015-03-12,,Skyworks Solutions,
+SWN,SP500,,2017-04-04,Southwestern Energy,date_added_not_in_source_table
+SWY,SP500,,2015-01-27,Safeway,date_added_not_in_source_table
+SYF,SP500,2015-11-18,,Synchrony Financial,
+SYK,SP500,2000-12-12,,Stryker Corporation,date_added_from_current_table
+SYY,SP500,1986-12-31,,Sysco,date_added_from_current_table
+T,SP500,1983-11-30,,AT&T,date_added_from_current_table
+TAP,SP500,,2026-09-21,Molson Coors,date_added_not_in_source_table
+TCOM,NDX,2015-12-21,2021-12-20,Trip.com,
+TDC,SP500,2007-10-01,2017-06-19,Teradata,
+TDG,SP500,2016-06-03,,TransDigm Group,
+TDY,SP500,2020-06-22,,Teledyne Technologies,
+TE,SP500,,2016-07-01,TECO Energy,date_added_not_in_source_table
+TEAM,NDX,2020-12-21,2026-04-20,Atlassian,
+TECH,SP500,2021-08-30,,Bio-Techne,
+TEG,SP500,,2015-07-01,Integrys Energy Group,date_added_not_in_source_table
+TEL,SP500,2011-10-14,,TE Connectivity,
+TER,NDX,2026-06-22,,Teradyne,
+TER,SP500,2020-09-21,,Teradyne,
+TFC,SP500,1997-12-04,,Truist Financial,date_added_from_current_table
+TFCF,SP500,,2019-03-20,21st Century Fox,date_added_not_in_source_table
+TFCFA,SP500,,2019-03-20,21st Century Fox,date_added_not_in_source_table
+TFX,SP500,2019-01-18,2025-03-24,Teleflex,
+TGNA,SP500,,2017-06-02,Tegna,date_added_not_in_source_table
+TGT,SP500,1976-12-31,,Target Corporation,date_added_from_current_table
+THC,SP500,,2016-04-18,Tenet Healthcare,date_added_not_in_source_table
+TIF,SP500,,2021-01-07,Tiffany & Co,date_added_not_in_source_table
+TJX,SP500,1985-09-30,,TJX Companies,date_added_from_current_table
+TKO,SP500,2025-03-24,,TKO Group Holdings,
+TMO,SP500,2004-08-03,,Thermo Fisher Scientific,date_added_from_current_table
+TMUS,NDX,2015-12-21,,T-Mobile US,
+TMUS,SP500,2019-07-15,,T-Mobile US,
+TPL,SP500,2024-11-26,,Texas Pacific Land Corporation,
+TPR,SP500,2004-09-01,,"Tapestry, Inc.",date_added_from_current_table
+TRGP,SP500,2022-10-12,,Targa Resources,
+TRI,NDX,2025-07-28,,Thomson Reuters,
+TRIP,NDX,2013-12-23,2017-04-24,TripAdvisor,
+TRIP,SP500,2011-12-20,2019-12-23,TripAdvisor,
+TRMB,SP500,2021-01-21,,Trimble Inc.,
+TROW,SP500,,,T. Rowe Price,current_table_date_added_2019-07-29_contradicted_fja05680_member_since_2015-01-07_or_earlier
+TRV,SP500,2002-08-21,,Travelers Companies (The),date_added_from_current_table
+TSCO,NDX,2013-12-23,2017-12-18,Tractor Supply,
+TSCO,SP500,2014-01-24,,Tractor Supply,
+TSLA,NDX,2013-07-15,,"Tesla, Inc.",
+TSLA,SP500,2020-12-21,,"Tesla, Inc.",
+TSN,SP500,2005-08-10,,Tyson Foods,date_added_from_current_table
+TSS,SP500,,2019-09-23,TSYS,date_added_not_in_source_table
+TT,SP500,2010-11-17,,Trane Technologies,date_added_from_current_table
+TTD,NDX,2023-07-17,2025-12-22,Trade Desk (The),
+TTD,SP500,2025-07-18,2026-09-21,The Trade Desk,
+TTWO,NDX,2017-12-18,2020-12-21,Take-Two Interactive,
+TTWO,NDX,2023-12-14,,Take-Two Interactive,
+TTWO,SP500,2018-03-19,,Take-Two Interactive,
+TWC,SP500,,2016-05-18,Time Warner Cable,date_added_not_in_source_table
+TWLO,SP500,2026-10-06,,Twilio,
+TWTR,SP500,2018-06-07,2022-11-01,Twitter,
+TWX,SP500,,2018-06-20,Time Warner,date_added_not_in_source_table
+TXN,NDX,2012-04-23,,Texas Instruments,
+TXN,SP500,2001-03-12,,Texas Instruments,date_added_from_current_table
+TXT,SP500,1978-12-31,,Textron,date_added_from_current_table
+TYC,SP500,2010-08-26,2016-09-06,Tyco International,
+TYL,SP500,2020-06-22,,Tyler Technologies,
+UA,SP500,2014-05-01,2022-06-21,Under Armour (Class C),
+UAA,SP500,,2022-06-21,Under Armour (Class A),date_added_not_in_source_table
+UAL,NDX,2018-12-24,2020-06-22,United Airlines Holdings,
+UAL,SP500,2015-09-02,,United Airlines Holdings,
+UBER,SP500,2023-12-18,,Uber,
+UDR,SP500,2016-03-07,,"UDR, Inc.",
+UHS,SP500,2014-09-20,,Universal Health Services,
+ULTA,NDX,2015-12-21,2020-12-21,Ulta Beauty,
+ULTA,SP500,2016-04-18,,Ulta Beauty,
+UNH,SP500,1994-07-01,,UnitedHealth Group,date_added_from_current_table
+UNM,SP500,,2021-09-20,Unum,date_added_not_in_source_table
+UNP,SP500,1957-03-04,,Union Pacific Corporation,date_added_from_current_table
+UPS,SP500,2002-07-22,,United Parcel Service,date_added_from_current_table
+URBN,SP500,,2017-03-20,Urban Outfitters,date_added_not_in_source_table
+URI,SP500,2014-09-20,,United Rentals,
+USB,SP500,1999-11-01,,U.S. Bancorp,date_added_from_current_table
+V,SP500,2009-12-18,,Visa Inc.,
+VAR,SP500,,2021-04-20,Varian Medical Systems,date_added_not_in_source_table
+VEEV,SP500,2026-05-07,,Veeva Systems,
+VFC,SP500,,2024-04-03,VF Corporation,date_added_not_in_source_table
+VIAB,NDX,2012-05-30,2017-12-18,Viacom,
+VIAB,SP500,,2019-12-05,Viacom,date_added_not_in_source_table
+VICI,SP500,2022-06-08,,Vici Properties,
+VIP,NDX,2013-10-29,2015-12-21,VimpelCom,
+VLO,SP500,2002-12-20,,Valero Energy,date_added_from_current_table
+VLTO,SP500,2023-10-02,,Veralto,
+VMC,SP500,1999-06-30,,Vulcan Materials Company,date_added_from_current_table
+VMRK,SP500,2001-12-03,,Vivmark Residential,date_added_from_current_table
+VNO,SP500,,2023-01-05,Vornado Realty Trust,date_added_not_in_source_table
+VNT,SP500,2020-10-09,2021-03-22,Vontier,
+VOD,NDX,2009-12-21,2018-12-24,Vodafone,
+VRSK,NDX,2012-12-24,2026-06-22,Verisk Analytics,
+VRSK,SP500,2015-10-07,,Verisk Analytics,
+VRSN,NDX,2018-12-24,2022-12-19,VeriSign,
+VRSN,SP500,2006-02-01,,Verisign,date_added_from_current_table
+VRT,SP500,2026-03-23,,Vertiv,
+VRTX,NDX,,,Vertex Pharmaceuticals,date_added_not_in_source_table
+VRTX,SP500,2013-09-20,,Vertex Pharmaceuticals,
+VSNT,NDX,2026-01-05,2026-01-09,Versant,
+VST,SP500,2024-05-08,,Vistra Corp.,
+VTR,SP500,2009-03-03,,Ventas,
+VTRS,SP500,2004-04-23,,Viatris,date_added_from_current_table
+VYLR,SP500,2026-10-01,,Vylor,
+VZ,SP500,1983-11-30,,Verizon,date_added_from_current_table
+WAB,SP500,2019-02-27,,Wabtec,
+WAT,SP500,2002-01-02,,Waters Corporation,date_added_from_current_table
+WBA,NDX,2015-03-23,2024-07-22,Walgreens Boots Alliance,
+WBA,SP500,,2025-08-28,Walgreens Boots Alliance,date_added_not_in_source_table
+WBD,NDX,2022-12-19,2026-10-09,Warner Bros. Discovery,
+WBD,SP500,2022-04-11,2026-10-06,Warner Bros. Discovery,
+WCG,SP500,2018-09-14,2020-01-28,WellCare,
+WDAY,NDX,2017-12-18,,"Workday, Inc.",
+WDAY,SP500,2024-12-23,,"Workday, Inc.",
+WDC,NDX,2012-12-24,2020-10-19,Western Digital,
+WDC,NDX,2025-12-22,,Western Digital,
+WDC,SP500,2009-07-01,,Western Digital,date_added_from_current_table
+WEC,SP500,2008-10-31,,WEC Energy Group,date_added_from_current_table
+WELL,SP500,2009-01-30,,Welltower,date_added_from_current_table
+WFC,SP500,1976-06-30,,Wells Fargo,date_added_from_current_table
+WFM,NDX,2010-12-20,2016-12-19,Whole Foods Market,
+WFM,SP500,,2017-08-29,Whole Foods Market,date_added_not_in_source_table
+WHR,SP500,,2024-03-18,Whirlpool Corporation,date_added_not_in_source_table
+WIN,SP500,,2015-04-07,Windstream Communications,date_added_not_in_source_table
+WLTW,SP500,2016-01-05,2022-01-10,Willis Towers Watson,
+WM,SP500,1998-08-31,,Waste Management,date_added_from_current_table
+WMB,SP500,1975-03-31,,Williams Companies,date_added_from_current_table
+WMT,NDX,2026-01-20,,Walmart,
+WMT,SP500,1982-08-31,,Walmart,date_added_from_current_table
+WRB,SP500,2019-12-05,,W. R. Berkley Corporation,
+WSM,SP500,2025-03-24,,"Williams-Sonoma, Inc.",
+WST,SP500,2020-05-22,,West Pharmaceutical Services,
+WTW,NDX,2018-12-24,2020-04-30,Willis Towers Watson,
+WTW,SP500,2022-01-10,,Willis Towers Watson,current_table_date_added:2016-01-05
+WU,SP500,,2021-12-20,Western Union,date_added_not_in_source_table
+WY,SP500,1979-10-01,,Weyerhaeuser,date_added_from_current_table
+WYN,SP500,,2018-05-31,Wyndham Worldwide,date_added_not_in_source_table
+WYNN,NDX,,2015-12-21,Wynn Resorts,date_added_not_in_source_table
+WYNN,NDX,2017-04-24,2019-12-23,Wynn Resorts,
+WYNN,SP500,2008-11-14,,Wynn Resorts,date_added_from_current_table
+XEC,SP500,2014-06-20,2020-03-03,Cimarex Energy,
+XEL,NDX,2018-11-19,,Xcel Energy,
+XEL,SP500,1957-03-04,,Xcel Energy,date_added_from_current_table
+XL,SP500,,2018-09-14,XL Group,date_added_not_in_source_table
+XLNX,NDX,,2022-02-22,Xilinx,date_added_not_in_source_table
+XLNX,SP500,,2022-02-15,Xilinx,date_added_not_in_source_table
+XOM,SP500,1957-03-04,,ExxonMobil,date_added_from_current_table
+XRAY,NDX,2016-06-20,2018-11-19,Dentsply Sirona,
+XRAY,SP500,,2024-04-03,Dentsply Sirona,date_added_not_in_source_table
+XRX,SP500,,2021-03-22,Xerox,date_added_not_in_source_table
+XYL,SP500,2011-10-31,,Xylem Inc.,
+XYZ,SP500,2025-07-23,,"Block, Inc.",
+YHOO,NDX,,2017-06-19,Yahoo! Inc.,date_added_not_in_source_table
+YHOO,SP500,1999-12-08,2017-06-19,Yahoo!,
+YUM,SP500,1997-10-06,,Yum! Brands,date_added_from_current_table
+ZBH,SP500,2001-08-07,,Zimmer Biomet,date_added_from_current_table
+ZBRA,SP500,2019-12-23,,Zebra Technologies,
+ZION,SP500,,2024-03-18,Zions Bancorporation,date_added_not_in_source_table
+ZM,NDX,2020-04-30,2023-12-18,Zoom Video Communications,
+ZS,NDX,2021-12-20,2026-06-22,Zscaler,
+ZTS,SP500,2013-06-21,,Zoetis,

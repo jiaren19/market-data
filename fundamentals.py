@@ -5,6 +5,7 @@ Values come from the SEC companyfacts XBRL API. report_date is the
 """
 from __future__ import annotations
 
+import gzip
 import json
 import threading
 import time
@@ -134,15 +135,29 @@ class EdgarClient:
                 time.sleep(wait)
             self._last = time.time()
 
-    def get_json(self, url: str, cache_name: str | None, max_age_s: float | None, force: bool = False):
-        cache_path = self.cache_dir / cache_name if cache_name else None
-        if cache_path and cache_path.is_file() and not force:
+    def cached_path(self, cache_name: str) -> Path | None:
+        """Existing cache file for cache_name (gzip copy preferred), or None."""
+        plain = self.cache_dir / cache_name
+        gz = self.cache_dir / (cache_name + ".gz")
+        if gz.is_file():
+            return gz
+        if plain.is_file():
+            return plain
+        return None
+
+    def get_json(self, url: str, cache_name: str | None, max_age_s: float | None, force: bool = False,
+                 compress: bool = False):
+        cache_path = self.cached_path(cache_name) if cache_name else None
+        if cache_path and not force:
             age = time.time() - cache_path.stat().st_mtime
             if max_age_s is None or age <= max_age_s:
                 try:
+                    if cache_path.suffix == ".gz":
+                        return json.loads(gzip.decompress(cache_path.read_bytes()).decode("utf-8"))
                     return json.loads(cache_path.read_text(encoding="utf-8"))
                 except Exception:
                     pass
+        cache_path = (self.cache_dir / cache_name) if cache_name else None
         last_err = None
         for attempt in range(1, 7):
             self._reserve_slot()
@@ -160,9 +175,17 @@ class EdgarClient:
                 self._last = time.time()
                 data = json.loads(body.decode("utf-8"))
                 if cache_path:
-                    tmp = cache_path.with_suffix(cache_path.suffix + ".tmp")
-                    tmp.write_text(json.dumps(data), encoding="utf-8")
-                    tmp.replace(cache_path)
+                    if compress:
+                        gz_path = cache_path.with_name(cache_path.name + ".gz")
+                        tmp = gz_path.with_name(gz_path.name + ".tmp")
+                        tmp.write_bytes(gzip.compress(body, compresslevel=5))
+                        tmp.replace(gz_path)
+                        if cache_path.is_file():
+                            cache_path.unlink()
+                    else:
+                        tmp = cache_path.with_suffix(cache_path.suffix + ".tmp")
+                        tmp.write_text(json.dumps(data), encoding="utf-8")
+                        tmp.replace(cache_path)
                 return data
             except urllib.error.HTTPError as exc:
                 self._last = time.time()
@@ -207,7 +230,12 @@ class EdgarClient:
 
     def facts(self, cik: int, force: bool = False, max_age_s: float | None = 6 * 3600):
         cik10 = _cik10(cik)
-        return self.get_json(SEC_FACTS_URL.format(cik=cik10), f"{cik10}_facts.json", max_age_s, force=force)
+        return self.get_json(SEC_FACTS_URL.format(cik=cik10), f"{cik10}_facts.json", max_age_s, force=force,
+                             compress=True)
+
+    def facts_cache_mtime(self, cik: int) -> float | None:
+        p = self.cached_path(f"{_cik10(cik)}_facts.json")
+        return p.stat().st_mtime if p else None
 
     def submissions(self, cik: int, force: bool = False, max_age_s: float | None = 6 * 3600) -> dict:
         cik10 = _cik10(cik)
@@ -639,10 +667,40 @@ def write_fundamentals_csv(path: Path, rows: list[dict]) -> None:
     tmp.replace(path)
 
 
-def fundamentals_universe(constituent_symbols: list[str]) -> list[str]:
+# Forms whose filing can add or change companyfacts XBRL values.
+FACTS_TRIGGER_FORMS = PERIODIC_FORMS | {"6-K", "6-K/A", "8-K", "8-K/A"}
+FACTS_MAX_AGE_DAYS = 30
+
+
+def facts_need_refresh(client: "EdgarClient", cik: int, subs: dict) -> bool:
+    """True when companyfacts may have changed since the cached copy was fetched.
+
+    Submissions are refetched every run (6 h cache). companyfacts is refetched only
+    when a 10-Q/10-K/20-F/40-F/6-K/8-K (or amendment) was filed on or after the day
+    before the cached facts were downloaded, when the cache is missing, or when it
+    is older than FACTS_MAX_AGE_DAYS.
+    """
+    mtime = client.facts_cache_mtime(cik)
+    if mtime is None:
+        return True
+    if time.time() - mtime > FACTS_MAX_AGE_DAYS * 86400:
+        return True
+    cutoff = datetime.fromtimestamp(mtime, tz=timezone.utc).date().toordinal() - 1
+    recent = (subs.get("filings") or {}).get("recent") or {}
+    forms = recent.get("form") or []
+    dates = recent.get("filingDate") or []
+    for f, d in zip(forms, dates):
+        if f in FACTS_TRIGGER_FORMS:
+            pd_ = parse_iso_date(d)
+            if pd_ and pd_.toordinal() >= cutoff:
+                return True
+    return False
+
+
+def fundamentals_universe(constituent_symbols: list[str], extra_symbols: list[str] | None = None) -> list[str]:
     seen = set()
     out = []
-    for s in list(constituent_symbols) + THEME_FUNDAMENTAL_TICKERS:
+    for s in list(constituent_symbols) + THEME_FUNDAMENTAL_TICKERS + list(extra_symbols or []):
         if s and s not in seen:
             seen.add(s)
             out.append(s)
@@ -659,8 +717,9 @@ def fetch_symbol(
     if not cik:
         return symbol, [], "no CIK in SEC company_tickers"
     try:
-        facts = client.facts(cik, force=force)
         subs = client.submissions(cik, force=force)
+        refresh = force or facts_need_refresh(client, cik, subs or {})
+        facts = client.facts(cik, force=refresh, max_age_s=None)
     except Exception as exc:
         return symbol, [], str(exc).replace("\n", " ")[:500]
     rows, err = build_symbol_rows(symbol, facts, subs)

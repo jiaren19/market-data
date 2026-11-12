@@ -1,31 +1,198 @@
 # Tickers that failed this update. No substitute data was used.
 
-fundamentals:AEP: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:ASML: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:C: partial history only; last fiscal_quarter_end 2025-12-31 (recent quarters not in EDGAR XBRL)
-fundamentals:CAMT: partial history only; last fiscal_quarter_end 2021-06-30 (recent quarters not in EDGAR XBRL)
-fundamentals:CCEP: partial history only; last fiscal_quarter_end 2018-06-29 (recent quarters not in EDGAR XBRL)
-fundamentals:CNP: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:D: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:DLR: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:DTE: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:DUK: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:ETR: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:EVRG: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:EXC: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:FE: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:FER: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:FRT: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:JCI: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:LNT: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:MAA: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:NBIS: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:NEE: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:PDD: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:PLD: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:PPL: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:REG: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:SO: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:SRE: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
-fundamentals:TRI: partial history only; last fiscal_quarter_end 2025-06-30 (recent quarters not in EDGAR XBRL)
-fundamentals:VYLR: no quarterly revenue/gross_profit/eps/net_income in EDGAR companyfacts
+membership:01: SP500 2018-06-20 add FLT (FleetCor Technologies): no later removal or current membership found under this ticker/name; spell omitted
+membership:02: SP500 2016-04-08 add UA-C (Under Armour (Class C)): no later removal or current membership found under this ticker/name; spell omitted
+membership:03: SP500 2015-09-18 add FOX (Twenty-First Century Fox Class B): no later removal or current membership found under this ticker/name; spell omitted
+membership:04: SP500 2015-03-23 remove AGN: already open from a later event; kept later spell
+membership:05: SP500 2013-12-23 add FB (Facebook): no later removal or current membership found under this ticker/name; spell omitted
+membership:06: SP500 2013-11-13 add KORS (Michael Kors): no later removal or current membership found under this ticker/name; spell omitted
+membership:07: SP500 2012-12-21 add DLPH (Delphi Automotive): no later removal or current membership found under this ticker/name; spell omitted
+membership:08: SP500 2010-11-17 add IR (Ingersoll-Rand): no later removal or current membership found under this ticker/name; spell omitted
+membership:09: SP500 2009-11-03 add PCLN (Priceline.com): no later removal or current membership found under this ticker/name; spell omitted
+membership:10: SP500 2008-09-16 add HRS (Harris Corporation): no later removal or current membership found under this ticker/name; spell omitted
+membership:11: SP500 2008-06-23 add COG (Cabot Oil & Gas): no later removal or current membership found under this ticker/name; spell omitted
+membership:12: SP500 2007-10-26 add JEC (Jacobs Engineering Group): no later removal or current membership found under this ticker/name; spell omitted
+membership:13: SP500 2007-09-27 add TSO (Tesoro Corporation): no later removal or current membership found under this ticker/name; spell omitted
+membership:14: SP500 2007-08-24 add LUK (Leucadia National): no later removal or current membership found under this ticker/name; spell omitted
+membership:15: SP500 2005-11-18 remove T: already open from a later event; kept later spell
+membership:16: SP500 1999-06-09 add WLP (Wellpoint): no later removal or current membership found under this ticker/name; spell omitted
+membership:17: SP500 1999-04-12 add ACT (Actavis): no later removal or current membership found under this ticker/name; spell omitted
+membership:18: SP500 1998-12-11 add FSR (Firstar): no later removal or current membership found under this ticker/name; spell omitted
+membership:19: SP500 1998-12-11 remove AN: already open from a later event; kept later spell
+membership:20: SP500 1998-12-11 remove SUN: already open from a later event; kept later spell
+membership:21: SP500 1997-06-17 add CCR (Countrywide Credit Industries): no later removal or current membership found under this ticker/name; spell omitted
+membership:22: SP500 1994-09-30 add NCC (National City): no later removal or current membership found under this ticker/name; spell omitted
+membership:23: SP500 1994-09-30 remove MCK: already open from a later event; kept later spell
+membership:24: SP500 1976-07-01 add BUD (Anheuser Busch): no later removal or current membership found under this ticker/name; spell omitted
+membership:25: NDX 2012-07-23 add KFT (Kraft Foods): no later removal or current membership found under this ticker/name; spell omitted
+membership:26: NDX 2009-10-29 add PCLN (Priceline.com): no later removal or current membership found under this ticker/name; spell omitted
+membership:27: NDX 2009-01-20 add NWSA (News Corporation Class A): no later removal or current membership found under this ticker/name; spell omitted
+removed:ABMD: SP500 member 'Abiomed' removed 2022-12-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ACE: SP500 member 'Chubb' removed 2016-01-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ADS: SP500 member 'Alliance Data Systems' removed 2020-06-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:AET: SP500 member 'Aetna' removed 2018-12-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:AGN: SP500 member 'Allergan' removed 2020-05-12: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ALTR: SP500 member 'Altera' removed 2015-12-29: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ALXN: NDX member 'Alexion Pharmaceuticals' removed 2021-07-21: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ANDV: SP500 member 'Andeavor' removed 2018-10-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ANSS: SP500 member 'Ansys' removed 2025-07-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ARG: SP500 member 'Airgas' removed 2016-05-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ARNC: SP500 member 'Arconic' removed 2020-04-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ATVI: SP500 member 'Activision Blizzard' removed 2023-10-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:AVP: SP500 member 'Avon Products' removed 2015-03-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:BCR: SP500 member 'CR Bard' removed 2018-01-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:BHI: SP500 member 'Baker Hughes' removed 2017-07-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:BMS: SP500 member 'Bemis' removed 2019-06-11: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:BRCM: SP500 member 'Broadcom Corporation' removed 2016-02-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:BXLT: SP500 member 'Baxalta' removed 2016-06-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CA: SP500 member 'CA Technologies' removed 2018-11-06: Yahoo has no data (Yahoo returned no timestamps)
+removed:CCE: SP500 member 'Coca-Cola Enterprises' removed 2016-05-31: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CDAY: SP500 member 'Ceridian' removed 2024-02-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CELG: NDX member 'Celgene' removed 2019-11-21: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CERN: SP500 member 'Cerner' removed 2022-06-08: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CFN: SP500 member 'Carefusion' removed 2015-03-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CHK: SP500 member 'Chesapeake Energy' removed 2018-03-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CMA: SP500 member 'Comerica' removed 2024-06-24: Yahoo has no data (Yahoo returned no timestamps)
+removed:CMCSK: SP500 member 'Comcast Series K' removed 2015-12-15: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:COL: SP500 member 'Rockwell Collins' removed 2018-12-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:COV: SP500 member 'Covidien' removed 2015-01-27: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CPGX: SP500 member 'Columbia Pipeline Group' removed 2016-07-05: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CSC: SP500 member 'Computer Sciences Corporation' removed 2015-12-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CTLT: SP500 member 'Catalent' removed 2024-12-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CTRA: SP500 member 'Coterra Energy' removed 2026-05-07: Yahoo has no data (Yahoo returned no timestamps)
+removed:CTRX: NDX member 'Catamaran Corporation' removed 2015-07-24: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CTXS: SP500 member 'Citrix Systems' removed 2022-10-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CVC: SP500 member 'Cablevision Systems' removed 2016-06-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:CXO: SP500 member 'Concho Resources' removed 2021-01-21: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DAY: SP500 member 'Dayforce' removed 2026-02-09: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DFS: SP500 member 'Discover Financial' removed 2025-05-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DISCA: SP500 member 'Discovery, Inc.' removed 2022-04-11: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DISCK: SP500 member 'Discovery, Inc.' removed 2022-04-11: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DISH: SP500 member 'Dish Network' removed 2023-06-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DNB: SP500 member 'Dun & Bradstreet' removed 2017-04-05: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DNR: SP500 member 'Denbury Resources' removed 2015-03-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DO: SP500 member 'Diamond Offshore Drilling' removed 2016-09-30: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DPS: SP500 member 'Dr Pepper Snapple Group' removed 2018-07-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DRE: SP500 member 'Duke Realty' removed 2022-10-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DTV: SP500 member 'DirecTV' removed 2015-07-29: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:DWDP: SP500 member 'DuPont' removed 2019-06-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ENDP: SP500 member 'Endo International' removed 2017-03-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ESRX: NDX member 'Express Scripts' removed 2018-12-24: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ESV: SP500 member 'Ensco' removed 2016-03-30: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:ETFC: SP500 member 'E-Trade' removed 2020-10-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:EVHC: SP500 member 'Envision Healthcare' removed 2018-10-11: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FBHS: SP500 member 'Fortune Brands Home & Security' removed 2022-12-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FDO: SP500 member 'Family Dollar' removed 2015-07-08: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FI: NDX member 'Fiserv' removed 2023-06-07: Yahoo has no data (Yahoo returned no timestamps)
+removed:FL: SP500 member 'Foot Locker' removed 2019-08-09: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FLIR: SP500 member 'FLIR Systems' removed 2021-05-14: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FRC: SP500 member 'First Republic Bank' removed 2023-05-04: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:FTR: SP500 member 'Frontier Communications' removed 2017-03-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:GAS: SP500 member 'AGL Resources' removed 2016-07-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:GGP: SP500 member 'GGP Inc.' removed 2018-08-28: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:GMCR: SP500 member 'Keurig Green Mountain' removed 2016-03-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:GPS: SP500 member 'Gap' removed 2022-02-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HAR: SP500 member 'Harman International' removed 2017-03-16: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HBI: SP500 member 'Hanesbrands' removed 2021-12-20: Yahoo has no data (Yahoo returned no timestamps)
+removed:HCBK: SP500 member 'Hudson City Bancorp' removed 2015-11-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HES: SP500 member 'Hess Corporation' removed 2025-07-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HFC: SP500 member 'HollyFrontier' removed 2021-06-04: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HOLX: SP500 member 'Hologic' removed 2026-04-09: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HOT: SP500 member 'Starwood Hotels and Resorts' removed 2016-09-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:HSP: SP500 member 'Hospira' removed 2015-09-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:IPG: SP500 member 'Interpublic Group' removed 2025-11-28: Yahoo has no data (Yahoo returned no timestamps)
+removed:JNPR: SP500 member 'Juniper Networks' removed 2025-07-09: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:JOY: SP500 member 'Joy Global' removed 2015-10-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:JWN: SP500 member 'Nordstrom' removed 2020-06-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:K: SP500 member 'Kellanova' removed 2025-12-11: Yahoo has no data (Yahoo returned no timestamps)
+removed:KRFT: SP500 member 'Kraft Foods' removed 2015-07-06: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:KSU: SP500 member 'Kansas City Southern' removed 2021-12-14: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LLL: SP500 member 'L3 Technologies' removed 2019-07-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LLTC: SP500 member 'Linear Technology' removed 2017-03-13: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LM: SP500 member 'Legg Mason' removed 2016-12-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LMCA: NDX member 'Liberty Media' removed 2016-06-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LMCK: NDX member 'Liberty Media' removed 2016-06-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LO: SP500 member 'Lorillard Tobacco Company' removed 2015-06-11: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:LVLT: SP500 member 'Level 3 Communications' removed 2017-10-13: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MJN: SP500 member 'Mead Johnson' removed 2017-06-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MNK: SP500 member 'Mallinckrodt' removed 2017-07-26: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MON: SP500 member 'Monsanto' removed 2018-06-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MRO: SP500 member 'Marathon Oil' removed 2024-11-26: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MXIM: SP500 member 'Maxim Integrated' removed 2021-08-30: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:MYL: NDX member 'Mylan' removed 2019-12-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:NBL: SP500 member 'Noble Energy' removed 2020-10-12: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:NLOK: NDX member 'NortonLifeLock' removed 2019-12-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:NLSN: SP500 member 'Nielsen Holdings' removed 2022-10-12: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PBCT: SP500 member 'People's United Financial' removed 2022-04-04: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PCP: SP500 member 'Precision Castparts Corporation' removed 2016-02-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PDCO: SP500 member 'Patterson Companies' removed 2018-03-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PETM: SP500 member 'PetSmart' removed 2015-03-12: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PLL: SP500 member 'Pall Corporation' removed 2015-08-28: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:PXD: SP500 member 'Pioneer Natural Resources' removed 2024-05-08: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:QEP: SP500 member 'QEP Resources' removed 2015-07-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:QRTEA: NDX member 'Qurate Retail' removed 2018-12-24: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:RAI: SP500 member 'Reynolds American' removed 2017-07-26: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:RHT: SP500 member 'Red Hat' removed 2019-07-15: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:RTN: SP500 member 'Raytheon Company' removed 2020-04-06: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SCG: SP500 member 'SCANA' removed 2019-01-02: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SEE: SP500 member 'Sealed Air' removed 2023-12-18: Yahoo has no data (Yahoo returned no timestamps)
+removed:SGEN: NDX member 'Seagen Inc.' removed 2023-12-14: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SHPG: NDX member 'Shire PLC' removed 2018-12-24: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SIAL: SP500 member 'Sigma-Aldrich' removed 2015-11-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SIVB: SP500 member 'SVB Financial Group' removed 2023-03-15: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SNI: SP500 member 'Scripps Networks Interactive' removed 2018-03-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SPLK: NDX member 'Splunk' removed 2024-03-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SRCL: SP500 member 'Stericycle' removed 2018-12-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:STJ: SP500 member 'St Jude Medical' removed 2017-01-05: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SWN: SP500 member 'Southwestern Energy' removed 2017-04-04: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:SWY: SP500 member 'Safeway' removed 2015-01-27: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TEG: SP500 member 'Integrys Energy Group' removed 2015-07-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TFCF: SP500 member '21st Century Fox' removed 2019-03-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TFCFA: SP500 member '21st Century Fox' removed 2019-03-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TGNA: SP500 member 'Tegna' removed 2017-06-02: Yahoo has no data (Yahoo returned no timestamps)
+removed:TIF: SP500 member 'Tiffany & Co' removed 2021-01-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TSS: SP500 member 'TSYS' removed 2019-09-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TWC: SP500 member 'Time Warner Cable' removed 2016-05-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TWTR: SP500 member 'Twitter' removed 2022-11-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TWX: SP500 member 'Time Warner' removed 2018-06-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:TYC: SP500 member 'Tyco International' removed 2016-09-06: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:VAR: SP500 member 'Varian Medical Systems' removed 2021-04-20: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:VIAB: SP500 member 'Viacom' removed 2019-12-05: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WBA: SP500 member 'Walgreens Boots Alliance' removed 2025-08-28: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WCG: SP500 member 'WellCare' removed 2020-01-28: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WFM: SP500 member 'Whole Foods Market' removed 2017-08-29: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WIN: SP500 member 'Windstream Communications' removed 2015-04-07: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WLTW: SP500 member 'Willis Towers Watson' removed 2022-01-10: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:WYN: SP500 member 'Wyndham Worldwide' removed 2018-05-31: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:XEC: SP500 member 'Cimarex Energy' removed 2020-03-03: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:XL: SP500 member 'XL Group' removed 2018-09-14: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:XLNX: NDX member 'Xilinx' removed 2022-02-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+removed:YHOO: NDX member 'Yahoo! Inc.' removed 2017-06-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
+ticker_reuse:AIV: removed SP500 member 'Aimco' (removed 2020-12-21); Yahoo now names AIV 'Apartment Investment and Management Company' (rename or reused ticker); not saved
+ticker_reuse:APC: removed SP500 member 'Anadarko Petroleum' (removed 2019-08-09); Yahoo's APC first traded 2026-02-12, after the removal: ticker reused
+ticker_reuse:ATI: data/ATI.csv is the current listing 'ATI Inc. Common Stock'; its name does not match the removed SP500 member 'Allegheny Technologies' (removed 2015-07-02). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:BATRA: data/BATRA.csv is the current listing 'Atlanta Braves Holdings Inc. Series A Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:BATRK: data/BATRK.csv is the current listing 'Atlanta Braves Holdings Inc. Series C Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:BBBY: removed SP500 member 'Bed Bath & Beyond' (removed 2017-07-26); Yahoo's BBBY first traded 2026-07-17, after the removal: ticker reused
+ticker_reuse:CAM: removed SP500 member 'Cameron International' (removed 2016-04-04); Yahoo's CAM first traded 2025-10-06, after the removal: ticker reused
+ticker_reuse:CHRW: data/CHRW.csv is the current listing 'C.H. Robinson'; its name does not match the removed NDX member 'C. H. Robinson Worldwide' (removed 2015-12-21). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:CNX: data/CNX.csv is the current listing 'CNX Resources Corporation Common Stock'; its name does not match the removed SP500 member 'Consol Energy' (removed 2016-03-04). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:CSRA: removed SP500 member 'CSRA' (removed 2018-04-04); Yahoo's CSRA first traded 2026-08-12, after the removal: ticker reused
+ticker_reuse:EMC: removed SP500 member 'EMC Corporation' (removed 2016-09-08); Yahoo's EMC first traded 2023-05-15, after the removal: ticker reused
+ticker_reuse:INFO: removed SP500 member 'IHS Markit' (removed 2022-03-02); Yahoo's INFO first traded 2024-10-10, after the removal: ticker reused
+ticker_reuse:KVUE: removed SP500 member 'Kenvue' (removed 2026-10-30); Yahoo series starts 2026-10-30, long after it joined (2023-08-25): different listing
+ticker_reuse:LEG: removed SP500 member 'Leggett & Platt' (removed 2021-12-20); Yahoo's LEG first traded 2026-07-17, after the removal: ticker reused
+ticker_reuse:NFX: removed SP500 member 'Newfield Exploration' (removed 2019-02-15); Yahoo's NFX first traded 2026-07-07, after the removal: ticker reused
+ticker_reuse:OI: removed SP500 member 'Owens-Illinois' (removed 2016-12-02); Yahoo now names OI 'O-I Glass, Inc.' (rename or reused ticker); not saved
+ticker_reuse:PCG: data/PCG.csv is the current listing 'PG&E Corporation'; its name does not match the removed SP500 member 'Pacific Gas & Electric Company' (removed 2019-01-18). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:PCL: removed SP500 member 'Plum Creek Timber' (removed 2016-02-22); Yahoo's PCL first traded 2025-08-05, after the removal: ticker reused
+ticker_reuse:POM: removed SP500 member 'Pepco Holdings' (removed 2016-03-30); Yahoo's POM first traded 2025-10-08, after the removal: ticker reused
+ticker_reuse:Q: data/Q.csv is the current listing 'Qnity Electronics'; its name does not match the removed SP500 member 'QuintilesIMS' (removed 2017-11-15). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:QRVO: removed SP500 member 'Qorvo' (removed 2024-12-23); Yahoo's QRVO first traded 2026-07-17, after the removal: ticker reused
+ticker_reuse:SBNY: removed SP500 member 'Signature Bank' (removed 2023-03-15); Yahoo's SBNY first traded 2024-08-15, after the removal: ticker reused
+ticker_reuse:SE: data/SE.csv is the current listing 'Sea Limited American Depositary Shares each representing one Class A Ordinary Share'; its name does not match the removed SP500 member 'Spectra Energy' (removed 2017-02-28). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:SPLS: removed SP500 member 'Staples' (removed 2017-09-18); Yahoo's SPLS first traded 2026-01-16, after the removal: ticker reused
+ticker_reuse:STI: removed SP500 member 'SunTrust Banks' (removed 2019-12-09); Yahoo's STI first traded 2022-05-02, after the removal: ticker reused
+ticker_reuse:TE: removed SP500 member 'TECO Energy' (removed 2016-07-01); Yahoo's TE first traded 2020-01-10, after the removal: ticker reused
+ticker_reuse:VIP: removed NDX member 'VimpelCom' (removed 2015-12-21); Yahoo now names VIP 'Vulcan Infrastructure and Power Inc.' (rename or reused ticker); not saved
+ticker_reuse:WBD: removed NDX member 'Warner Bros. Discovery' (removed 2026-10-09); Yahoo series starts 2026-10-05, long after it joined (2022-12-19): different listing
