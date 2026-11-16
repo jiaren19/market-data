@@ -159,7 +159,6 @@ CCE,SP500,,2016-05-31,Coca-Cola Enterprises,date_added_not_in_source_table
 CCEP,NDX,2023-12-18,,Coca-Cola Europacific Partners,
 CCI,SP500,2012-03-13,,Crown Castle,
 CCL,SP500,1998-12-11,,Carnival Corporation,current_table_date_added:1998-12-22
-CDAY,SP500,2021-09-20,2024-02-01,Ceridian,
 CDNS,NDX,2017-12-18,,Cadence Design Systems,
 CDNS,SP500,2017-09-18,,Cadence Design Systems,
 CDW,NDX,2019-12-23,2021-12-20,CDW,
@@ -251,7 +250,7 @@ D,SP500,,,Dominion Energy,current_table_date_added_2016-11-30_contradicted_fja05
 DAL,SP500,2013-09-10,,Delta Air Lines,
 DASH,NDX,2023-12-18,,DoorDash,
 DASH,SP500,2025-03-24,,DoorDash,
-DAY,SP500,2024-02-01,2026-02-09,Dayforce,
+DAY,SP500,,2026-02-09,Dayforce,date_added_not_in_source_table
 DD,SP500,,2017-09-01,DuPont,date_added_not_in_source_table
 DD,SP500,2019-06-03,,DuPont,
 DDOG,NDX,2021-12-20,,Datadog,
