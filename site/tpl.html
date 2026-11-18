@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>美股訊號燈</title>
+<style>
+:root{--bg:#f3f4f8;--card:#fff;--tx:#111827;--mut:#6b7280;--line:#e6e8ef;--buy:#0f9d58;--hold:#2563eb;--watch:#d97706;--sell:#dc2626;--dip:#7c3aed;--chip:#eef0f5;--sh:0 1px 2px rgba(16,24,40,.05),0 2px 8px rgba(16,24,40,.04);--acc:#111827}
+@media(prefers-color-scheme:dark){:root{--bg:#0b0e14;--card:#151a23;--tx:#eef1f6;--mut:#8b95a7;--line:#252c39;--buy:#34d27b;--hold:#60a5fa;--watch:#fbbf24;--sell:#f87171;--dip:#b794ff;--chip:#1e2531;--sh:none;--acc:#eef1f6}}
+*{box-sizing:border-box}html{scroll-padding-top:64px}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.55 -apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:780px;margin:0 auto;padding:0 14px 70px}
+header.top{padding:22px 2px 6px}header.top h1{font-size:24px;margin:0;letter-spacing:.02em}header.top h1 span{font-size:24px}
+.sub{color:var(--mut);font-size:13.5px;margin:2px 0 12px}
+nav.tabs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);margin:0 -14px;padding:8px 10px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{flex:1 0 auto;font:inherit;font-size:14px;font-weight:600;padding:8px 10px;border-radius:99px;border:0;background:transparent;color:var(--mut);cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected=true]{background:var(--acc);color:var(--bg)}
+.panel{display:none;padding-top:6px}.panel.on{display:block;animation:fd .25s ease}@keyframes fd{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+h2{font-size:18px;margin:30px 0 2px;display:flex;align-items:center;gap:8px}h2:first-child{margin-top:16px}
+h3{margin:18px 0 8px;font-size:15.5px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--chip);color:var(--mut);margin-left:6px;vertical-align:middle}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--sh)}
+.big{position:relative;overflow:hidden;padding:20px 18px;border:0;background:linear-gradient(135deg,color-mix(in srgb,var(--c,var(--watch)) 16%,var(--card)),var(--card) 70%);box-shadow:var(--sh),inset 0 0 0 1.5px color-mix(in srgb,var(--c,var(--watch)) 45%,transparent)}
+.big .lamp{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--c);text-transform:uppercase}.big .ttl{font-size:30px;font-weight:800;line-height:1.2;margin:4px 0 8px}
+.big .do{font-size:16.5px;margin:0 0 14px}.facts{display:grid;gap:8px;border-top:1px solid color-mix(in srgb,var(--c,var(--line)) 25%,var(--line));padding-top:12px}.fact{display:flex;gap:10px;align-items:baseline;font-size:15px;flex-wrap:wrap}.fact b{min-width:5.2em}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;box-shadow:var(--sh);cursor:pointer;text-align:left;font:inherit;color:inherit}
+.kpi .k{font-size:12px;color:var(--mut);font-weight:600}.kpi .v{font-size:22px;font-weight:800;line-height:1.25;font-variant-numeric:tabular-nums}.kpi .s{font-size:12px;color:var(--mut);line-height:1.35}
+.plan{margin-top:10px;font-size:14.5px}.plan b{color:var(--tx)}
+.legend{display:grid;gap:6px;margin-top:10px}.legend div{font-size:14.5px}.legend b{display:inline-block;min-width:6.4em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+details.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--sh);position:relative}
+details.tile::before,.item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c)}
+details.tile[open]{grid-column:1/-1}
+summary{list-style:none;cursor:pointer;padding:11px 12px 10px 15px}summary::-webkit-details-marker{display:none}
+.tn{font-weight:700;font-size:15.5px}.tk{color:var(--mut);font-size:12px;margin-left:4px}
+.st{display:inline-block;font-weight:700;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent);font-size:13px;padding:2px 9px;border-radius:99px;margin-top:4px;white-space:nowrap}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}.pct{font-variant-numeric:tabular-nums;font-size:13px;color:var(--mut)}summary .row{flex-wrap:wrap;gap:0 8px}summary .pct{white-space:nowrap}
+svg.sp{width:100%;height:36px;display:block;margin-top:6px}
+.more{padding:0 12px 12px 15px;font-size:14.5px;border-top:1px dashed var(--line)}.more p{margin:8px 0}.ck{display:grid;gap:3px;margin:8px 0}
+.list{display:grid;gap:8px}.item{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px 11px 15px;box-shadow:var(--sh);overflow:hidden}
+.item .nm{font-weight:700}.item .meta{color:var(--mut);font-size:13px;font-weight:400}.kv{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;margin-top:5px;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-weight:700;font-size:13px;padding:2px 9px;border-radius:99px;white-space:nowrap;color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+.up{color:var(--buy)}.dn{color:var(--sell)}
+.note{background:var(--chip);border-radius:14px;padding:11px 13px;font-size:14.5px;margin:10px 0}
+details.rules{margin:8px 0 10px;font-size:14px;color:var(--mut)}details.rules summary{padding:0;font-weight:600;color:var(--hold)}details.rules p{margin:6px 0}
+input{width:100%;font:inherit;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+.todo li{margin:6px 0}.foot{color:var(--mut);font-size:12.5px;margin-top:28px;line-height:1.6}
+.seg{display:flex;gap:4px;background:var(--chip);padding:4px;border-radius:12px}.seg button{flex:1;font:inherit;font-size:14px;padding:7px 4px;border-radius:9px;border:0;background:transparent;color:var(--mut);cursor:pointer}.seg button[aria-pressed=true]{background:var(--card);color:var(--tx);font-weight:700;box-shadow:var(--sh)}
+.bar{margin:9px 0}.bar .lab{display:flex;justify-content:space-between;font-size:14px;gap:8px}.bar .lab b{font-variant-numeric:tabular-nums}.bar .trk{height:10px;border-radius:5px;background:var(--chip);overflow:hidden;margin-top:3px}.bar .fil{height:100%;border-radius:5px}.bar .sm{font-size:12.5px;color:var(--mut)}
+.asia{display:grid;grid-template-columns:1fr 1fr;gap:8px}.asia .item{padding:9px 10px 9px 14px}
+.btn{font:inherit;font-weight:700;padding:11px 16px;border-radius:12px;border:0;background:var(--acc);color:var(--bg);width:100%;cursor:pointer}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}.asia{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.kpi .v{font-size:19px}.big .ttl{font-size:26px}}
+</style></head><body><main>
+<header class="top"><h1><span>🚦</span> 美股訊號燈</h1><p class="sub" id="asof" style="margin:4px 0 4px"></p></header>
+<nav class="tabs" role="tablist" id="tabs">
+<button role="tab" data-p="today" aria-selected="true">今天</button><button role="tab" data-p="theme">主題板塊</button><button role="tab" data-p="stock">個股</button><button role="tab" data-p="acct">模擬帳戶</button><button role="tab" data-p="score">成績單</button>
+</nav>
+
+<section class="panel on" id="p-today">
+<h2>今天的大盤</h2>
+<section class="card big" id="big"></section>
+<div class="kpis" id="kpis"></div><div class="card" id="kpiDet" style="display:none;margin-top:8px;font-size:14.5px"></div>
+<h2>🔄 今天的燈號變化</h2><p class="sub">跟前一個交易日比，只列真的換顏色的。</p><div class="card" id="chg"></div>
+<div class="note plan" id="planBox"></div>
+
+<h2>🛡️ 防守燈</h2><p class="sub">長期持有的 ETF 要不要減碼。很少變燈，點開看指標和回測。</p>
+<div class="list" id="def"></div>
+<details class="rules"><summary>防守燈怎麼判斷？</summary><p>用兩個慢速指標：<b>200 日平均線</b>和 <b>MCDX</b>。兩個都紅才減碼，任一個轉綠就買回。綠燈期間想加碼隨時都可以，回測顯示挑時機沒有明顯差別。</p></details>
+
+<h2>🌏 亞洲半導體風向</h2><p class="sub">台、韓、日比美股早收盤，可以當今晚美股半導體的參考。不是買賣對象。</p>
+<div class="note" id="asiaSum"></div><div class="asia" id="asia"></div>
+
+<h2>📋 每日總結</h2><p class="sub">複製後直接貼到臉書。純文字，沒有表格和網址。</p>
+<div class="card"><button id="copyBtn" class="btn">複製總結</button>
+<textarea id="report" readonly style="width:100%;height:280px;margin-top:10px;font:14px/1.6 inherit;font-family:inherit;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--tx)"></textarea>
+<p class="sub" style="margin:6px 0 0">按鈕沒反應的話，長按文字框全選再複製。</p></div>
+</section>
+
+<section class="panel" id="p-theme">
+<h2>🧭 主題燈號牆</h2><p class="sub">強的排前面，點一下看原因和停損價。</p>
+<div class="note" id="thSum"></div><div class="grid" id="themes"></div>
+<h2>🗺️ 板塊大地圖</h2><p class="sub">11 個大板塊，看錢往哪個方向流。</p>
+<div class="grid" id="sectors"></div>
+<details class="rules"><summary>五種燈號怎麼看？</summary><div class="legend" id="legend"></div><p>回測顯示照這些燈頻繁買賣會跑輸 ETF，所以只當參考，用來看懂市場、挑主題。</p></details>
+</section>
+
+<section class="panel" id="p-stock">
+<h2>💎 小賠大賺候選股</h2><p class="sub" id="sepaSub"></p>
+<div class="note" id="sepaRule"></div><div class="list" id="sepa"></div>
+<h2>🎯 雷達焦點股</h2><p class="sub">從 S&amp;P 500 和 Nasdaq 100 自動挑出的觀察名單，沒有經過回測。</p>
+<h3>🟢 剛亮買進燈、近 3 個月最強</h3><div class="list" id="buy"></div>
+<h3>🪝 抄底觀察（只能小量試單）</h3><div class="list" id="dip"></div>
+<h2>🔍 查任何一檔股票</h2><p class="sub">輸入美股代號，例如 NVDA、AMD、LLY。</p>
+<input id="q" placeholder="輸入代號" autocapitalize="characters" autocomplete="off"><div class="list" id="qr" style="margin-top:8px"></div>
+</section>
+
+<section class="panel" id="p-acct">
+<h2>💼 模擬帳戶</h2><p class="sub">從 <span id="simStart"></span> 起每條線 $1000，每天照燈號自動記帳，和買 ETF 放著比較。這是往後的真實成績，不是回測。</p>
+<div class="card"><div id="simNote" style="font-size:14.5px;margin-bottom:6px"></div><div id="simBars"></div></div>
+<details class="card" style="margin-top:10px"><summary style="padding:0;font-weight:700">📒 操作記錄（點開看每一筆買賣）</summary><div id="simLog" style="margin-top:8px;font-size:14px"></div></details>
+<details class="rules"><summary>各帳戶的規則</summary>
+<p><b>雷達焦點股：</b>最多 5 檔、每檔約 $200，收盤跌破 21 日線就賣出換下一檔。</p>
+<p><b>抄底：</b>主題 ETF 亮抄底燈的第一天，隔天開盤買進，最多 5 檔，持有 40 個交易日後賣出；沒有訊號時拿現金。</p>
+<p><b>趨勢模板：</b>從 S&amp;P 500 和 Nasdaq 100 挑符合 Minervini 趨勢模板、近 6 個月最強的股票，最多 20 檔，不再符合就賣出換下一檔。</p>
+<p><b>小賠大賺：</b>掃描市值 20 億美元以上、成交活躍的美股（約 1,800 檔），每天最多新買 3 檔（挑近 6 個月最強的）。最新一季營收年增 20% 以上；淨利年增 25% 以上或由虧轉盈；毛利率比去年同季高（沒資料的不檢查）；並符合趨勢模板、收盤創 50 日新高。每筆最多虧總資金 1.25%（約每檔 17%，最多 8 檔）；跌 7.5% 停損，賺 20% 後停損移到成本、賺 50% 後鎖住 25%，跌破 50 日線才賣；SPY 在 50 日線之下時不開新倉。</p></details>
+</section>
+
+<section class="panel" id="p-score">
+<h2>📊 成績單：這套燈號準不準？</h2><p class="sub">真實股價回測。收盤出訊號、隔天開盤買賣，每次扣 0.1% 成本。</p>
+<div class="card big" style="--c:var(--sell)"><div class="lamp">老實說的結論</div><div class="ttl" style="font-size:22px">照燈號頻繁買賣，跑輸直接買 ETF 放著</div>
+<p class="do" style="margin-bottom:0" id="verdict"></p></div>
+<h3>$1000 會變成多少</h3>
+<div class="seg" id="seg"></div><div id="bars" style="margin-top:8px"></div>
+<p class="sub" style="margin-top:8px">紫色＝快速燈，藍色＝防守燈，灰色＝買了放著。⚠️ 是個股策略，名單用今天的成分股，成績會被高估（倖存者偏差）。小賠大賺改用「當時」的 S&amp;P 500 和 Nasdaq 100 成分股回測，偏差大幅減輕；但已下市、被併購的股票約一半沒有價格，所以沒有完全消除。「最慘」＝期間內從高點跌最多的幅度。</p>
+<h3>半導體實戰：2026 年燈號做了什麼</h3>
+<div class="card"><div id="caseChart"></div><div class="legend" id="caseTxt" style="margin-top:8px"></div></div>
+<h3>那這個網站還有什麼用？</h3>
+<div class="card"><ul class="todo" style="margin:0;padding-left:20px" id="use"></ul></div>
+</section>
+<p class="foot" id="foot"></p>
+</main>
+<script>
+const D=__DATA__;
+const L={buy:['🟢 買進','剛轉強，可以進場','--buy'],hold:['🔵 持有','趨勢向上，續抱；還沒買就等回檔','--hold'],watch:['🟡 觀望','方向不明，先不動','--watch'],sell:['🔴 避開','趨勢向下，不買；手上有就賣出','--sell'],dip:['🪝 抄底觀察','跌深後開始反彈，只能小量試單','--dip']};
+const $=id=>document.getElementById(id),pc=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+'%',cls=v=>v>=0?'up':'dn';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+$('asof').textContent='美股 '+D.date+' 收盤｜亞洲 '+D.asiaDate+' 收盤｜更新於 '+D.built+'（馬來西亞時間）';
+// big light
+const MK={green:['🟢 綠燈','可以進攻','大盤趨勢向上，多數股票也在漲。亮買進燈的主題和個股可以進場。','--buy'],
+ yellow:['🟡 黃燈','輪動行情，挑著買','大盤指數在跌，但多數股票其實還在漲。只買亮藍燈、綠燈的主題，避開紅燈（'+D.themes.filter(t=>t.st==='sell').slice(-4).reverse().map(t=>t.n).join('、')+'）。','--watch'],
+ red:['🔴 紅燈','防守，不開新倉','大盤趨勢向下，多數股票也在跌。先保住現金，等燈號轉黃再說。','--sell']}[D.mk];
+const ix=t=>{const x=D.idx[t];return `<div class="fact"><b>${t==='SPY'?'標普 500':'那斯達克'}</b><span style="color:var(${L[x.st][2]});font-weight:700">${L[x.st][0]}</span><span class="pct">當日 ${pc(x.chg,2)}</span></div>`};
+$('big').style.setProperty('--c',`var(${MK[3]})`);
+$('big').innerHTML=`<div class="lamp">今天的大盤燈號</div><div class="ttl">${MK[0]}：${MK[1]}</div><p class="do">${MK[2]}</p>
+<div class="facts">${ix('SPY')}${ix('QQQ')}<div class="fact"><b>市場體質</b><span style="flex:1"><b style="min-width:0">${D.breadth}%</b> 的大型股在上升趨勢（超過 50% 算健康）</span></div></div>`;
+$('legend').innerHTML=Object.values(L).map(l=>`<div><b style="color:var(${l[2]})">${l[0]}</b>${l[1]}</div>`).join('');
+function spark(sp,e,col){const all=sp.concat(e),mn=Math.min(...all),mx=Math.max(...all),W=200,H=38,
+ P=a=>a.map((v,i)=>(i/(a.length-1)*W).toFixed(1)+','+(H-3-(v-mn)/(mx-mn||1)*(H-6)).toFixed(1)).join(' ');
+ return `<svg class="sp" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polyline points="${P(e)}" fill="none" stroke="var(--mut)" stroke-width="1" stroke-dasharray="3 3"/><polyline points="${P(sp)}" fill="none" stroke="var(${col})" stroke-width="2"/></svg>`}
+
+// defence
+{const LV={safe:['🟢 安心持有','--buy'],buy:['🟢 買回','--buy'],warn:['🟡 警戒','--watch'],out:['🔴 減碼或空手','--sell']};const md=d=>(+d.slice(5,7))+'/'+(+d.slice(8));
+const fm=n=>'$'+n.toLocaleString();
+$('def').innerHTML=D.defence.map(x=>{const l=LV[x.lvl];
+ const line=x.lvl==='safe'?`兩個指標都綠｜離 200 日線 <b>${pc(x.dist)}</b>`:x.lvl==='buy'?`${md(x.since)} 轉綠，之前減碼的可以買回`:x.lvl==='warn'?`一綠一紅：${x.sma?'MCDX 轉弱':'已跌破 200 日線'}。續抱，但先不加碼`:`${md(x.since)} 起兩個指標都紅｜站回 <b>${x.ma}</b> 或 MCDX 轉強才解除`;
+ const bt=w=>{const b=x.bt[w];return `<div class="ck"><div>買了放著：<b>${fm(b.hold.v)}</b>，最慘 ${b.hold.mdd}%</div><div>照防守燈：<b>${fm(b.both.v)}</b>，最慘 ${b.both.mdd}%，買賣 ${b.both.tr} 次</div></div>`};
+ const b=x.bt.y10,diff=b.both.v>=b.hold.v?'這一檔照防守燈反而賺更多。':'10 年少賺 '+Math.round((1-b.both.v/b.hold.v)*100)+'%，最慘跌幅從 '+b.hold.mdd+'% 變成 '+b.both.mdd+'%。';
+ return `<details class="tile" style="--c:var(${l[1]})"><summary><div class="row"><span><span class="tn">${x.t==='BTC-USD'?'BTC':x.t}</span><span class="tk">${x.n}</span></span><span class="st">${l[0]}</span></div><div style="font-size:14px;margin-top:3px">${line}</div></summary>
+ <div class="more"><div class="ck" style="margin-top:10px"><div>${x.sma?'🟢':'🔴'} <b>200 日線：</b>收盤 ${x.close}，線在 ${x.ma}（${pc(x.dist)}）</div><div>${x.mcdx?'🟢':'🔴'} <b>MCDX：</b>獲利籌碼 ${x.pc}，套牢籌碼 ${x.lc}（獲利大於套牢＝綠）</div></div>
+ ${spark(x.sp,x.spm,l[1])}<p class="pct">實線是價格，虛線是 200 日線（近一年）</p>
+ ${x.lvl==='safe'||x.lvl==='buy'?'<p>可以持有。想加碼的話任何時候都可以，回測顯示挑時機沒有明顯差別。</p>':''}<p><b>回測：10 年前投入 $1000</b></p>${bt('y10')}<p><b>回測：2 年前投入 $1000</b></p>${bt('y2')}<p>${diff}</p></div></details>`}).join('')}
+const yn=(b,t)=>`<div>${b?'✅':'❌'} ${t}</div>`;
+const why={buy:t=>`最近 ${t.run} 天才站上短期和中期趨勢線，是新的上升訊號。`,hold:t=>`已經連續 ${t.run} 個交易日在趨勢線之上。`,watch:t=>'短期和中期趨勢線只站上一條，方向還沒確認。',sell:t=>'短期和中期趨勢線都跌破了。',dip:t=>'最近 10 天內跌到超賣區（RSI 低於 32），現在已站回 10 日線，出現止跌跡象。'};
+const act={buy:t=>`跌破 ${t.e21} 就出場。`,hold:t=>`收盤跌破 ${t.e21} 就賣出。`,watch:t=>`等收盤同時站上 ${t.e21} 和 ${t.e50} 再買。`,sell:t=>`等收盤站回 ${t.e21} 再考慮。`,dip:t=>`收盤跌破 10 日線 ${t.e10} 就放棄；同時站上 ${t.e21} 和 ${t.e50} 才算真正轉強。`};
+const RK={sell:0,dip:1,watch:2,buy:3,hold:3},SH={buy:'🟢買進',hold:'🔵持有',watch:'🟡觀望',sell:'🔴避開',dip:'🪝抄底'};
+const isChg=x=>x.prev&&RK[x.prev]!==RK[x.st],isUp=x=>RK[x.st]>RK[x.prev];
+const chgTag=x=>isChg(x)?`<div class="pct" style="margin-top:3px;color:var(${isUp(x)?'--buy':'--sell'})">${isUp(x)?'⬆':'⬇'} 昨天是${SH[x.prev].slice(2)}</div>`:'';
+const tile=t=>{const l=L[t.st];return `<details class="tile" style="--c:var(${l[2]})"><summary><div class="row"><span><span class="tn">${t.n}</span><span class="tk">${t.members?t.members.length+' 檔個股':(t.t==='BTC-USD'?'BTC':t.t)}</span></span></div>
+<div class="row"><span class="st">${l[0]}</span><span class="pct">1 個月 ${pc(t.m1)}</span></div>${chgTag(t)}${spark(t.sp,t.sp21,l[2])}</summary>
+<div class="more"><p><b>${l[1]}。</b>${why[t.st](t)}</p><div class="ck">${yn(t.a21,'站上短期趨勢線（21 日）')}${yn(t.a50,'站上中期趨勢線（50 日）')}${t.long===null?'':yn(t.long,'站上長期趨勢線（200 日，防守用）')}</div><p>👉 ${act[t.st](t)}</p>${t.members?'<p class="pct">成分：'+t.members.join('、')+'（等權重）</p>':''}<p class="pct">${t.members?'指數值':'收盤'} ${t.close}｜當日 ${pc(t.chg,2)}｜實線是價格，虛線是 21 日線（近 60 天）</p></div></details>`};
+$('themes').innerHTML=D.themes.filter(t=>t.g==='theme').map(tile).join('');$('sectors').innerHTML=D.themes.filter(t=>t.g==='sector').map(tile).join('');
+{const th=D.themes.filter(t=>t.g==='theme'),nm=k=>th.filter(t=>t.st===k).map(t=>t.n);const g=nm('buy').concat(nm('hold')),r=nm('sell');
+$('thSum').innerHTML=`<b>強（${g.length} 個）：</b>${g.join('、')||'無'}<br><b>弱（${r.length} 個）：</b>${r.join('、')||'無'}`+(nm('dip').length?`<br><b>抄底觀察：</b>${nm('dip').join('、')}`:'')}
+// asia
+const av=D.asia.reduce((s,a)=>s+a.chg,0)/D.asia.length,up=D.asia.filter(a=>a.chg>0).length,ok=D.asia.filter(a=>a.a21).length;
+$('asiaSum').innerHTML=`<b>${D.asia[0].date} 亞洲收盤：</b>12 檔平均 <b class="${cls(av)}">${pc(av)}</b>，${up} 檔上漲。${av>1.5?'對今晚美股半導體是<b>正面</b>風向。':av<-1.5?'對今晚美股半導體是<b>負面</b>風向。':'風向不明顯。'}但只有 ${ok} 檔站回短期趨勢線，${ok<6?'多數還在下跌趨勢裡，這是反彈，還不是反轉。':'多數已經轉強。'}`;
+$('asia').innerHTML=D.asia.map(a=>`<div class="item" style="--c:var(${L[a.st][2]})"><div class="nm">${a.n} <span class="meta">${a.c}</span></div><div class="kv"><span class="${cls(a.chg)}">今天 ${pc(a.chg)}</span><span class="pill">${L[a.st][0]}</span></div></div>`).join('');
+// radar
+const M=Object.fromEntries(D.stocks.map(s=>[s.t,s]));
+function stock(s){const l=L[s.st],stop=s.st==='dip'?s.e10:s.e21,risk=(stop/s.c-1)*100;
+ const stopTxt=s.st==='buy'||s.st==='hold'?`<span>停損價 <b>${stop}</b>（${pc(risk)}）</span>`:s.st==='dip'?`<span>放棄價 <b>${stop}</b>（${pc(risk)}）</span>`:`<span>站回 <b>${s.e21}</b> 再看</span>`;
+ return `<div class="item" style="--c:var(${l[2]})"><div class="row"><span class="nm">${esc(s.t)} <span class="meta">${esc(s.n)}｜${esc(s.s)}${s.u?'｜中小型':''}</span></span><span class="pill">${l[0]}</span></div>${chgTag(s)}
+ <div class="kv"><span>收盤 <b>${s.c}</b></span>${stopTxt}<span class="${cls(s.m3)}">3 個月 ${pc(s.m3)}</span></div></div>`}
+{const th=D.themes.filter(isChg),cs=D.stocks.filter(isChg),up=cs.filter(isUp),dn=cs.filter(s=>!isUp(s));
+const arrow=x=>`${SH[x.prev]} → ${SH[x.st]}`;
+const tk=s=>`<a href="#" onclick="goStock('${esc(s.t)}');return false" style="color:inherit;font-weight:700;text-decoration:underline dotted">${esc(s.t)}</a>`;
+const lst=(a,n)=>a.slice(0,n).map(tk).join('、')+(a.length>n?`<details class="rules" style="margin:4px 0 0"><summary>看全部 ${a.length} 檔</summary><div style="display:grid;gap:3px;margin-top:6px;color:var(--tx)">${a.map(s=>`<div>${tk(s)} <span class="pct">${esc(s.n)}｜${esc(s.s)}｜3 個月 ${pc(s.m3)}</span></div>`).join('')}</div></details>`:'');
+const nb=up.filter(s=>s.st==='buy').sort((a,b)=>b.m3-a.m3),dw=dn.filter(s=>s.prev==='buy'||s.prev==='hold').sort((a,b)=>b.m3-a.m3),dd=dn.filter(s=>s.prev==='dip'&&s.st==='sell');
+let h='<h3 style="margin:0 0 6px">主題和板塊</h3>'+(th.length?(()=>{const G={};th.forEach(x=>{const k=x.prev+'>'+x.st;(G[k]=G[k]||[]).push(x)});return Object.values(G).sort((a,b)=>(RK[b[0].st]-RK[b[0].prev])-(RK[a[0].st]-RK[a[0].prev])).map(g=>`<div style="margin:5px 0"><span style="color:var(${isUp(g[0])?'--buy':'--sell'})">${isUp(g[0])?'⬆':'⬇'}</span> ${arrow(g[0])}：<b>${g.map(x=>x.n).join('、')}</b></div>`).join('')})():'<div class="pct">都沒變。</div>');
+h+=`<h3 style="margin:14px 0 6px">個股（約 ${D.stocks.length.toLocaleString()} 檔美股）</h3><div class="seg" id="chgSeg" style="margin-bottom:8px"><button data-f="all" aria-pressed="true">全部</button><button data-f="big">大型股</button><button data-f="small">中小型股</button></div><div id="chgS"></div>`;
+h+='<p class="pct" style="margin:8px 0 0">點代號可以看那一檔的燈號、停損價和走勢。剛換顏色的燈最容易隔天又變回去。</p>';
+$('chg').innerHTML=h;const renderChgS=f=>{const cs=D.stocks.filter(s=>isChg(s)&&(f==='all'||(f==='big'?!s.u:s.u))),up=cs.filter(isUp),dn=cs.filter(s=>!isUp(s));let h=`<div class="pct" style="margin-bottom:6px">轉強 ${up.length} 檔｜轉弱 ${dn.length} 檔${f!=='big'?'｜中小型股假訊號比較多':''}</div>`;
+
+const DEST=[['buy','轉為 🟢 買進','剛站上兩條趨勢線'],['hold','轉為 🔵 持有',''],['watch','轉為 🟡 觀望','只站上一條趨勢線'],['dip','轉為 🪝 抄底觀察','超賣後止跌'],['sell','轉為 🔴 避開','兩條趨勢線都跌破']];
+const lst2=(a,n)=>a.slice(0,n).map(tk).join('、')+(a.length>n?`<details class="rules" style="margin:4px 0 0"><summary>看全部 ${a.length} 檔</summary><div style="display:grid;gap:3px;margin-top:6px;color:var(--tx)">${a.map(s=>`<div>${tk(s)} <span class="pct">昨天${SH[s.prev].slice(2)}｜${s.u?'中小型｜':''}${esc(s.n)}｜3 個月 ${pc(s.m3)}</span></div>`).join('')}</div></details>`:'');
+for(const [k,lab,hint] of DEST){const g=cs.filter(s=>s.st===k).sort((a,b)=>b.m3-a.m3);if(!g.length)continue;
+ const fr={};g.forEach(s=>fr[s.prev]=(fr[s.prev]||0)+1);
+ h+=`<div style="margin:9px 0;padding-top:8px;border-top:1px solid var(--line)"><b>${lab}</b>（${g.length} 檔）<div class="pct">從${Object.entries(fr).map(([p,n])=>SH[p].slice(2)+' '+n+' 檔').join('、')}${hint?'｜'+hint:''}</div><div style="margin-top:3px">${lst2(g,8)}</div></div>`}
+$('chgS').innerHTML=h};
+renderChgS('all');$('chgSeg').addEventListener('click',e=>{const f=e.target.dataset&&e.target.dataset.f;if(!f)return;$('chgSeg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));renderChgS(f)});}
+$('buy').innerHTML=D.buy.map(t=>stock(M[t])).join('')||'<div class="note">今天沒有。</div>';
+$('dip').innerHTML=D.dip.map(t=>stock(M[t])).join('')||'<div class="note">今天沒有。</div>';
+const more=a=>a.length?`<div class="note">其他還有 ${a.length} 檔：${a.join('、')}<br><span class="pct">可用下方「查任何一檔股票」看詳細。</span></div>`:'';
+$('buy').innerHTML+=more(D.buyMore);$('dip').innerHTML+=more(D.dipMore);
+window.goStock=s=>{goTab('stock','q');const q=$('q');q.value=s;q.dispatchEvent(new Event('input'))};
+$('q').addEventListener('input',e=>{const v=e.target.value.trim().toUpperCase();if(!v){$('qr').innerHTML='';return}
+ const r=D.stocks.filter(s=>s.t.startsWith(v)).slice(0,5);$('qr').innerHTML=r.length?r.map(s=>stock(s)+`<div class="note" style="margin:-2px 0 4px">${L[s.st][1]}。</div>`).join(''):'<div class="note">找不到。目前只收錄 S&amp;P 500 和 Nasdaq 100 成分股。</div>'});
+
+// backtest
+const BT=__BT__;
+{const W={y10:'10 年',y5:'5 年',y2:'2 年',y1:'1 年'};let cur='y10';const md=d=>(+d.slice(5,7))+'/'+(+d.slice(8));
+const bars=rows=>{rows=[...rows].sort((a,b)=>b.v-a.v);const mx=rows[0].v;return rows.map(r=>`<div class="bar"><div class="lab"><span>${r.k==='b'?'':r.k==='d'?'🛡️ ':'🤖 '}${r.n}${r.bias?' ⚠️':''}</span><b>$${r.v.toLocaleString()}</b></div><div class="trk"><div class="fil" style="width:${Math.max(1,r.v/mx*100).toFixed(1)}%;background:var(${r.k==='b'?'--mut':r.k==='d'?'--hold':'--dip'})"></div></div><div class="sm">最慘 ${r.mdd}%${r.tr?'｜買賣 '+r.tr+' 次':''}</div></div>`).join('')};
+const draw=()=>{$('seg').innerHTML=Object.keys(W).map(k=>`<button data-k="${k}" aria-pressed="${k===cur}">${W[k]}</button>`).join('');$('bars').innerHTML=bars(BT.win[cur].rows)};
+$('seg').addEventListener('click',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k){cur=k;draw()}});draw();
+const S=BT.sim;$('simStart').textContent=S.start;
+const plan=[];{const f=(a,o)=>{if(o.sell.length)plan.push(a+'賣出 '+o.sell.join('、'));if(o.buy.length)plan.push(a+'買進 '+o.buy.join('、'))};f('雷達焦點股',S.radarNext);f('主題輪動',S.rotNext);f('抄底超賣反彈',S.wpNext);f('趨勢模板',S.mmNext);f('小賠大賺',S.sepaNext);S.defNext.forEach(x=>plan.push(x.a+x.s+' '+x.t))}
+$('planBox').innerHTML='<b>📅 下個交易日開盤，模擬帳戶預計：</b>'+(plan.length?plan.join('；'):'沒有買賣')+'<br><span class="pct">模擬記帳，不是投資建議。</span>';$('simNote').innerHTML=(S.days?`已記帳 <b>${S.days}</b> 個交易日。`:'今天開始記帳，下一個美股交易日收盤後會有第一筆數字。')+`<br>快速燈目前持有：${S.holding.length?S.holding.join('、'):'（還沒進場）'}<br>防守燈：SMH ${S.defpos.SMH?'持有':'空手'}，QQQ ${S.defpos.QQQ?'持有':'空手'}<br>雷達焦點股持有：${S.radar.length?S.radar.map(r=>r.t).join('、'):'（還沒進場）'}<br>抄底超賣反彈持有：${S.wp.length?S.wp.join('、'):'（等訊號出現）'}<br>趨勢模板持有：${S.mm.length?S.mm.length+' 檔':'（還沒進場）'}（今天符合模板的有 ${S.mmCount} 檔）<br>小賠大賺持有：${S.sepa.length?S.sepa.map(x=>`${x.t}（買 ${x.buy}，停損 ${x.stop}）`).join('、'):'（還沒進場）'}｜大盤${S.sepaMkt?'允許開新倉':'偏弱，暫停開新倉'}｜同時符合趨勢模板和基本面的有 ${S.sepaBoth} 檔，今天突破的有 ${S.sepaBO} 檔`+`<br><b>下個交易日開盤預計：</b>${plan.length?plan.join('；'):'沒有買賣'}`;
+const acts=S.log.filter(x=>x.d===D.date);
+$('simLog').innerHTML=S.log.length?S.log.map(x=>`<div style="padding:5px 0;border-bottom:1px dashed var(--line)">${md(x.d)}｜${x.a}｜<b style="color:var(${x.s==='買進'?'--buy':'--sell'})">${x.s}</b> ${x.t==='BTC-USD'?'BTC':x.t}${x.p?' @ '+x.p:''}</div>`).join(''):'還沒有任何買賣。第一筆會在下一個美股交易日開盤後出現。';
+// daily report text
+{const DL={safe:'🟢 安心持有',buy:'🟢 買回',warn:'🟡 警戒',out:'🔴 減碼或空手'},nmE=x=>x.t==='BTC-USD'?'BTC':x.t,th=D.themes.filter(t=>t.g==='theme'),nm=k=>th.filter(t=>t.st===k).map(t=>t.n);
+const av=D.asia.reduce((s,a)=>s+a.chg,0)/D.asia.length,upN=D.asia.filter(a=>a.chg>0).length;
+const L=['📊 美股訊號燈｜'+D.date+' 收盤','','🚦 大盤：'+MK[0]+'，'+MK[1],'市場體質：'+D.breadth+'% 的大型股在上升趨勢','','🛡️ 防守燈（長期持有用）'];
+for(const k of ['safe','buy','warn','out']){const g=D.defence.filter(x=>x.lvl===k).map(nmE);if(g.length)L.push(DL[k]+'：'+g.join('、'))}
+L.push('','🧭 主題燈號');
+if(nm('buy').length)L.push('🟢 買進：'+nm('buy').join('、'));if(nm('hold').length)L.push('🔵 持有：'+nm('hold').join('、'));if(nm('watch').length)L.push('🟡 觀望：'+nm('watch').join('、'));if(nm('dip').length)L.push('🪝 抄底觀察：'+nm('dip').join('、'));if(nm('sell').length)L.push('🔴 避開：'+nm('sell').join('、'));
+{const th=D.themes.filter(isChg),cs=D.stocks.filter(s=>!s.u&&isChg(s)),nb=cs.filter(s=>isUp(s)&&s.st==='buy').sort((a,b)=>b.m3-a.m3),dw=cs.filter(s=>!isUp(s)&&(s.prev==='buy'||s.prev==='hold')).sort((a,b)=>b.m3-a.m3);
+L.push('','🔄 今天的燈號變化');L.push(th.length?th.map(x=>x.n+' '+SH[x.prev].slice(2)+'→'+SH[x.st].slice(2)).join('、'):'主題都沒變');
+if(nb.length)L.push('剛轉買進：'+nb.slice(0,8).map(s=>s.t).join('、')+(nb.length>8?' 等 '+nb.length+' 檔':''));if(dw.length)L.push('持有轉弱：'+dw.slice(0,8).map(s=>s.t).join('、')+(dw.length>8?' 等 '+dw.length+' 檔':''));}
+L.push('','🌏 亞洲半導體（'+md(D.asiaDate)+'）：12 檔平均 '+pc(av)+'，'+upN+' 檔上漲');
+{const cs=S.sepaCands||[],b=cs.filter(x=>x.bo).sort((a,c)=>(c.rs||0)-(a.rs||0)).slice(0,3),n=cs.filter(x=>!x.bo&&x.gap<=3);if(cs.length){L.push('','💎 小賠大賺｜今天突破：'+(b.length?b.map(x=>x.t).join('、'):'沒有')+(S.sepaMkt?'':'（大盤偏弱，先觀察）'));if(n.length)L.push('快到買點：'+n.map(x=>x.t).join('、'))}}
+if(D.buy.length)L.push('','🎯 雷達焦點股（觀察名單）：'+D.buy.join('、')+(D.buyMore.length?'｜其他還有 '+D.buyMore.length+' 檔':''));if(D.dip.length)L.push('🪝 抄底觀察個股：'+D.dip.join('、')+(D.dipMore.length?'｜其他還有 '+D.dipMore.length+' 檔':''));
+L.push('','💼 模擬帳戶（'+md(S.start)+' 起每條線 $1000）');
+if(S.days){[...S.rows].sort((a,b)=>b.v-a.v).forEach(r=>L.push((r.k==='b'?'▫️ ':r.k==='d'?'🛡️ ':'🤖 ')+r.n+'：$'+r.v.toLocaleString()));L.push('今日操作：'+(acts.length?acts.map(x=>x.a+' '+x.s+' '+x.t).join('；'):'沒有買賣'))}else L.push('今天開始記帳，還沒有成績');
+L.push('下個交易日預計：'+(plan.length?plan.join('；'):'沒有買賣'),'','⚠️ 模擬記帳與回測結果，僅供分析參考，不是投資建議');
+$('report').value=L.join('\n');
+$('copyBtn').addEventListener('click',async()=>{const b=$('copyBtn');try{await navigator.clipboard.writeText($('report').value);b.textContent='已複製 ✓'}catch(e){try{$('report').focus();$('report').select();b.textContent='已全選，請手動複製'}catch(_){b.textContent='請長按文字框複製'}}setTimeout(()=>{b.textContent='複製總結'},2500)});}
+$('simBars').innerHTML=S.days?bars(S.rows):'';
+const A=Object.fromEntries(BT.win.y10.rows.map(r=>[r.n,r]));
+$('verdict').innerHTML=`10 年前投入 $1000：快速燈做主題輪動變成 <b>$${A['快速燈：主題輪動'].v.toLocaleString()}</b>，買 SPY 放著是 <b>$${A['買 SPY 放著'].v.toLocaleString()}</b>，買 QQQ 放著是 <b>$${A['買 QQQ 放著'].v.toLocaleString()}</b>。我另外測了 ${BT.robust.n} 種規則組合，2024 年以後能贏過 QQQ 的只有 ${BT.robust.beatQQQ} 種，這個比例等於碰運氣。防守燈也會少賺，但大跌時少跌。`;
+const c=BT.case,W2=340,H=150,mn=Math.min(...c.c),mx=Math.max(...c.c),X=i=>(i/(c.c.length-1)*W2),Y=v=>H-8-(v-mn)/(mx-mn)*(H-16);
+let seg='';for(let i=1;i<c.c.length;i++)seg+=`<line x1="${X(i-1).toFixed(1)}" y1="${Y(c.c[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(c.c[i]).toFixed(1)}" stroke="var(${c.up[i-1]?'--buy':'--mut'})" stroke-width="${c.up[i-1]?2.4:1.3}"/>`;
+const mi=m=>c.d.findIndex(d=>d.slice(5,7)===m),mons=['01','03','05','07','09','11'].map(m=>`<text x="${X(mi(m)).toFixed(0)}" y="${H+12}" font-size="10" fill="var(--mut)">${+m}月</text>`).join('');
+$('caseChart').innerHTML=`<svg viewBox="0 0 ${W2} ${H+16}" style="width:100%;display:block" role="img" aria-label="2026 年半導體 ETF 走勢，綠色是燈號持有的期間">${seg}${mons}</svg><div class="sub" style="margin:4px 0 0">半導體 ETF（SMH）2026 年走勢。<b style="color:var(--buy)">綠色粗線</b>＝快速燈叫你持有，灰色細線＝快速燈叫你空手。</div>`;
+const big=c.trades.reduce((a,b)=>b.r>a.r?b:a),last=c.trades[c.trades.length-1],now=c.c[c.c.length-1],small=c.trades.filter(t=>t.s>big.s&&t.r<3),loss=small.reduce((s,t)=>s+t.r,0);
+$('caseTxt').innerHTML=`<div>✅ <b>抓到 4 到 5 月大行情：</b>${md(big.b)} 在 ${big.bp} 買進，${md(big.s)} 在 ${big.sp} 賣出，賺 ${big.r}%。</div>
+<div>✅ <b>躲過 10 到 11 月大跌：</b>${md(last.s)} 在 ${last.sp} 賣出，現在 ${now}，少跌 ${((1-now/last.sp)*100).toFixed(0)}%。</div>
+<div>❌ <b>6 到 9 月被來回洗：</b>盤整期間進出 ${small.length} 次，多數小賠，合計約 ${loss.toFixed(0)}%。</div>
+<div>➡️ <b>2026 年總結：</b>快速燈 ${pc(c.sg)}，買了放著 ${pc(c.bh)}，防守燈 ${pc(c.sl)}。</div><div>🛡️ <b>防守燈今年：</b>${c.slowEv.filter(e=>e.d>='2026').map(e=>md(e.d)+(e.up?' 轉綠（收盤 ':' 轉紅（收盤 ')+e.p+'）').join('，')||'整年沒有變燈'}。只動了 ${c.slowEv.filter(e=>e.d>='2026').length} 次。</div>`;
+const s=A['防守燈：半導體 SMH'],h=A['買 SMH 放著'];
+$('use').innerHTML=`<li><b>看懂市場：</b>哪些主題在漲、哪些在跌、亞洲半導體今天的風向，這些資訊本身是準確的。</li>
+<li><b>躲大跌，不是多賺：</b>防守燈的價值是少跌，代價是少賺。例如半導體 10 年（${s.tr} 次買賣）：$1000 變 $${s.v.toLocaleString()}、最慘 ${s.mdd}%；買了放著是 $${h.v.toLocaleString()}、最慘 ${h.mdd}%。</li>
+<li><b>不適合：</b>想靠頻繁進出打敗 ETF。回測顯示做不到。</li>
+<li><b>注意：</b>半導體這幾年剛好是最強的板塊，事後挑它來比較有後見之明。未來最強的未必是它。</li>`;}
+{const S2=BT.sim,cs=S2.sepaCands||[];const ft=f=>{const a=[];if(f.rg!=null)a.push('營收年增 '+f.rg+'%');if(f.turn)a.push('由虧轉盈');else if(f.nig!=null)a.push('淨利年增 '+f.nig+'%');if(f.gmd!=null)a.push('毛利率 '+(f.gmd>0?'+':'')+f.gmd+' 個百分點');return a.join('｜')};
+$('sepaRule').innerHTML=`<b>今天：</b>${S2.sepaMkt?'🟢 大盤允許開新倉':'🔴 大盤偏弱（SPY 在 50 日線下），先不買，等轉強'}<br><b>怎麼挑：</b>先篩出基本面＋趨勢都符合的（今天 ${cs.length} 檔），只有收盤突破買點的才算；同一天突破很多檔時，挑近 6 個月漲最多的前 3 檔。<br><b>怎麼買：</b>收盤突破「買點」才在隔天開盤買進；跌破「停損」就賣，不等不拗；賺 20% 後停損移到買進價，跌破 50 日線才賣。每檔約佔資金 17%，最多 8 檔。`;
+const C1=x=>`<div class="item" style="--c:var(${x.bo?'--buy':'--hold'})"><div class="row"><span class="nm">${esc(x.t)} <span class="meta">${esc(x.n)}</span></span><span class="pill">${x.bo?'🟢 今天突破':'⏳ 等突破'}</span></div>
+<div class="kv"><span>收盤 <b>${x.c}</b></span><span>買點 <b>${x.trig}</b>${x.bo?'':'（還差 '+pc(x.gap)+'）'}</span><span>停損 <b>${x.stop}</b></span></div><div class="meta" style="margin-top:3px">${ft(x.f)}（${x.f.q||''} 季）</div></div>`;
+const bo=cs.filter(x=>x.bo).sort((a,b)=>(b.rs||0)-(a.rs||0)),near=cs.filter(x=>!x.bo&&x.gap<=3),far=cs.filter(x=>!x.bo&&x.gap>3);
+const pick=bo.slice(0,3),boMore=bo.slice(3);
+let H='<h3 style="margin:14px 0 8px">🎯 今天可以買（最多 3 檔）</h3>';
+H+=pick.length?(S2.sepaMkt?'':'<div class="note">🔴 大盤偏弱，模擬帳戶今天不買。以下只是今天突破的股票，大盤轉強後才算數。</div>')+pick.map(C1).join('')+(boMore.length?`<div class="note">另外也突破、但近 6 個月比較弱：${boMore.map(x=>x.t).join('、')}</div>`:''):'<div class="note">今天沒有股票突破買點。</div>';
+H+='<h3 style="margin:18px 0 8px">⏳ 快到買點（差 3% 以內）</h3>'+(near.length?`<div class="note">${near.map(x=>`<b>${esc(x.t)}</b> 買點 ${x.trig}（差 ${pc(x.gap)}）`).join('<br>')}</div>`:'<div class="note">沒有。</div>');
+if(far.length)H+=`<details class="rules"><summary>其他觀察名單 ${far.length} 檔（離買點超過 3%）</summary><p>${far.map(x=>x.t).join('、')}</p></details>`;
+$('sepa').innerHTML=cs.length?H:'<div class="note">今天沒有同時符合基本面和趨勢模板的股票。</div>';
+{const R=w=>Object.fromEntries(BT.win[w].rows.map(r=>[r.n,r.v])),k='小賠大賺（用當時的成分股）',a=R('y10'),b=R('y2');
+$('sepaSub').innerHTML=a[k]?`基本面轉機＋強勢趨勢，掃描約 ${(S2.sepaN||0).toLocaleString()} 檔美股。<b>老實說：</b>修正倖存者偏差後，10 年 $1000 變 $${a[k].toLocaleString()}，${a[k]>=a['買 SPY 放著']?'贏過':'輸給'}買 SPY 放著（$${a['買 SPY 放著'].toLocaleString()}）；近 2 年 $${b[k].toLocaleString()}，${b[k]>=b['買 SPY 放著']?'贏過':'輸給'} SPY（$${b['買 SPY 放著'].toLocaleString()}）。只當觀察名單。`:'基本面轉機＋強勢趨勢。'}}
+const c=D.counts;$('foot').innerHTML=`全部 ${D.stocks.length} 檔的燈號分布：買進 ${c.buy}｜持有 ${c.hold}｜觀望 ${c.watch}｜避開 ${c.sell}｜抄底觀察 ${c.dip}<br>快速燈規則：收盤同時站上 21 日和 50 日均線＝持有，5 天內剛站上＝買進，只站上一條＝觀望，兩條都跌破＝避開，跌破後曾超賣（RSI 低於 32）並站回 10 日均線＝抄底觀察。防守燈規則：收盤連續 2 天跌破 200 日平均線＝該指標轉紅；MCDX 的獲利籌碼 10 日平均低於套牢籌碼＝該指標轉紅；兩個都紅才出場。回測假設隔天開盤價成交、每次交易成本 0.1%。資料來源 Yahoo Finance。僅供分析參考，不是投資建議。`;
+
+{// tabs
+const show=k=>{document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id==='p-'+k));document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.p===k));try{history.replaceState(null,'','#'+k)}catch(e){}};
+window.goTab=(k,id)=>{show(k);if(id){const el=$(id);el&&el.scrollIntoView({behavior:'smooth',block:'start'})}else window.scrollTo({top:0,behavior:'smooth'})};
+$('tabs').addEventListener('click',e=>{const k=e.target.dataset&&e.target.dataset.p;if(k)goTab(k)});
+const h=(location.hash||'').slice(1);if(['today','theme','stock','acct','score'].includes(h))show(h);
+// KPIs
+const df=D.defence,ok=df.filter(x=>x.lvl==='safe'||x.lvl==='buy'),bad=df.filter(x=>x.lvl==='warn'||x.lvl==='out'),nmE=x=>x.t==='BTC-USD'?'BTC':x.t;
+const th=D.themes.filter(t=>t.g==='theme'),g=th.filter(t=>t.st==='buy'||t.st==='hold').length,r=th.filter(t=>t.st==='sell').length;
+const S3=BT.sim,cs=S3.sepaCands||[],bo=cs.filter(x=>x.bo).length;
+const kp=(k,v,s,col,id)=>`<button class="kpi" data-k="${id}" aria-expanded="false"><div class="k">${k}</div><div class="v" style="color:var(${col})">${v}</div><div class="s">${s}</div><div class="s" style="margin-top:3px;color:var(--hold);font-weight:600">點開看明細 ▾</div></button>`;
+const few=(a,n=3)=>a.slice(0,n).join('、')+(a.length>n?' 等':'');
+const grn=ok.map(nmE),strong=th.filter(t=>t.st==='buy'||t.st==='hold');
+$('kpis').innerHTML=kp('🛡️ 防守燈',ok.length+'/'+df.length+' 綠',grn.length?'綠：'+grn.join('、'):'全部轉弱',bad.length?'--watch':'--buy','def')
+ +kp('🧭 主題',g+' 強',strong.length?'強：'+few(strong.map(t=>t.n)):'沒有強勢主題',g>=r?'--buy':'--sell','th')
+ +kp('💎 今天突破',Math.min(bo,3)+' 檔',S3.sepaMkt?('快到買點 '+cs.filter(x=>!x.bo&&x.gap<=3).length+' 檔'):'大盤偏弱，先觀察',bo&&S3.sepaMkt?'--buy':'--hold','sp');
+const DLV={safe:['🟢 安心持有','--buy'],buy:['🟢 買回','--buy'],warn:['🟡 警戒','--watch'],out:['🔴 減碼或空手','--sell']};
+const TL={buy:'🟢 買進',hold:'🔵 持有',watch:'🟡 觀望',dip:'🪝 抄底觀察',sell:'🔴 避開'};
+const grp=(title,items,col)=>items.length?`<div style="margin:8px 0"><div style="font-weight:700;color:var(${col})">${title}（${items.length}）</div><div style="margin-top:2px">${items.join('、')}</div></div>`:'';
+const DET={
+ def:()=>df.map(x=>`<div class="row" style="padding:5px 0;border-bottom:1px solid var(--line)"><b>${nmE(x)}</b><span class="pill" style="--c:var(${DLV[x.lvl][1]})">${DLV[x.lvl][0]}</span></div>`).join('')+`<p class="pct" style="margin:8px 0 0">往下捲到「🛡️ 防守燈」可以點開每一檔看原因。</p>`,
+ th:()=>['buy','hold','watch','dip','sell'].map(k=>grp(TL[k],th.filter(t=>t.st===k).sort((a,b)=>b.m1-a.m1).map(t=>esc(t.n)),'--'+(k==='buy'?'buy':k==='hold'?'hold':k==='watch'?'watch':k==='dip'?'dip':'sell'))).join('')+`<button class="btn" style="margin-top:6px" onclick="goTab('theme')">去主題板塊頁看原因和停損價</button>`,
+ sp:()=>{const b=cs.filter(x=>x.bo).sort((a,c)=>(c.rs||0)-(a.rs||0)),n=cs.filter(x=>!x.bo&&x.gap<=3);return grp('🟢 今天突破',b.map(x=>esc(x.t)),'--buy')+grp('⏳ 快到買點（差 3% 內）',n.map(x=>esc(x.t)+' '+pc(x.gap)),'--hold')+(b.length||n.length?'':'<p>今天沒有。</p>')+`<button class="btn" style="margin-top:6px" onclick="goTab('stock')">去個股頁看買點和停損</button>`}};
+let openK=null;
+$('kpis').addEventListener('click',e=>{const b=e.target.closest('.kpi');if(!b)return;const k=b.dataset.k;openK=openK===k?null:k;
+ $('kpis').querySelectorAll('.kpi').forEach(x=>{const on=x.dataset.k===openK;x.setAttribute('aria-expanded',on);x.style.outline=on?'2px solid var(--acc)':'';x.lastElementChild.textContent=on?'收起 ▴':'點開看明細 ▾'});
+ const d=$('kpiDet');d.style.display=openK?'block':'none';if(openK)d.innerHTML=DET[openK]();});
+}
+</script></body></html>

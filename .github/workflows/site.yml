@@ -1,0 +1,44 @@
+name: build-signal-site
+on:
+  push:
+    paths: ['data/_updated.txt']
+  schedule:
+    - cron: '50 23 * * 1-5'   # 07:50 MYT Tue-Sat（美股收盤後）
+    - cron: '40 7 * * 1-5'    # 15:40 MYT Mon-Fri（亞洲收盤後）
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas numpy
+      - run: |
+          mkdir -p out
+          cp site/tpl.html out/tpl.html
+          python -I site/build.py data out
+          rm out/tpl.html out/debug.json || true
+          test $(stat -c%s out/index.html) -gt 100000
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.d.outputs.page_url }}
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4
