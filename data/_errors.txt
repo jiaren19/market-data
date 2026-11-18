@@ -116,7 +116,6 @@ fundamentals:FSV: no quarterly XBRL financials in EDGAR companyfacts (annual 20-
 fundamentals:FTS: partial history only; last fiscal_quarter_end 2025-06-30 (recent quarters not in EDGAR XBRL)
 fundamentals:FUTU: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:GDS: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:GEF: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
 fundamentals:GFI: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:GFL: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:GFS: partial history only; last fiscal_quarter_end 2025-12-31 (recent quarters not in EDGAR XBRL)
@@ -140,6 +139,7 @@ fundamentals:HMY: no quarterly XBRL financials in EDGAR companyfacts (annual 20-
 fundamentals:HSAI: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:HSBC: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:HTHT: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
+fundamentals:HZN: no CIK in SEC company_tickers
 fundamentals:IAG: partial history only; last fiscal_quarter_end 2017-09-30 (recent quarters not in EDGAR XBRL)
 fundamentals:IBN: no companyfacts XBRL in EDGAR
 fundamentals:IHG: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
@@ -462,6 +462,7 @@ ticker_reuse:ATI: data/ATI.csv is the current listing 'ATI Inc. Common Stock'; i
 ticker_reuse:BATRA: data/BATRA.csv is the current listing 'Atlanta Braves Holdings Inc. Series A Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:BATRK: data/BATRK.csv is the current listing 'Atlanta Braves Holdings Inc. Series C Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:BBBY: removed SP500 member 'Bed Bath & Beyond' (removed 2017-07-26); Yahoo's BBBY first traded 2026-07-17, after the removal: ticker reused
+ticker_reuse:BKH: Yahoo series now starts 2026-11-13 but data/BKH.csv starts 2015-01-02; stored file kept, not overwritten
 ticker_reuse:CAM: removed SP500 member 'Cameron International' (removed 2016-04-04); Yahoo's CAM first traded 2025-10-06, after the removal: ticker reused
 ticker_reuse:CNX: data/CNX.csv is the current listing 'CNX Resources Corporation Common Stock'; its name does not match the removed SP500 member 'Consol Energy' (removed 2016-03-04). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:CSRA: removed SP500 member 'CSRA' (removed 2018-04-04); Yahoo's CSRA first traded 2026-08-12, after the removal: ticker reused
@@ -470,6 +471,7 @@ ticker_reuse:INFO: removed SP500 member 'IHS Markit' (removed 2022-03-02); Yahoo
 ticker_reuse:KVUE: removed SP500 member 'Kenvue' (removed 2026-10-30); Yahoo series starts 2026-10-30, long after it joined (2023-08-25): different listing
 ticker_reuse:LEG: removed SP500 member 'Leggett & Platt' (removed 2021-12-20); Yahoo's LEG first traded 2026-07-17, after the removal: ticker reused
 ticker_reuse:NFX: removed SP500 member 'Newfield Exploration' (removed 2019-02-15); Yahoo's NFX first traded 2026-07-07, after the removal: ticker reused
+ticker_reuse:NWE: Yahoo series now starts 2026-11-13 but data/NWE.csv starts 2015-01-02; stored file kept, not overwritten
 ticker_reuse:OI: removed SP500 member 'Owens-Illinois' (removed 2016-12-02); Yahoo now names OI 'O-I Glass, Inc.' (rename or reused ticker); not saved
 ticker_reuse:PCG: data/PCG.csv is the current listing 'PG&E Corporation'; its name does not match the removed SP500 member 'Pacific Gas & Electric Company' (removed 2019-01-18). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:PCL: removed SP500 member 'Plum Creek Timber' (removed 2016-02-22); Yahoo's PCL first traded 2025-08-05, after the removal: ticker reused
