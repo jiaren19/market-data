@@ -1,5 +1,6 @@
 # Tickers that failed this update. No substitute data was used.
 
+SNDK: Yahoo history start moved; file not overwritten (see ticker_reuse)
 fundamentals:ABEV: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:ABVX: partial history only; last fiscal_quarter_end 2025-12-31 (recent quarters not in EDGAR XBRL)
 fundamentals:AEG: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
@@ -480,6 +481,7 @@ ticker_reuse:Q: data/Q.csv is the current listing 'Qnity Electronics'; its name 
 ticker_reuse:QRVO: removed SP500 member 'Qorvo' (removed 2024-12-23); Yahoo's QRVO first traded 2026-07-17, after the removal: ticker reused
 ticker_reuse:SBNY: removed SP500 member 'Signature Bank' (removed 2023-03-15); Yahoo's SBNY first traded 2024-08-15, after the removal: ticker reused
 ticker_reuse:SE: data/SE.csv is the current listing 'Sea Limited American Depositary Shares each representing one Class A Ordinary Share'; its name does not match the removed SP500 member 'Spectra Energy' (removed 2017-02-28). Either a rename or a different company reusing the ticker: check before using this file for that spell
+ticker_reuse:SNDK: Yahoo series now starts 2026-11-17 but data/SNDK.csv starts 2025-02-13; stored file kept, not overwritten
 ticker_reuse:SPLS: removed SP500 member 'Staples' (removed 2017-09-18); Yahoo's SPLS first traded 2026-01-16, after the removal: ticker reused
 ticker_reuse:STI: removed SP500 member 'SunTrust Banks' (removed 2019-12-09); Yahoo's STI first traded 2022-05-02, after the removal: ticker reused
 ticker_reuse:TE: removed SP500 member 'TECO Energy' (removed 2016-07-01); Yahoo's TE first traded 2020-01-10, after the removal: ticker reused
