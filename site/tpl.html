@@ -123,7 +123,7 @@ const D=__DATA__;
 const L={buy:['🟢 買進','剛轉強，可以進場','--buy'],hold:['🔵 持有','趨勢向上，續抱；還沒買就等回檔','--hold'],watch:['🟡 觀望','方向不明，先不動','--watch'],sell:['🔴 避開','趨勢向下，不買；手上有就賣出','--sell'],dip:['🪝 抄底觀察','跌深後開始反彈，只能小量試單','--dip']};
 const $=id=>document.getElementById(id),pc=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+'%',cls=v=>v>=0?'up':'dn';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-$('asof').textContent='美股 '+D.date+' 收盤｜亞洲 '+D.asiaDate+' 收盤｜更新於 '+D.built+'（馬來西亞時間）';
+$('asof').textContent='美股 '+D.date+' 收盤｜亞洲 '+D.asiaDate+' 收盤｜更新於 '+D.built;
 // big light
 const MK={green:['🟢 綠燈','可以進攻','大盤趨勢向上，多數股票也在漲。亮買進燈的主題和個股可以進場。','--buy'],
  yellow:['🟡 黃燈','輪動行情，挑著買','大盤指數在跌，但多數股票其實還在漲。只買亮藍燈、綠燈的主題，避開紅燈（'+D.themes.filter(t=>t.st==='sell').slice(-4).reverse().map(t=>t.n).join('、')+'）。','--watch'],
