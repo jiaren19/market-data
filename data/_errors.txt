@@ -256,6 +256,7 @@ fundamentals:TECK: no quarterly XBRL financials in EDGAR companyfacts (annual 20
 fundamentals:TFII: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:TGB: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:TIGO: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
+fundamentals:TLK: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:TM: partial history only; last fiscal_quarter_end 2020-12-31 (recent quarters not in EDGAR XBRL)
 fundamentals:TME: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:TNK: partial history only; last fiscal_quarter_end 2021-12-31 (recent quarters not in EDGAR XBRL)
@@ -324,7 +325,6 @@ removed:AGN: SP500 member 'Allergan' removed 2020-05-12: Yahoo has no data (HTTP
 removed:ALTR: SP500 member 'Altera' removed 2015-12-29: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:ALXN: NDX member 'Alexion Pharmaceuticals' removed 2021-07-21: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:ANDV: SP500 member 'Andeavor' removed 2018-10-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
-removed:ANSS: SP500 member 'Ansys' removed 2025-07-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:ARG: SP500 member 'Airgas' removed 2016-05-23: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:ARNC: SP500 member 'Arconic' removed 2020-04-01: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:ATVI: SP500 member 'Activision Blizzard' removed 2023-10-18: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
@@ -457,6 +457,7 @@ removed:XL: SP500 member 'XL Group' removed 2018-09-14: Yahoo has no data (HTTP 
 removed:XLNX: NDX member 'Xilinx' removed 2022-02-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:YHOO: NDX member 'Yahoo! Inc.' removed 2017-06-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 ticker_reuse:AIV: removed SP500 member 'Aimco' (removed 2020-12-21); Yahoo now names AIV 'Apartment Investment and Management Company' (rename or reused ticker); not saved
+ticker_reuse:ANSS: removed SP500 member 'Ansys' (removed 2025-07-18); Yahoo series starts 2026-11-23, after the removal: ticker reused
 ticker_reuse:APC: removed SP500 member 'Anadarko Petroleum' (removed 2019-08-09); Yahoo's APC first traded 2026-02-12, after the removal: ticker reused
 ticker_reuse:ATI: data/ATI.csv is the current listing 'ATI Inc. Common Stock'; its name does not match the removed SP500 member 'Allegheny Technologies' (removed 2015-07-02). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:BATRA: data/BATRA.csv is the current listing 'Atlanta Braves Holdings Inc. Series A Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
