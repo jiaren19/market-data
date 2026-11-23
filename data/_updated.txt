@@ -1,7 +1,7 @@
 updated_utc: 2026-11-20 22:47:30 UTC
 updated_asia_kuala_lumpur: 2026-11-21 06:47:30 Asia/Kuala_Lumpur
-asia_updated_utc: 2026-11-20 07:26:14 UTC
-asia_updated_asia_kuala_lumpur: 2026-11-20 15:26:14 Asia/Kuala_Lumpur
+asia_updated_utc: 2026-11-23 07:27:29 UTC
+asia_updated_asia_kuala_lumpur: 2026-11-23 15:27:29 Asia/Kuala_Lumpur
 fundamentals_rows: 66685
 fundamentals_symbols_failed: 184
 fundamentals_symbols_ok: 1687
@@ -29,14 +29,14 @@ removed_members_already_current_listing: 146
 removed_members_not_saved: 160
 
 # symbol last_bar_date
-000660.KS 2026-11-20
-005930.KS 2026-11-20
-2303.TW 2026-11-20
-2330.TW 2026-11-20
-2408.TW 2026-11-20
-2454.TW 2026-11-20
+000660.KS 2026-11-23
+005930.KS 2026-11-23
+2303.TW 2026-11-23
+2330.TW 2026-11-23
+2408.TW 2026-11-23
+2454.TW 2026-11-23
 285A.T 2026-11-20
-3711.TW 2026-11-20
+3711.TW 2026-11-23
 6146.T 2026-11-20
 6857.T 2026-11-20
 6920.T 2026-11-20
@@ -324,7 +324,7 @@ BSBR 2026-11-20
 BSP 2026-11-20
 BSX 2026-11-20
 BSY 2026-11-20
-BTC-USD 2026-11-20
+BTC-USD 2026-11-23
 BTE 2026-11-20
 BTG 2026-11-20
 BTI 2026-11-20
@@ -1959,9 +1959,9 @@ ZTO 2026-11-20
 ZTS 2026-11-20
 ZWS 2026-11-20
 ZYME 2026-11-20
-^KS11 2026-11-20
+^KS11 2026-11-23
 ^N225 2026-11-20
 ^TNX 2026-11-20
-^TWII 2026-11-20
+^TWII 2026-11-23
 ^VIX 2026-11-20
 ^VIX3M 2026-11-20
