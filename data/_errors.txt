@@ -213,6 +213,7 @@ fundamentals:RTO: no quarterly XBRL financials in EDGAR companyfacts (annual 20-
 fundamentals:RY: partial history only; last fiscal_quarter_end 2026-01-31 (recent quarters not in EDGAR XBRL)
 fundamentals:RYAAY: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:RYN: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
+fundamentals:SA: partial history only; last fiscal_quarter_end 2023-06-30 (recent quarters not in EDGAR XBRL)
 fundamentals:SAN: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:SAP: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:SBLK: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
@@ -227,7 +228,6 @@ fundamentals:SKM: no quarterly XBRL financials in EDGAR companyfacts (annual 20-
 fundamentals:SLF: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:SLG: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
 fundamentals:SMFG: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
-fundamentals:SMTC: partial history only; last fiscal_quarter_end 2026-04-26 (recent quarters not in EDGAR XBRL)
 fundamentals:SNN: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:SNY: no quarterly XBRL financials in EDGAR companyfacts (annual 20-F/10-K only)
 fundamentals:SO: partial history only; last fiscal_quarter_end 2026-03-31 (recent quarters not in EDGAR XBRL)
@@ -457,7 +457,7 @@ removed:XL: SP500 member 'XL Group' removed 2018-09-14: Yahoo has no data (HTTP 
 removed:XLNX: NDX member 'Xilinx' removed 2022-02-22: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 removed:YHOO: NDX member 'Yahoo! Inc.' removed 2017-06-19: Yahoo has no data (HTTP 404 Not Found ({"chart":{"result":null,"error":{"code":"Not Found","description":"No data found, symbol may be deli)
 ticker_reuse:AIV: removed SP500 member 'Aimco' (removed 2020-12-21); Yahoo now names AIV 'Apartment Investment and Management Company' (rename or reused ticker); not saved
-ticker_reuse:ANSS: removed SP500 member 'Ansys' (removed 2025-07-18); Yahoo series starts 2026-11-23, after the removal: ticker reused
+ticker_reuse:ANSS: removed SP500 member 'Ansys' (removed 2025-07-18); Yahoo's ANSS first traded 2026-11-23, after the removal: ticker reused
 ticker_reuse:APC: removed SP500 member 'Anadarko Petroleum' (removed 2019-08-09); Yahoo's APC first traded 2026-02-12, after the removal: ticker reused
 ticker_reuse:ATI: data/ATI.csv is the current listing 'ATI Inc. Common Stock'; its name does not match the removed SP500 member 'Allegheny Technologies' (removed 2015-07-02). Either a rename or a different company reusing the ticker: check before using this file for that spell
 ticker_reuse:BATRA: data/BATRA.csv is the current listing 'Atlanta Braves Holdings Inc. Series A Common Stock'; its name does not match the removed NDX member 'Liberty Media' (removed 2016-06-20). Either a rename or a different company reusing the ticker: check before using this file for that spell
@@ -469,6 +469,7 @@ ticker_reuse:CNX: data/CNX.csv is the current listing 'CNX Resources Corporation
 ticker_reuse:CSRA: removed SP500 member 'CSRA' (removed 2018-04-04); Yahoo's CSRA first traded 2026-08-12, after the removal: ticker reused
 ticker_reuse:EMC: removed SP500 member 'EMC Corporation' (removed 2016-09-08); Yahoo's EMC first traded 2023-05-15, after the removal: ticker reused
 ticker_reuse:INFO: removed SP500 member 'IHS Markit' (removed 2022-03-02); Yahoo's INFO first traded 2024-10-10, after the removal: ticker reused
+ticker_reuse:ITGR: Yahoo series now starts 2026-07-17 but data/ITGR.csv starts 2015-01-02; stored file kept, not overwritten
 ticker_reuse:KVUE: removed SP500 member 'Kenvue' (removed 2026-10-30); Yahoo series starts 2026-10-30, long after it joined (2023-08-25): different listing
 ticker_reuse:LEG: removed SP500 member 'Leggett & Platt' (removed 2021-12-20); Yahoo's LEG first traded 2026-07-17, after the removal: ticker reused
 ticker_reuse:NFX: removed SP500 member 'Newfield Exploration' (removed 2019-02-15); Yahoo's NFX first traded 2026-07-07, after the removal: ticker reused
