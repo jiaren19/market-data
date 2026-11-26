@@ -466,9 +466,11 @@ BT['case']=dict(d=list(y.index),c=[round(float(x),1) for x in y],up=[bool(x) for
     trades=[t for t in trs if t['s']>='2026-01-01'],bh=round(float((y.iloc[-1]/y.iloc[0]-1)*100),1),sg=round(float(ee.iloc[-1]/10-100),1))
 es,_=equity('SMH',POS['SMH']['both'],'2026-01-02'); BT['case']['sl']=round(float(es.iloc[-1]/10-100),1)
 ch=both.astype(int).diff(); BT['case']['slowEv']=[dict(d=d,up=bool(v>0),p=round(float(c[d]),1)) for d,v in ch.items() if v!=0 and not np.isnan(v)]
-_s0=WIN[0][1]; _ix=[d for d in CAL if d>=_s0]; _op=op.reindex(CAL).fillna(tr)
-BT['lab']=dict(d=_ix,c=[round(float(c[d]),2) for d in _ix],t=[round(float(tr[d]),3) for d in _ix],o=[round(float(_op[d]),3) for d in _ix],
-    f=''.join('1' if fast_smh[d] else '0' for d in _ix),s=''.join('1' if POS['SMH']['both'][d] else '0' for d in _ix))
+_s0=WIN[0][1]; _ix=[d for d in CAL if d>=_s0]; BT['lab']={}; BT['labD']=_ix
+for _t in ('SMH','QQQ','IGV','SPY','SOXX','BTC-USD'):
+    _cl=ser(_t,'close'); _tr=ser(_t,'tr'); _op=ser(_t,'op').fillna(_tr); _f=(_cl>ema(_cl,21))&(_cl>ema(_cl,50))
+    BT['lab'][_t]=dict(c=[round(float(_cl[d]),2) for d in _ix],t=[round(float(_tr[d]),2) for d in _ix],o=[round(float(_op[d]),2) for d in _ix],
+        f=''.join('1' if _f[d] else '0' for d in _ix),s=''.join('1' if POS[_t]['both'][d] else '0' for d in _ix))
 BT['robust']=dict(n=264,beatQQQ=6)
 
 upd=open(f'{D}/_updated.txt').read().split('\n')[:3]

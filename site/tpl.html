@@ -111,12 +111,9 @@ input{width:100%;font:inherit;padding:12px 14px;border-radius:14px;border:1px so
 <h3>$1000 會變成多少</h3>
 <div class="seg" id="seg"></div><div id="bars" style="margin-top:8px"></div>
 <p class="sub" style="margin-top:8px">紫色＝快速燈，藍色＝防守燈，灰色＝買了放著。⚠️ 是個股策略，名單用今天的成分股，成績會被高估（倖存者偏差）。小賠大賺改用「當時」的 S&amp;P 500 和 Nasdaq 100 成分股回測，偏差大幅減輕；但已下市、被併購的股票約一半沒有價格，所以沒有完全消除。「最慘」＝期間內從高點跌最多的幅度。</p>
-<h3>半導體實戰：照燈號買賣 SMH 會怎樣</h3>
-<div class="card">
-<div class="seg" id="labSig"><button data-v="f" aria-pressed="true">快速燈</button><button data-v="s">防守燈</button></div>
-<div class="seg" id="labPre" style="margin-top:8px"></div>
-<div style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px"><label for="labA" class="pct">從</label><input type="date" id="labA" style="padding:7px 8px;border-radius:10px;flex:1;min-width:0"><label for="labB" class="pct">到</label><input type="date" id="labB" style="padding:7px 8px;border-radius:10px;flex:1;min-width:0"></div>
-<div id="caseChart" style="margin-top:10px"></div><div id="labRes" style="margin-top:8px"></div><div id="caseTxt" style="margin-top:8px;display:grid;gap:5px;font-size:14.5px"></div></div>
+<h3>實戰：照燈號買賣會怎樣</h3>
+<div class="seg" id="labSym" style="flex-wrap:wrap"></div>
+<div class="card" id="labBox" style="margin-top:8px"></div>
 <h3>那這個網站還有什麼用？</h3>
 <div class="card"><ul class="todo" style="margin:0;padding-left:20px" id="use"></ul></div>
 </section>
@@ -231,11 +228,12 @@ $('copyBtn').addEventListener('click',async()=>{const b=$('copyBtn');try{await n
 $('simBars').innerHTML=S.days?bars(S.rows):'';
 const A=Object.fromEntries(BT.win.y10.rows.map(r=>[r.n,r]));
 $('verdict').innerHTML=`${BT.wy.y10} 年初投入 $1000：快速燈做主題輪動變成 <b>$${A['快速燈：主題輪動'].v.toLocaleString()}</b>，買 SPY 放著是 <b>$${A['買 SPY 放著'].v.toLocaleString()}</b>，買 QQQ 放著是 <b>$${A['買 QQQ 放著'].v.toLocaleString()}</b>。我另外測了 ${BT.robust.n} 種規則組合，2024 年以後能贏過 QQQ 的只有 ${BT.robust.beatQQQ} 種，這個比例等於碰運氣。防守燈也會少賺，但大跌時少跌。`;
-{const L=BT.lab,N=L.d.length,lastD=L.d[N-1],Y=+lastD.slice(0,4),COST=0.001;let sig='f',A0,B0;
+const LS={sig:'f',pi:0,a:null,b:null};const mkLab=(SYM,NAME)=>{const box=$('labBox'),$$=k=>box.querySelector('.'+k);box.innerHTML=`<div class="seg lSig"><button data-v="f" aria-pressed="${LS.sig==='f'}">快速燈</button><button data-v="s" aria-pressed="${LS.sig==='s'}">防守燈</button></div><div class="seg lPre" style="margin-top:8px"></div><div style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px"><label class="pct">從 <input type="date" class="lA" style="padding:7px 8px;border-radius:10px;width:auto"></label><label class="pct">到 <input type="date" class="lB" style="padding:7px 8px;border-radius:10px;width:auto"></label></div><div class="lChart" style="margin-top:10px"></div><div class="lRes" style="margin-top:8px"></div><div class="lTxt" style="margin-top:8px;display:grid;gap:5px;font-size:14.5px"></div>`;
+const L={...BT.lab[SYM],d:BT.labD},N=L.d.length,lastD=L.d[N-1],Y=+lastD.slice(0,4),COST=0.001;let sig=LS.sig,A0,B0;
 const fd=y=>L.d.findIndex(d=>+d.slice(0,4)===y),ld=y=>{let k=-1;L.d.forEach((d,i)=>{if(+d.slice(0,4)===y)k=i});return k};
 const P=[['今年',fd(Y),N-1],['去年起',fd(Y-1),N-1],['去年',fd(Y-1),ld(Y-1)],[String(Y-2),fd(Y-2),ld(Y-2)],[(Y-9)+' 起',0,N-1]].filter(p=>p[1]>=0&&p[2]>p[1]);
-$('labPre').innerHTML=P.map((p,i)=>`<button data-i="${i}" aria-pressed="${i===0}">${p[0]}</button>`).join('');
-const ia=$('labA'),ib=$('labB');ia.min=ib.min=L.d[0];ia.max=ib.max=lastD;
+$$('lPre').innerHTML=P.map((p,i)=>`<button data-i="${i}" aria-pressed="${i===0}">${p[0]}</button>`).join('');
+const ia=$$('lA'),ib=$$('lB');ia.min=ib.min=L.d[0];ia.max=ib.max=lastD;
 const idx=v=>{let k=L.d.findIndex(d=>d>=v);return k<0?N-1:k},idxB=v=>{let k=-1;L.d.forEach((d,i)=>{if(d<=v)k=i});return k<0?0:k};
 const md2=d=>(+d.slice(5,7))+'/'+(+d.slice(8)),fy=d=>d.slice(2,4)+'/'+md2(d);
 function run(a,b){const S=L[sig];let e=1000,pk=1000,dd=0,n=0,ent=null,tr=[],eq=[];const hold=i=>i>0&&S[i-1]==='1';
@@ -252,19 +250,23 @@ function draw(a,b){const c=L.c.slice(a,b+1),S=L[sig],W=340,H=150,mn=Math.min(...
  const span=b-a,ticks=[];let last='';for(let i=a;i<=b;i++){const d=L.d[i],k=span>400?d.slice(0,4):d.slice(0,7);if(k!==last){last=k;if(span>400||+d.slice(5,7)%(span>200?2:1)===1||span<=200)ticks.push([i-a,span>400?d.slice(0,4):(+d.slice(5,7))+'月'])}}
  const step=Math.max(1,Math.ceil(ticks.length/6));const tx=ticks.filter((_,j)=>j%step===0).map(([i,l])=>`<text x="${Math.min(X(i),W-24).toFixed(0)}" y="${H+12}" font-size="10" fill="var(--mut)">${l}</text>`).join('');
  const nm=sig==='f'?'快速燈':'防守燈',col=sig==='f'?'--buy':'--hold';
- $('caseChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+16}" style="width:100%;display:block" role="img" aria-label="SMH 走勢，粗線是${nm}持有的期間">${g}${tx}</svg><div class="sub" style="margin:4px 0 0">半導體 ETF（SMH）${L.d[a]} 到 ${L.d[b]}。<b style="color:var(${col})">粗線</b>＝${nm}叫你持有，灰色細線＝空手。</div>`}
-function upd(a,b){if(b<=a)b=Math.min(N-1,a+1);ia.value=L.d[a];ib.value=L.d[b];A0=a;B0=b;draw(a,b);
+ $$('lChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+16}" style="width:100%;display:block" role="img" aria-label="${SYM} 走勢，粗線是${nm}持有的期間">${g}${tx}</svg><div class="sub" style="margin:4px 0 0">${NAME}${L.d[a]} 到 ${L.d[b]}。<b style="color:var(${col})">粗線</b>＝${nm}叫你持有，灰色細線＝空手。</div>`}
+function upd(a,b){if(b<=a)b=Math.min(N-1,a+1);ia.value=L.d[a];ib.value=L.d[b];A0=a;B0=b;LS.a=L.d[a];LS.b=L.d[b];draw(a,b);
  const R=run(a,b),nm=sig==='f'?'快速燈':'防守燈',w=R.tr.filter(x=>x.r>0).length,best=R.tr.length?R.tr.reduce((p,q)=>q.r>p.r?q:p):null,worst=R.tr.length?R.tr.reduce((p,q)=>q.r<p.r?q:p):null,open=R.tr.length&&!R.tr[R.tr.length-1].s;
  const row=(k,v,ret,dd,cl)=>`<div class="bar"><div class="lab"><span>${k}</span><b>$${Math.round(v).toLocaleString()}（${pc(Math.round(ret*10)/10)}）</b></div><div class="trk"><div class="fil" style="width:${Math.min(100,v/Math.max(R.e,R.bh)*100)}%;background:var(${cl})"></div></div><div class="sm">最慘 ${dd.toFixed(1)}%</div></div>`;
- $('labRes').innerHTML=`<div style="font-weight:700;margin-bottom:2px">$1000 會變成多少</div>`+row(`照${nm}買賣（${R.n} 次買進）`,R.e,(R.e/10-100),R.dd,sig==='f'?'--buy':'--hold')+row('買 SMH 放著',R.bh,(R.bh/10-100),R.bdd,'--mut');
- $('caseTxt').innerHTML=(R.tr.length?`<div>📊 <b>買賣 ${R.tr.length} 筆：</b>賺錢 ${w} 筆、賠錢 ${R.tr.length-w} 筆。</div><div>✅ <b>最賺一筆：</b>${fy(best.b)} 買 ${best.bp.toFixed(1)}，${best.s?fy(best.s)+' 賣 '+best.sp.toFixed(1):'還沒賣（現價 '+best.sp.toFixed(1)+'）'}，${pc(Math.round(best.r*10)/10)}。</div>${R.tr.length>1?`<div>❌ <b>最賠一筆：</b>${fy(worst.b)} 買 ${worst.bp.toFixed(1)}，${worst.s?fy(worst.s)+' 賣 '+worst.sp.toFixed(1):'還沒賣'}，${pc(Math.round(worst.r*10)/10)}。</div>`:''}`:'<div>這段期間燈號沒有叫你買。</div>')
+ $$('lRes').innerHTML=`<div style="font-weight:700;margin-bottom:2px">$1000 會變成多少</div>`+row(`照${nm}買賣（${R.n} 次買進）`,R.e,(R.e/10-100),R.dd,sig==='f'?'--buy':'--hold')+row('買 '+(SYM==='BTC-USD'?'BTC':SYM)+' 放著',R.bh,(R.bh/10-100),R.bdd,'--mut');
+ $$('lTxt').innerHTML=(R.tr.length?`<div>📊 <b>買賣 ${R.tr.length} 筆：</b>賺錢 ${w} 筆、賠錢 ${R.tr.length-w} 筆。</div><div>✅ <b>最賺一筆：</b>${fy(best.b)} 買 ${best.bp.toFixed(1)}，${best.s?fy(best.s)+' 賣 '+best.sp.toFixed(1):'還沒賣（現價 '+best.sp.toFixed(1)+'）'}，${pc(Math.round(best.r*10)/10)}。</div>${R.tr.length>1?`<div>❌ <b>最賠一筆：</b>${fy(worst.b)} 買 ${worst.bp.toFixed(1)}，${worst.s?fy(worst.s)+' 賣 '+worst.sp.toFixed(1):'還沒賣'}，${pc(Math.round(worst.r*10)/10)}。</div>`:''}`:'<div>這段期間燈號沒有叫你買。</div>')
  +`<div>➡️ <b>期間結束時：</b>${open?'還抱著':'空手'}。</div>`+(R.tr.length?`<details class="rules"><summary>看每一筆買賣（${R.tr.length} 筆）</summary><div style="display:grid;gap:3px;margin-top:6px;color:var(--tx)">${R.tr.map(x=>`<div>${fy(x.b)} 買 ${x.bp.toFixed(1)} → ${x.s?fy(x.s)+' 賣 '+x.sp.toFixed(1):'未賣'}｜<b class="${x.r>=0?'up':'dn'}">${pc(Math.round(x.r*10)/10)}</b></div>`).join('')}</div></details>`:'')
  +`<p class="pct" style="margin:6px 0 0">收盤出訊號、隔天開盤買賣，每次扣 0.1% 成本，含配息。</p>`}
-const pre=i=>{$('labPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i));upd(P[i][1],P[i][2])};
-$('labPre').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.i;if(i!==undefined)pre(+i)});
-$('labSig').addEventListener('click',e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;sig=v;$('labSig').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===v));upd(A0,B0)});
-const cust=()=>{$('labPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',false));upd(idx(ia.value||L.d[0]),idxB(ib.value||lastD))};
-ia.addEventListener('change',cust);ib.addEventListener('change',cust);pre(0);}
+const pre=i=>{LS.pi=i;$$('lPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i));upd(P[i][1],P[i][2])};
+$$('lPre').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.i;if(i!==undefined)pre(+i)});
+$$('lSig').addEventListener('click',e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;sig=v;LS.sig=v;$$('lSig').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===v));upd(A0,B0)});
+const cust=()=>{LS.pi=-1;$$('lPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',false));upd(idx(ia.value||L.d[0]),idxB(ib.value||lastD))};
+ia.addEventListener('change',cust);ib.addEventListener('change',cust);if(LS.pi>=0&&LS.pi<P.length)pre(LS.pi);else{$$('lPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',false));upd(idx(LS.a),idxB(LS.b))}};
+{const SY=[['SMH','半導體 ETF（SMH）'],['QQQ','那斯達克 100（QQQ）'],['IGV','軟體 ETF（IGV）'],['SPY','標普 500（SPY）'],['SOXX','半導體 ETF（SOXX）'],['BTC-USD','比特幣（BTC）']].filter(x=>BT.lab[x[0]]);
+$('labSym').innerHTML=SY.map((x,i)=>`<button data-t="${x[0]}" aria-pressed="${i===0}">${x[0]==='BTC-USD'?'BTC':x[0]}</button>`).join('');
+$('labSym').addEventListener('click',e=>{const k=e.target.dataset&&e.target.dataset.t;if(!k)return;$('labSym').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===k));mkLab(k,SY.find(x=>x[0]===k)[1])});
+mkLab(SY[0][0],SY[0][1]);}
 const s=A['防守燈：半導體 SMH'],h=A['買 SMH 放著'];
 $('use').innerHTML=`<li><b>看懂市場：</b>哪些主題在漲、哪些在跌、亞洲半導體今天的風向，這些資訊本身是準確的。</li>
 <li><b>躲大跌，不是多賺：</b>防守燈的價值是少跌，代價是少賺。例如半導體 ${BT.wy.y10} 年起（${s.tr} 次買賣）：$1000 變 $${s.v.toLocaleString()}、最慘 ${s.mdd}%；買了放著是 $${h.v.toLocaleString()}、最慘 ${h.mdd}%。</li>
