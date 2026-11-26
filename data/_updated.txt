@@ -1,31 +1,31 @@
-updated_utc: 2026-11-25 23:18:39 UTC
-updated_asia_kuala_lumpur: 2026-11-26 07:18:39 Asia/Kuala_Lumpur
+updated_utc: 2026-11-26 22:55:05 UTC
+updated_asia_kuala_lumpur: 2026-11-27 06:55:05 Asia/Kuala_Lumpur
 asia_updated_utc: 2026-11-26 07:23:54 UTC
 asia_updated_asia_kuala_lumpur: 2026-11-26 15:23:54 Asia/Kuala_Lumpur
 fundamentals_rows: 66753
 fundamentals_symbols_failed: 185
 fundamentals_symbols_ok: 1690
 fundamentals_source: SEC EDGAR companyfacts XBRL (values) + 8-K Item 2.02 / 6-K filing dates (report_date)
-fundamentals_updated_asia_kuala_lumpur: 2026-11-26 07:22:51 Asia/Kuala_Lumpur
-fundamentals_updated_utc: 2026-11-25 23:22:51 UTC
+fundamentals_updated_asia_kuala_lumpur: 2026-11-27 06:59:12 Asia/Kuala_Lumpur
+fundamentals_updated_utc: 2026-11-26 22:59:12 UTC
 source: Yahoo Finance chart API
 history_start: 2015-01-01
 tickers_ok: 1937
 tickers_failed: 0
 price_files: 1940
 constituents: 518
-universe_as_of_utc: 2026-11-25 23:16:29 UTC
-universe_as_of_asia_kuala_lumpur: 2026-11-26 07:16:29 Asia/Kuala_Lumpur
+universe_as_of_utc: 2026-11-26 22:53:01 UTC
+universe_as_of_asia_kuala_lumpur: 2026-11-27 06:53:01 Asia/Kuala_Lumpur
 universe_source: Nasdaq stock screener API (symbol, name, sector, market cap); 63-day average close*volume from Yahoo bars
 universe_filter: market_cap >= 2000000000 USD and avg_dollar_volume_63d >= 20000000 USD; common stock, ADRs and LP common units; preferreds, notes, warrants, rights, units, SPACs, funds excluded
-universe_size: 1793
-universe_candidates: 1963
+universe_size: 1798
+universe_candidates: 1966
 membership_rows_sp500: 758
 membership_rows_ndx: 226
 membership_source: Wikipedia Historical components of the S&P 500 / of the Nasdaq-100 + current constituent lists; fja05680/sp500 cross-check
 removed_members_total: 335
-removed_members_fetched_ok: 20
-removed_members_already_current_listing: 148
+removed_members_fetched_ok: 19
+removed_members_already_current_listing: 149
 removed_members_not_saved: 160
 
 # symbol last_bar_date
@@ -580,7 +580,7 @@ DV 2026-11-25
 DVA 2026-11-25
 DVN 2026-11-25
 DX 2026-11-25
-DX-Y.NYB 2026-11-25
+DX-Y.NYB 2026-11-26
 DXC 2026-11-25
 DXCM 2026-11-25
 DXPE 2026-11-25
@@ -1967,5 +1967,5 @@ ZYME 2026-11-25
 ^N225 2026-11-26
 ^TNX 2026-11-25
 ^TWII 2026-11-26
-^VIX 2026-11-25
+^VIX 2026-11-26
 ^VIX3M 2026-11-25
