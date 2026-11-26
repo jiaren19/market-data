@@ -140,7 +140,8 @@ def summ(e,n=None):
     out=dict(v=round(float(e.iloc[-1])),mdd=round(float((e/e.cummax()-1).min()*100),1))
     if n is not None: out['tr']=n
     return out
-WIN=[('y10','2016-11-10'),('y5','2021-11-10'),('y2','2024-11-11'),('y1','2025-11-10')]
+_Y=int(lastUS[:4]); WY={'y10':_Y-9,'y5':_Y-4,'y2':_Y-1,'y1':_Y}
+WIN=[(k,next(d for d in CAL if int(d[:4])==y)) for k,y in WY.items()]
 md=lambda d:f'{int(d[5:7])}/{int(d[8:])}'
 DEF=[]
 POS={}
@@ -246,7 +247,7 @@ def table(start):
         h=ser(t,'tr').loc[start:]
         rows.append(dict(n=n,k='b',**summ(h/h.iloc[0]*1000)) if len(h) else dict(n=n,k='b',v=1000,mdd=0.0))
     return rows
-BT=dict(win={w:dict(start=s,rows=table(s)) for w,s in WIN})
+BT=dict(win={w:dict(start=s,rows=table(s)) for w,s in WIN},wy=WY)
 # forward paper account
 simdays=len([d for d in CAL if d>=SIM_START])
 BT['sim']=dict(start=SIM_START,days=simdays,rows=table(SIM_START) if simdays else [dict(n=r['n'],k=r['k'],v=1000,mdd=0.0) for r in BT['win']['y1']['rows']])
@@ -465,6 +466,9 @@ BT['case']=dict(d=list(y.index),c=[round(float(x),1) for x in y],up=[bool(x) for
     trades=[t for t in trs if t['s']>='2026-01-01'],bh=round(float((y.iloc[-1]/y.iloc[0]-1)*100),1),sg=round(float(ee.iloc[-1]/10-100),1))
 es,_=equity('SMH',POS['SMH']['both'],'2026-01-02'); BT['case']['sl']=round(float(es.iloc[-1]/10-100),1)
 ch=both.astype(int).diff(); BT['case']['slowEv']=[dict(d=d,up=bool(v>0),p=round(float(c[d]),1)) for d,v in ch.items() if v!=0 and not np.isnan(v)]
+_s0=WIN[0][1]; _ix=[d for d in CAL if d>=_s0]; _op=op.reindex(CAL).fillna(tr)
+BT['lab']=dict(d=_ix,c=[round(float(c[d]),2) for d in _ix],t=[round(float(tr[d]),3) for d in _ix],o=[round(float(_op[d]),3) for d in _ix],
+    f=''.join('1' if fast_smh[d] else '0' for d in _ix),s=''.join('1' if POS['SMH']['both'][d] else '0' for d in _ix))
 BT['robust']=dict(n=264,beatQQQ=6)
 
 upd=open(f'{D}/_updated.txt').read().split('\n')[:3]

@@ -111,8 +111,12 @@ input{width:100%;font:inherit;padding:12px 14px;border-radius:14px;border:1px so
 <h3>$1000 會變成多少</h3>
 <div class="seg" id="seg"></div><div id="bars" style="margin-top:8px"></div>
 <p class="sub" style="margin-top:8px">紫色＝快速燈，藍色＝防守燈，灰色＝買了放著。⚠️ 是個股策略，名單用今天的成分股，成績會被高估（倖存者偏差）。小賠大賺改用「當時」的 S&amp;P 500 和 Nasdaq 100 成分股回測，偏差大幅減輕；但已下市、被併購的股票約一半沒有價格，所以沒有完全消除。「最慘」＝期間內從高點跌最多的幅度。</p>
-<h3>半導體實戰：2026 年燈號做了什麼</h3>
-<div class="card"><div id="caseChart"></div><div class="legend" id="caseTxt" style="margin-top:8px"></div></div>
+<h3>半導體實戰：照燈號買賣 SMH 會怎樣</h3>
+<div class="card">
+<div class="seg" id="labSig"><button data-v="f" aria-pressed="true">快速燈</button><button data-v="s">防守燈</button></div>
+<div class="seg" id="labPre" style="margin-top:8px"></div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px"><label for="labA" class="pct">從</label><input type="date" id="labA" style="padding:7px 8px;border-radius:10px;flex:1;min-width:0"><label for="labB" class="pct">到</label><input type="date" id="labB" style="padding:7px 8px;border-radius:10px;flex:1;min-width:0"></div>
+<div id="caseChart" style="margin-top:10px"></div><div id="labRes" style="margin-top:8px"></div><div id="caseTxt" style="margin-top:8px;display:grid;gap:5px;font-size:14.5px"></div></div>
 <h3>那這個網站還有什麼用？</h3>
 <div class="card"><ul class="todo" style="margin:0;padding-left:20px" id="use"></ul></div>
 </section>
@@ -120,6 +124,7 @@ input{width:100%;font:inherit;padding:12px 14px;border-radius:14px;border:1px so
 </main>
 <script>
 const D=__DATA__;
+const BT=__BT__;
 const L={buy:['🟢 買進','剛轉強，可以進場','--buy'],hold:['🔵 持有','趨勢向上，續抱；還沒買就等回檔','--hold'],watch:['🟡 觀望','方向不明，先不動','--watch'],sell:['🔴 避開','趨勢向下，不買；手上有就賣出','--sell'],dip:['🪝 抄底觀察','跌深後開始反彈，只能小量試單','--dip']};
 const $=id=>document.getElementById(id),pc=(v,d=1)=>(v>0?'+':'')+v.toFixed(d)+'%',cls=v=>v>=0?'up':'dn';
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -143,11 +148,11 @@ const fm=n=>'$'+n.toLocaleString();
 $('def').innerHTML=D.defence.map(x=>{const l=LV[x.lvl];
  const line=x.lvl==='safe'?`兩個指標都綠｜離 200 日線 <b>${pc(x.dist)}</b>`:x.lvl==='buy'?`${md(x.since)} 轉綠，之前減碼的可以買回`:x.lvl==='warn'?`一綠一紅：${x.sma?'MCDX 轉弱':'已跌破 200 日線'}。續抱，但先不加碼`:`${md(x.since)} 起兩個指標都紅｜站回 <b>${x.ma}</b> 或 MCDX 轉強才解除`;
  const bt=w=>{const b=x.bt[w];return `<div class="ck"><div>買了放著：<b>${fm(b.hold.v)}</b>，最慘 ${b.hold.mdd}%</div><div>照防守燈：<b>${fm(b.both.v)}</b>，最慘 ${b.both.mdd}%，買賣 ${b.both.tr} 次</div></div>`};
- const b=x.bt.y10,diff=b.both.v>=b.hold.v?'這一檔照防守燈反而賺更多。':'10 年少賺 '+Math.round((1-b.both.v/b.hold.v)*100)+'%，最慘跌幅從 '+b.hold.mdd+'% 變成 '+b.both.mdd+'%。';
+ const b=x.bt.y10,diff=b.both.v>=b.hold.v?'這一檔照防守燈反而賺更多。':BT.wy.y10+' 年起少賺 '+Math.round((1-b.both.v/b.hold.v)*100)+'%，最慘跌幅從 '+b.hold.mdd+'% 變成 '+b.both.mdd+'%。';
  return `<details class="tile" style="--c:var(${l[1]})"><summary><div class="row"><span><span class="tn">${x.t==='BTC-USD'?'BTC':x.t}</span><span class="tk">${x.n}</span></span><span class="st">${l[0]}</span></div><div style="font-size:14px;margin-top:3px">${line}</div></summary>
  <div class="more"><div class="ck" style="margin-top:10px"><div>${x.sma?'🟢':'🔴'} <b>200 日線：</b>收盤 ${x.close}，線在 ${x.ma}（${pc(x.dist)}）</div><div>${x.mcdx?'🟢':'🔴'} <b>MCDX：</b>獲利籌碼 ${x.pc}，套牢籌碼 ${x.lc}（獲利大於套牢＝綠）</div></div>
  ${spark(x.sp,x.spm,l[1])}<p class="pct">實線是價格，虛線是 200 日線（近一年）</p>
- ${x.lvl==='safe'||x.lvl==='buy'?'<p>可以持有。想加碼的話任何時候都可以，回測顯示挑時機沒有明顯差別。</p>':''}<p><b>回測：10 年前投入 $1000</b></p>${bt('y10')}<p><b>回測：2 年前投入 $1000</b></p>${bt('y2')}<p>${diff}</p></div></details>`}).join('')}
+ ${x.lvl==='safe'||x.lvl==='buy'?'<p>可以持有。想加碼的話任何時候都可以，回測顯示挑時機沒有明顯差別。</p>':''}<p><b>回測：${BT.wy.y10} 年初投入 $1000</b></p>${bt('y10')}<p><b>回測：${BT.wy.y2} 年初投入 $1000</b></p>${bt('y2')}<p>${diff}</p></div></details>`}).join('')}
 const yn=(b,t)=>`<div>${b?'✅':'❌'} ${t}</div>`;
 const why={buy:t=>`最近 ${t.run} 天才站上短期和中期趨勢線，是新的上升訊號。`,hold:t=>`已經連續 ${t.run} 個交易日在趨勢線之上。`,watch:t=>'短期和中期趨勢線只站上一條，方向還沒確認。',sell:t=>'短期和中期趨勢線都跌破了。',dip:t=>'最近 10 天內跌到超賣區（RSI 低於 32），現在已站回 10 日線，出現止跌跡象。'};
 const act={buy:t=>`跌破 ${t.e21} 就出場。`,hold:t=>`收盤跌破 ${t.e21} 就賣出。`,watch:t=>`等收盤同時站上 ${t.e21} 和 ${t.e50} 再買。`,sell:t=>`等收盤站回 ${t.e21} 再考慮。`,dip:t=>`收盤跌破 10 日線 ${t.e10} 就放棄；同時站上 ${t.e21} 和 ${t.e50} 才算真正轉強。`};
@@ -196,8 +201,7 @@ $('q').addEventListener('input',e=>{const v=e.target.value.trim().toUpperCase();
  const r=D.stocks.filter(s=>s.t.startsWith(v)).slice(0,5);$('qr').innerHTML=r.length?r.map(s=>stock(s)+`<div class="note" style="margin:-2px 0 4px">${L[s.st][1]}。</div>`).join(''):'<div class="note">找不到。目前只收錄 S&amp;P 500 和 Nasdaq 100 成分股。</div>'});
 
 // backtest
-const BT=__BT__;
-{const W={y10:'10 年',y5:'5 年',y2:'2 年',y1:'1 年'};let cur='y10';const md=d=>(+d.slice(5,7))+'/'+(+d.slice(8));
+{const W={y10:BT.wy.y10+' 起',y5:BT.wy.y5+' 起',y2:BT.wy.y2+' 起',y1:'今年'};let cur='y10';const md=d=>(+d.slice(5,7))+'/'+(+d.slice(8));
 const bars=rows=>{rows=[...rows].sort((a,b)=>b.v-a.v);const mx=rows[0].v;return rows.map(r=>`<div class="bar"><div class="lab"><span>${r.k==='b'?'':r.k==='d'?'🛡️ ':'🤖 '}${r.n}${r.bias?' ⚠️':''}</span><b>$${r.v.toLocaleString()}</b></div><div class="trk"><div class="fil" style="width:${Math.max(1,r.v/mx*100).toFixed(1)}%;background:var(${r.k==='b'?'--mut':r.k==='d'?'--hold':'--dip'})"></div></div><div class="sm">最慘 ${r.mdd}%${r.tr?'｜買賣 '+r.tr+' 次':''}</div></div>`).join('')};
 const draw=()=>{$('seg').innerHTML=Object.keys(W).map(k=>`<button data-k="${k}" aria-pressed="${k===cur}">${W[k]}</button>`).join('');$('bars').innerHTML=bars(BT.win[cur].rows)};
 $('seg').addEventListener('click',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k){cur=k;draw()}});draw();
@@ -226,19 +230,44 @@ $('report').value=L.join('\n');
 $('copyBtn').addEventListener('click',async()=>{const b=$('copyBtn');try{await navigator.clipboard.writeText($('report').value);b.textContent='已複製 ✓'}catch(e){try{$('report').focus();$('report').select();b.textContent='已全選，請手動複製'}catch(_){b.textContent='請長按文字框複製'}}setTimeout(()=>{b.textContent='複製總結'},2500)});}
 $('simBars').innerHTML=S.days?bars(S.rows):'';
 const A=Object.fromEntries(BT.win.y10.rows.map(r=>[r.n,r]));
-$('verdict').innerHTML=`10 年前投入 $1000：快速燈做主題輪動變成 <b>$${A['快速燈：主題輪動'].v.toLocaleString()}</b>，買 SPY 放著是 <b>$${A['買 SPY 放著'].v.toLocaleString()}</b>，買 QQQ 放著是 <b>$${A['買 QQQ 放著'].v.toLocaleString()}</b>。我另外測了 ${BT.robust.n} 種規則組合，2024 年以後能贏過 QQQ 的只有 ${BT.robust.beatQQQ} 種，這個比例等於碰運氣。防守燈也會少賺，但大跌時少跌。`;
-const c=BT.case,W2=340,H=150,mn=Math.min(...c.c),mx=Math.max(...c.c),X=i=>(i/(c.c.length-1)*W2),Y=v=>H-8-(v-mn)/(mx-mn)*(H-16);
-let seg='';for(let i=1;i<c.c.length;i++)seg+=`<line x1="${X(i-1).toFixed(1)}" y1="${Y(c.c[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(c.c[i]).toFixed(1)}" stroke="var(${c.up[i-1]?'--buy':'--mut'})" stroke-width="${c.up[i-1]?2.4:1.3}"/>`;
-const mi=m=>c.d.findIndex(d=>d.slice(5,7)===m),mons=['01','03','05','07','09','11'].map(m=>`<text x="${X(mi(m)).toFixed(0)}" y="${H+12}" font-size="10" fill="var(--mut)">${+m}月</text>`).join('');
-$('caseChart').innerHTML=`<svg viewBox="0 0 ${W2} ${H+16}" style="width:100%;display:block" role="img" aria-label="2026 年半導體 ETF 走勢，綠色是燈號持有的期間">${seg}${mons}</svg><div class="sub" style="margin:4px 0 0">半導體 ETF（SMH）2026 年走勢。<b style="color:var(--buy)">綠色粗線</b>＝快速燈叫你持有，灰色細線＝快速燈叫你空手。</div>`;
-const big=c.trades.reduce((a,b)=>b.r>a.r?b:a),last=c.trades[c.trades.length-1],now=c.c[c.c.length-1],small=c.trades.filter(t=>t.s>big.s&&t.r<3),loss=small.reduce((s,t)=>s+t.r,0);
-$('caseTxt').innerHTML=`<div>✅ <b>抓到 4 到 5 月大行情：</b>${md(big.b)} 在 ${big.bp} 買進，${md(big.s)} 在 ${big.sp} 賣出，賺 ${big.r}%。</div>
-<div>✅ <b>躲過 10 到 11 月大跌：</b>${md(last.s)} 在 ${last.sp} 賣出，現在 ${now}，少跌 ${((1-now/last.sp)*100).toFixed(0)}%。</div>
-<div>❌ <b>6 到 9 月被來回洗：</b>盤整期間進出 ${small.length} 次，多數小賠，合計約 ${loss.toFixed(0)}%。</div>
-<div>➡️ <b>2026 年總結：</b>快速燈 ${pc(c.sg)}，買了放著 ${pc(c.bh)}，防守燈 ${pc(c.sl)}。</div><div>🛡️ <b>防守燈今年：</b>${c.slowEv.filter(e=>e.d>='2026').map(e=>md(e.d)+(e.up?' 轉綠（收盤 ':' 轉紅（收盤 ')+e.p+'）').join('，')||'整年沒有變燈'}。只動了 ${c.slowEv.filter(e=>e.d>='2026').length} 次。</div>`;
+$('verdict').innerHTML=`${BT.wy.y10} 年初投入 $1000：快速燈做主題輪動變成 <b>$${A['快速燈：主題輪動'].v.toLocaleString()}</b>，買 SPY 放著是 <b>$${A['買 SPY 放著'].v.toLocaleString()}</b>，買 QQQ 放著是 <b>$${A['買 QQQ 放著'].v.toLocaleString()}</b>。我另外測了 ${BT.robust.n} 種規則組合，2024 年以後能贏過 QQQ 的只有 ${BT.robust.beatQQQ} 種，這個比例等於碰運氣。防守燈也會少賺，但大跌時少跌。`;
+{const L=BT.lab,N=L.d.length,lastD=L.d[N-1],Y=+lastD.slice(0,4),COST=0.001;let sig='f',A0,B0;
+const fd=y=>L.d.findIndex(d=>+d.slice(0,4)===y),ld=y=>{let k=-1;L.d.forEach((d,i)=>{if(+d.slice(0,4)===y)k=i});return k};
+const P=[['今年',fd(Y),N-1],['去年起',fd(Y-1),N-1],['去年',fd(Y-1),ld(Y-1)],[String(Y-2),fd(Y-2),ld(Y-2)],[(Y-9)+' 起',0,N-1]].filter(p=>p[1]>=0&&p[2]>p[1]);
+$('labPre').innerHTML=P.map((p,i)=>`<button data-i="${i}" aria-pressed="${i===0}">${p[0]}</button>`).join('');
+const ia=$('labA'),ib=$('labB');ia.min=ib.min=L.d[0];ia.max=ib.max=lastD;
+const idx=v=>{let k=L.d.findIndex(d=>d>=v);return k<0?N-1:k},idxB=v=>{let k=-1;L.d.forEach((d,i)=>{if(d<=v)k=i});return k<0?0:k};
+const md2=d=>(+d.slice(5,7))+'/'+(+d.slice(8)),fy=d=>d.slice(2,4)+'/'+md2(d);
+function run(a,b){const S=L[sig];let e=1000,pk=1000,dd=0,n=0,ent=null,tr=[],eq=[];const hold=i=>i>0&&S[i-1]==='1';
+ for(let i=a;i<=b;i++){const hh=hold(i)?1:0,hp=(i>a&&hold(i-1))?1:0,o=L.o[i],t=L.t[i],tp=L.t[i-1]||t;
+  let r=(1+hp*(o/tp-1))*(1+hh*(t/o-1))-1-COST*Math.abs(hh-hp);e*=1+r;pk=Math.max(pk,e);dd=Math.min(dd,e/pk-1);
+  if(hh&&!hp){n++;ent={b:L.d[i],bp:L.c[i]*o/t}}
+  if(!hh&&hp&&ent){const sp=L.c[i]*o/t;tr.push({...ent,s:L.d[i],sp,r:(sp/ent.bp-1)*100});ent=null}
+  eq.push(e)}
+ if(ent)tr.push({...ent,s:null,sp:L.c[b],r:(L.c[b]/ent.bp-1)*100});
+ let bh=1000*L.t[b]/L.o[a],bp=1000,bdd=0;for(let i=a;i<=b;i++){const v=1000*L.t[i]/L.o[a];bp=Math.max(bp,v);bdd=Math.min(bdd,v/bp-1)}
+ return{e,dd:dd*100,n,tr,bh,bdd:bdd*100}}
+function draw(a,b){const c=L.c.slice(a,b+1),S=L[sig],W=340,H=150,mn=Math.min(...c),mx=Math.max(...c),X=i=>i/(c.length-1)*W,Yy=v=>H-8-(v-mn)/((mx-mn)||1)*(H-16);
+ let g='';for(let i=1;i<c.length;i++){const on=S[a+i-1]==='1';g+=`<line x1="${X(i-1).toFixed(1)}" y1="${Yy(c[i-1]).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Yy(c[i]).toFixed(1)}" stroke="var(${on?(sig==='f'?'--buy':'--hold'):'--mut'})" stroke-width="${on?2.4:1.3}"/>`}
+ const span=b-a,ticks=[];let last='';for(let i=a;i<=b;i++){const d=L.d[i],k=span>400?d.slice(0,4):d.slice(0,7);if(k!==last){last=k;if(span>400||+d.slice(5,7)%(span>200?2:1)===1||span<=200)ticks.push([i-a,span>400?d.slice(0,4):(+d.slice(5,7))+'月'])}}
+ const step=Math.max(1,Math.ceil(ticks.length/6));const tx=ticks.filter((_,j)=>j%step===0).map(([i,l])=>`<text x="${Math.min(X(i),W-24).toFixed(0)}" y="${H+12}" font-size="10" fill="var(--mut)">${l}</text>`).join('');
+ const nm=sig==='f'?'快速燈':'防守燈',col=sig==='f'?'--buy':'--hold';
+ $('caseChart').innerHTML=`<svg viewBox="0 0 ${W} ${H+16}" style="width:100%;display:block" role="img" aria-label="SMH 走勢，粗線是${nm}持有的期間">${g}${tx}</svg><div class="sub" style="margin:4px 0 0">半導體 ETF（SMH）${L.d[a]} 到 ${L.d[b]}。<b style="color:var(${col})">粗線</b>＝${nm}叫你持有，灰色細線＝空手。</div>`}
+function upd(a,b){if(b<=a)b=Math.min(N-1,a+1);ia.value=L.d[a];ib.value=L.d[b];A0=a;B0=b;draw(a,b);
+ const R=run(a,b),nm=sig==='f'?'快速燈':'防守燈',w=R.tr.filter(x=>x.r>0).length,best=R.tr.length?R.tr.reduce((p,q)=>q.r>p.r?q:p):null,worst=R.tr.length?R.tr.reduce((p,q)=>q.r<p.r?q:p):null,open=R.tr.length&&!R.tr[R.tr.length-1].s;
+ const row=(k,v,ret,dd,cl)=>`<div class="bar"><div class="lab"><span>${k}</span><b>$${Math.round(v).toLocaleString()}（${pc(Math.round(ret*10)/10)}）</b></div><div class="trk"><div class="fil" style="width:${Math.min(100,v/Math.max(R.e,R.bh)*100)}%;background:var(${cl})"></div></div><div class="sm">最慘 ${dd.toFixed(1)}%</div></div>`;
+ $('labRes').innerHTML=`<div style="font-weight:700;margin-bottom:2px">$1000 會變成多少</div>`+row(`照${nm}買賣（${R.n} 次買進）`,R.e,(R.e/10-100),R.dd,sig==='f'?'--buy':'--hold')+row('買 SMH 放著',R.bh,(R.bh/10-100),R.bdd,'--mut');
+ $('caseTxt').innerHTML=(R.tr.length?`<div>📊 <b>買賣 ${R.tr.length} 筆：</b>賺錢 ${w} 筆、賠錢 ${R.tr.length-w} 筆。</div><div>✅ <b>最賺一筆：</b>${fy(best.b)} 買 ${best.bp.toFixed(1)}，${best.s?fy(best.s)+' 賣 '+best.sp.toFixed(1):'還沒賣（現價 '+best.sp.toFixed(1)+'）'}，${pc(Math.round(best.r*10)/10)}。</div>${R.tr.length>1?`<div>❌ <b>最賠一筆：</b>${fy(worst.b)} 買 ${worst.bp.toFixed(1)}，${worst.s?fy(worst.s)+' 賣 '+worst.sp.toFixed(1):'還沒賣'}，${pc(Math.round(worst.r*10)/10)}。</div>`:''}`:'<div>這段期間燈號沒有叫你買。</div>')
+ +`<div>➡️ <b>期間結束時：</b>${open?'還抱著':'空手'}。</div>`+(R.tr.length?`<details class="rules"><summary>看每一筆買賣（${R.tr.length} 筆）</summary><div style="display:grid;gap:3px;margin-top:6px;color:var(--tx)">${R.tr.map(x=>`<div>${fy(x.b)} 買 ${x.bp.toFixed(1)} → ${x.s?fy(x.s)+' 賣 '+x.sp.toFixed(1):'未賣'}｜<b class="${x.r>=0?'up':'dn'}">${pc(Math.round(x.r*10)/10)}</b></div>`).join('')}</div></details>`:'')
+ +`<p class="pct" style="margin:6px 0 0">收盤出訊號、隔天開盤買賣，每次扣 0.1% 成本，含配息。</p>`}
+const pre=i=>{$('labPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.i===i));upd(P[i][1],P[i][2])};
+$('labPre').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.i;if(i!==undefined)pre(+i)});
+$('labSig').addEventListener('click',e=>{const v=e.target.dataset&&e.target.dataset.v;if(!v)return;sig=v;$('labSig').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===v));upd(A0,B0)});
+const cust=()=>{$('labPre').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',false));upd(idx(ia.value||L.d[0]),idxB(ib.value||lastD))};
+ia.addEventListener('change',cust);ib.addEventListener('change',cust);pre(0);}
 const s=A['防守燈：半導體 SMH'],h=A['買 SMH 放著'];
 $('use').innerHTML=`<li><b>看懂市場：</b>哪些主題在漲、哪些在跌、亞洲半導體今天的風向，這些資訊本身是準確的。</li>
-<li><b>躲大跌，不是多賺：</b>防守燈的價值是少跌，代價是少賺。例如半導體 10 年（${s.tr} 次買賣）：$1000 變 $${s.v.toLocaleString()}、最慘 ${s.mdd}%；買了放著是 $${h.v.toLocaleString()}、最慘 ${h.mdd}%。</li>
+<li><b>躲大跌，不是多賺：</b>防守燈的價值是少跌，代價是少賺。例如半導體 ${BT.wy.y10} 年起（${s.tr} 次買賣）：$1000 變 $${s.v.toLocaleString()}、最慘 ${s.mdd}%；買了放著是 $${h.v.toLocaleString()}、最慘 ${h.mdd}%。</li>
 <li><b>不適合：</b>想靠頻繁進出打敗 ETF。回測顯示做不到。</li>
 <li><b>注意：</b>半導體這幾年剛好是最強的板塊，事後挑它來比較有後見之明。未來最強的未必是它。</li>`;}
 {const S2=BT.sim,cs=S2.sepaCands||[];const ft=f=>{const a=[];if(f.rg!=null)a.push('營收年增 '+f.rg+'%');if(f.turn)a.push('由虧轉盈');else if(f.nig!=null)a.push('淨利年增 '+f.nig+'%');if(f.gmd!=null)a.push('毛利率 '+(f.gmd>0?'+':'')+f.gmd+' 個百分點');return a.join('｜')};
@@ -253,7 +282,7 @@ H+='<h3 style="margin:18px 0 8px">⏳ 快到買點（差 3% 以內）</h3>'+(nea
 if(far.length)H+=`<details class="rules"><summary>其他觀察名單 ${far.length} 檔（離買點超過 3%）</summary><p>${far.map(x=>x.t).join('、')}</p></details>`;
 $('sepa').innerHTML=cs.length?H:'<div class="note">今天沒有同時符合基本面和趨勢模板的股票。</div>';
 {const R=w=>Object.fromEntries(BT.win[w].rows.map(r=>[r.n,r.v])),k='小賠大賺（用當時的成分股）',a=R('y10'),b=R('y2');
-$('sepaSub').innerHTML=a[k]?`基本面轉機＋強勢趨勢，掃描約 ${(S2.sepaN||0).toLocaleString()} 檔美股。<b>老實說：</b>修正倖存者偏差後，10 年 $1000 變 $${a[k].toLocaleString()}，${a[k]>=a['買 SPY 放著']?'贏過':'輸給'}買 SPY 放著（$${a['買 SPY 放著'].toLocaleString()}）；近 2 年 $${b[k].toLocaleString()}，${b[k]>=b['買 SPY 放著']?'贏過':'輸給'} SPY（$${b['買 SPY 放著'].toLocaleString()}）。只當觀察名單。`:'基本面轉機＋強勢趨勢。'}}
+$('sepaSub').innerHTML=a[k]?`基本面轉機＋強勢趨勢，掃描約 ${(S2.sepaN||0).toLocaleString()} 檔美股。<b>老實說：</b>修正倖存者偏差後，${BT.wy.y10} 年起 $1000 變 $${a[k].toLocaleString()}，${a[k]>=a['買 SPY 放著']?'贏過':'輸給'}買 SPY 放著（$${a['買 SPY 放著'].toLocaleString()}）；${BT.wy.y2} 年起 $${b[k].toLocaleString()}，${b[k]>=b['買 SPY 放著']?'贏過':'輸給'} SPY（$${b['買 SPY 放著'].toLocaleString()}）。只當觀察名單。`:'基本面轉機＋強勢趨勢。'}}
 const c=D.counts;$('foot').innerHTML=`全部 ${D.stocks.length} 檔的燈號分布：買進 ${c.buy}｜持有 ${c.hold}｜觀望 ${c.watch}｜避開 ${c.sell}｜抄底觀察 ${c.dip}<br>快速燈規則：收盤同時站上 21 日和 50 日均線＝持有，5 天內剛站上＝買進，只站上一條＝觀望，兩條都跌破＝避開，跌破後曾超賣（RSI 低於 32）並站回 10 日均線＝抄底觀察。防守燈規則：收盤連續 2 天跌破 200 日平均線＝該指標轉紅；MCDX 的獲利籌碼 10 日平均低於套牢籌碼＝該指標轉紅；兩個都紅才出場。回測假設隔天開盤價成交、每次交易成本 0.1%。資料來源 Yahoo Finance。僅供分析參考，不是投資建議。`;
 
 {// tabs
